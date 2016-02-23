@@ -39,28 +39,27 @@ void HFPage::dumpPage()
 // **********************************************************
 PageId HFPage::getPrevPage()
 {
-    // fill in the body
-    return 0;
+		return prevPage;
 }
+
 
 // **********************************************************
 void HFPage::setPrevPage(PageId pageNo)
 {
 
-    // fill in the body
+    prevPage = pageNo;
 }
 
 // **********************************************************
 PageId HFPage::getNextPage()
 {
-    // fill in the body
-    return 0;
+    return nextPage;
 }
 
 // **********************************************************
 void HFPage::setNextPage(PageId pageNo)
 {
-  // fill in the body
+  nextPage = pageNo;
 }
 
 // **********************************************************
@@ -69,7 +68,26 @@ void HFPage::setNextPage(PageId pageNo)
 // RID of the new record is returned via rid parameter.
 Status HFPage::insertRecord(char* recPtr, int recLen, RID& rid)
 {
-    // fill in the body
+    if(available_space() < recLen)
+			return DONE;
+
+		usedPtr -= recLen;
+		memcpy(data+usedPtr, recPtr, recLen);
+
+		// should probably double-check the pointer arithmetic
+		// I'm assuming that slot[0] is in that first block of reserved memory
+		// and that subsequent elements of the directory are held
+		// at the beginning of the char* data
+		slot_t *newSlot = data[(slotCnt-1)*sizeof(slot_t)];
+		newSlot->offset = usedPtr;
+		newSlot->length = recLen;
+		
+		rid->pageNo = curPage;
+		rid->slotNo = ++slotCnt;
+
+		freeSpace -= sizeof(slot_t);
+		freeSpace -= recLen;
+
     return OK;
 }
 
