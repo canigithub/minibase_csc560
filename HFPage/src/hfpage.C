@@ -12,7 +12,11 @@
 
 void HFPage::init(PageId pageNo)
 {
-  // fill in the body
+		slotCnt = 0;
+		usedPtr = MAX_SPACE - DPFIXED;	// work through the space in data backwards
+		freeSpace = MAX_SPACE - DPFIXED;
+
+		curPage = pageNo;
 }
 
 // **********************************************************
