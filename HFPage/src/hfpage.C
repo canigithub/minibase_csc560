@@ -7,6 +7,8 @@
 #include "db.h"
 
 
+const int ALL_SLOTS_FULL = -1;
+
 // **********************************************************
 // page class constructor
 
@@ -17,6 +19,7 @@ void HFPage::init(PageId pageNo)
 		freeSpace = MAX_SPACE - DPFIXED;
 
 		curPage = pageNo;
+		slot[0] = NULL;
 }
 
 // **********************************************************
@@ -62,6 +65,45 @@ void HFPage::setNextPage(PageId pageNo)
   nextPage = pageNo;
 }
 
+
+// **********************************************************
+// Scan for an ``empty" slot that we can insert into
+// The empty slot is assumed to have the same offset as the
+// next filled slot.  Returns ALL_SLOTS_FULL if no empty slot 
+// was found.
+
+int HFPage::findEmptySlot() {
+	int i;
+	if(slot[0] == NULL)
+		return ALL_SLOTS_FULL;;
+	else if(slot[0].length == EMPTY_SLOT)
+		return 0;
+	
+	for(i = 1; i < slotCnt; i++) {
+		slot_t* s = (slot_t *) data[i*sizeof(slot_t)];
+		if(s->length == EMPTY_SLOT) {
+			return i;
+		}
+	}
+
+	return ALL_SLOTS_FULL;
+
+}
+
+// **********************************************************
+// When deleting a record R or inserting into empty slot R,
+// shifts offsets of all records from R+1 to the last record
+// buy the length of record R.
+// IMPORTANT: Deleting moves records forwards.  A positive
+// length means a positive shift, as in deleting a record.
+void HFPage::shiftRecordOffsets(int firstRecord, int length) {
+	int i;
+	for(i = firstRecord; i < slotCnt; i++) {
+		slot_t* s = (slot_t*) data[i*sizeof(slot_t)];
+		s->offset += length;
+	}
+}
+
 // **********************************************************
 // Add a new record to the page. Returns OK if everything went OK
 // otherwise, returns DONE if sufficient space does not exist
@@ -71,23 +113,35 @@ Status HFPage::insertRecord(char* recPtr, int recLen, RID& rid)
     if(available_space() < recLen)
 			return DONE;
 
-		usedPtr -= recLen;
-		memcpy(data+usedPtr, recPtr, recLen);
-
-		// should probably double-check the pointer arithmetic
-		// I'm assuming that slot[0] is in that first block of reserved memory
-		// and that subsequent elements of the directory are held
-		// at the beginning of the char* data
-		slot_t *newSlot = data[(slotCnt-1)*sizeof(slot_t)];
-		newSlot->offset = usedPtr;
-		newSlot->length = recLen;
+		// find an empty slot
+		int slot_n = findEmptySlot();
 		
+		if(slot_n == ALL_SLOTS_FULL) {				// Add a new slot and add data to `front` of data[]
+			usedPtr -= recLen;
+			memcpy(data+usedPtr, recPtr, recLen);
+	
+			slot_t *newSlot = slotCnt ? ((slot_t*) data[(slotCnt-1)*sizeof(slot_t)]) : slot;
+			newSlot->offset = usedPtr;
+			newSlot->length = recLen;
+			freeSpace -= sizeof(slot_t);
+			
+			rid->slotNo = slotCnt;
+			slotCnt++;
+	
+		} else {
+			rid->slotNo = slot_n;
+			slot_t* s = slot_n ? ((slot_t*) data[(slot_n-1) * sizeof(slot_t)]) : slot; 
+
+			shiftRecordOffsets(s+1, -recLen);
+			memmove(data[usedPtr-recLen], data[usedPtr], s->offset - usedPtr);		// critical: s->offset must be equal to the offset of the `next` record
+			s->length = recLen;																										// (the one with the previous slot number, next in memory)
+			s->offset -= recLen;
+
+			memcpy(data[s->offset], recPtr, recLen);
+		}
+
 		rid->pageNo = curPage;
-		rid->slotNo = ++slotCnt;
-
-		freeSpace -= sizeof(slot_t);
 		freeSpace -= recLen;
-
     return OK;
 }
 
