@@ -19,7 +19,6 @@ void HFPage::init(PageId pageNo)
 		freeSpace = MAX_SPACE - DPFIXED;
 
 		curPage = pageNo;
-		slot[0] = NULL;
 }
 
 // **********************************************************
@@ -66,43 +65,6 @@ void HFPage::setNextPage(PageId pageNo)
 }
 
 
-// **********************************************************
-// Scan for an ``empty" slot that we can insert into
-// The empty slot is assumed to have the same offset as the
-// next filled slot.  Returns ALL_SLOTS_FULL if no empty slot 
-// was found.
-
-int HFPage::findEmptySlot() {
-	int i;
-	if(slot[0] == NULL)
-		return ALL_SLOTS_FULL;;
-	else if(slot[0].length == EMPTY_SLOT)
-		return 0;
-	
-	for(i = 1; i < slotCnt; i++) {
-		slot_t* s = (slot_t *) data[i*sizeof(slot_t)];
-		if(s->length == EMPTY_SLOT) {
-			return i;
-		}
-	}
-
-	return ALL_SLOTS_FULL;
-
-}
-
-// **********************************************************
-// When deleting a record R or inserting into empty slot R,
-// shifts offsets of all records from R+1 to the last record
-// buy the length of record R.
-// IMPORTANT: Deleting moves records forwards.  A positive
-// length means a positive shift, as in deleting a record.
-void HFPage::shiftRecordOffsets(int firstRecord, int length) {
-	int i;
-	for(i = firstRecord; i < slotCnt; i++) {
-		slot_t* s = (slot_t*) data[i*sizeof(slot_t)];
-		s->offset += length;
-	}
-}
 
 // **********************************************************
 // Add a new record to the page. Returns OK if everything went OK
@@ -110,37 +72,59 @@ void HFPage::shiftRecordOffsets(int firstRecord, int length) {
 // RID of the new record is returned via rid parameter.
 Status HFPage::insertRecord(char* recPtr, int recLen, RID& rid)
 {
+		int i;
+		int slot_n;
+		slot_t *curr;
     if(available_space() < recLen)
 			return DONE;
 
 		// find an empty slot
-		int slot_n = findEmptySlot();
+		// int slot_n = findEmptySlot();
+		slot_n = ALL_SLOTS_FULL;
+		if(slotCnt > 0) {
+			if(slot[0].length == EMPTY_SLOT) {
+				slot_n = 0;
+			} else {
+				for(i = 1; i < slotCnt; i++) {
+					curr = (slot_t*) (data + i*sizeof(slot_t));
+					if(curr->length == EMPTY_SLOT) {
+						slot_n = i;
+						break;
+					}
+				}
+			}
+		}
 		
 		if(slot_n == ALL_SLOTS_FULL) {				// Add a new slot and add data to `front` of data[]
 			usedPtr -= recLen;
 			memcpy(data+usedPtr, recPtr, recLen);
 	
-			slot_t *newSlot = slotCnt ? ((slot_t*) data[(slotCnt-1)*sizeof(slot_t)]) : slot;
+			slot_t *newSlot = slotCnt ? (slot_t*) (data + (slotCnt-1)*sizeof(slot_t)) : slot;
 			newSlot->offset = usedPtr;
 			newSlot->length = recLen;
 			freeSpace -= sizeof(slot_t);
 			
-			rid->slotNo = slotCnt;
+			rid.slotNo = slotCnt; 			// syntax for references bothers me...
 			slotCnt++;
 	
 		} else {
-			rid->slotNo = slot_n;
-			slot_t* s = slot_n ? ((slot_t*) data[(slot_n-1) * sizeof(slot_t)]) : slot; 
+			rid.slotNo = slot_n;
+			slot_t* s = slot_n ? (slot_t*) (data + (slot_n-1) * sizeof(slot_t)) : slot; 
 
-			shiftRecordOffsets(s+1, -recLen);
-			memmove(data[usedPtr-recLen], data[usedPtr], s->offset - usedPtr);		// critical: s->offset must be equal to the offset of the `next` record
+			// shiftRecordOffsets(s+1, -recLen);
+			for(i = slot_n+1; i < slotCnt; i++) {
+				slot_t* curr = (slot_t*) (data + i*sizeof(slot_t));
+				curr->offset -= recLen;
+			}
+
+			memmove(data + usedPtr-recLen, data + usedPtr, s->offset - usedPtr);		// critical: s->offset must be equal to the offset of the `next` record
 			s->length = recLen;																										// (the one with the previous slot number, next in memory)
 			s->offset -= recLen;
 
-			memcpy(data[s->offset], recPtr, recLen);
+			memcpy(data + s->offset, recPtr, recLen);
 		}
 
-		rid->pageNo = curPage;
+		rid.pageNo = curPage;
 		freeSpace -= recLen;
     return OK;
 }
