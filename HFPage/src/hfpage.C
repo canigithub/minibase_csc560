@@ -178,6 +178,7 @@ Status HFPage::firstRecord(RID& firstRid)
 		for(i = 0; i < slotCnt; i++) {
 			if(slot[i].length != EMPTY_SLOT) {
 				firstRid.slotNo = i;									// not sure why it was i+1 below?
+				break;
 			}
 		}
 		/*

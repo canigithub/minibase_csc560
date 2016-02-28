@@ -4,7 +4,7 @@ Running HFPage Tests tests...
   Test 1: Page Initialization Checks
 Current Page No.: 7, Next Page No.: 8, Prev Page No.: -1, Available Space: 1000
 Page Empty as expected.
-dumpPage, this: 0x7fff0b406b90
+dumpPage, this: 0x7fffb32f6350
 curPage= 7, nextPage=8
 usedPtr=1000,  freeSpace=1000, slotCnt=0
 
@@ -29,6 +29,25 @@ Inserted record, RID 7, 16
 Inserted record, RID 7, 17
 Inserted record, RID 7, 18
 Inserted record, RID 7, 19
+Retrieved record, RID 7, 0
+Retrieved record, RID 7, 1
+Retrieved record, RID 7, 2
+Retrieved record, RID 7, 3
+Retrieved record, RID 7, 4
+Retrieved record, RID 7, 5
+Retrieved record, RID 7, 6
+Retrieved record, RID 7, 7
+Retrieved record, RID 7, 8
+Retrieved record, RID 7, 9
+Retrieved record, RID 7, 10
+Retrieved record, RID 7, 11
+Retrieved record, RID 7, 12
+Retrieved record, RID 7, 13
+Retrieved record, RID 7, 14
+Retrieved record, RID 7, 15
+Retrieved record, RID 7, 16
+Retrieved record, RID 7, 17
+Retrieved record, RID 7, 18
 Retrieved record, RID 7, 19
 
   Test 3: Insert and Delete fixed-sizerecords
@@ -53,20 +72,71 @@ Inserted record, RID 7, 17
 Inserted record, RID 7, 18
 Inserted record, RID 7, 19
 Deleting Records
+Deleting Rid(7,0).
+Deleting Rid(7,4).
+Deleting Rid(7,8).
+Deleting Rid(7,12).
 Deleting Rid(7,19).
-Deleting Rid(7,19).
-ERROR: Deletion of Rid(7,19) failed
 After Deletion.
+Retrieving record 7, 1
+Retrieving record 7, 2
+Retrieving record 7, 3
+Retrieving record 7, 5
+Retrieving record 7, 6
+Retrieving record 7, 7
+Retrieving record 7, 9
+Retrieving record 7, 10
+Retrieving record 7, 11
+Retrieving record 7, 13
+Retrieving record 7, 14
+Retrieving record 7, 15
+Retrieving record 7, 16
+Retrieving record 7, 17
 Retrieving record 7, 18
 
   Test 4: Insert and Delete variable-length records
 Records in the page before deletion.
+Retrieved record, RID 7, 0
+Retrieved record, RID 7, 1
+Retrieved record, RID 7, 2
+Retrieved record, RID 7, 3
+Retrieved record, RID 7, 4
+Retrieved record, RID 7, 5
+Retrieved record, RID 7, 6
+Retrieved record, RID 7, 7
+Retrieved record, RID 7, 8
+Retrieved record, RID 7, 9
+Retrieved record, RID 7, 10
+Retrieved record, RID 7, 11
+Retrieved record, RID 7, 12
+Retrieved record, RID 7, 13
+Retrieved record, RID 7, 14
+Retrieved record, RID 7, 15
+Retrieved record, RID 7, 16
+Retrieved record, RID 7, 17
+Retrieved record, RID 7, 18
 Retrieved record, RID 7, 19
 Deleting Records
+Deleting Rid(7,0).
+Deleting Rid(7,4).
+Deleting Rid(7,8).
+Deleting Rid(7,12).
 Deleting Rid(7,19).
-Deleting Rid(7,19).
-ERROR: Deletion of Rid(7,19) failed
 After Deletion. 
+Retrieving record 7, 1
+Retrieving record 7, 2
+Retrieving record 7, 3
+Retrieving record 7, 5
+Retrieving record 7, 6
+Retrieving record 7, 7
+Retrieving record 7, 9
+Retrieving record 7, 10
+Retrieving record 7, 11
+Retrieving record 7, 13
+Retrieving record 7, 14
+Retrieving record 7, 15
+Retrieving record 7, 16
+Retrieving record 7, 17
 Retrieving record 7, 18
 
   Test 5: Test some error conditions
