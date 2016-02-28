@@ -241,11 +241,26 @@ int HFPage::available_space(void)
 // **********************************************************
 // Returns 1 if the HFPage is empty, and 0 otherwise.
 // It scans the slot directory looking for a non-empty slot.
+//
+// Since we need to use slotCnt to iterate over all the slots,
+// slotCnt must not decrement when we delete a record.
 bool HFPage::empty(void)
 {
-    if (slotCnt > 1) return false;
+	if(slotCnt == 0)		
+		return true;
+	if(slot[0].length != EMPTY_SLOT)
+		return false;
+	for(int i = 0; i < slotCnt; i++) {
+		if(slot[i].length != EMPTY_SLOT)
+			return false;
+	}
+	return true;
+
+    
+		/*if (slotCnt > 1) return false;
     if (slot[0]->length != EMPTY_SLOT) return false;    // if slotCnt = 1
     return true;
+		*/
 }
 
 
