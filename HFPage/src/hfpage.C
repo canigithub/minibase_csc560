@@ -135,7 +135,33 @@ Status HFPage::insertRecord(char* recPtr, int recLen, RID& rid)
 // Use memmove() rather than memcpy() as space may overlap.
 Status HFPage::deleteRecord(const RID& rid)
 {
-    // fill in the body
+	int i;
+	int slot_n = rid.slotNo;
+	if (slot_n >= slotCnt) return DONE;
+	slot_t* curr = slot_n ? (slot_t*) (data + (slot_n-1)*sizeof(slot_t)) : slot;
+	int recLen = curr->length;
+	char* recPtr = curr->offset;
+	memmove(data + usedPtr + recLen, data+usedPtr, recPtr - usedPtr);
+	usedPtr += recLen;
+	freeSpace += recLen;
+
+	if (slot_n == slotCnt - 1) {
+		if (slot_n > 0) {
+			 --slotCnt;
+			
+		}
+		else {
+			slot->length = EMPTY_SLOT;
+			
+		}
+	} else {
+		curr->length = EMPTY_SLOT;
+	}
+	
+	for (i = slot_n+1; i < slotCnt; ++i) {
+					
+	}
+	
     return OK;
 }
 
