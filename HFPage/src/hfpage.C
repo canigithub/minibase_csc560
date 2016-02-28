@@ -102,9 +102,10 @@ Status HFPage::insertRecord(char* recPtr, int recLen, RID& rid)
 			slot_t *newSlot = slotCnt ? (slot_t*) (data + (slotCnt-1)*sizeof(slot_t)) : slot;
 			newSlot->offset = usedPtr;
 			newSlot->length = recLen;
-			freeSpace -= sizeof(slot_t);
+			if(slotCnt != 0)
+				freeSpace -= sizeof(slot_t);
 			
-			rid.slotNo = slotCnt; 			// syntax for references bothers me...
+			rid.slotNo = slotCnt; 		
 			slotCnt++;
 	
 		} else {
@@ -135,34 +136,33 @@ Status HFPage::insertRecord(char* recPtr, int recLen, RID& rid)
 // Use memmove() rather than memcpy() as space may overlap.
 Status HFPage::deleteRecord(const RID& rid)
 {
-    if (empty()) return DONE;
+	if (empty()) return DONE;
 	int i;
 	int slot_n = rid.slotNo;
 	if (slot_n >= slotCnt) return DONE; // slot_n out of range
 	slot_t* curr = slot_n ? (slot_t*) (data + (slot_n-1)*sizeof(slot_t)) : slot;
 	int recLen = curr->length;
-    if (recLen == EMPTY_SLOT) return DONE;
-	char* recPtr = curr->offset;
-    curr->length = EMPTY_SLOT;
-	memmove(data + usedPtr + recLen, data + usedPtr, recPtr - usedPtr);
+	if (recLen == EMPTY_SLOT) return DONE;
+
+	curr->length = EMPTY_SLOT;
+	memmove(data + usedPtr + recLen, data + usedPtr, curr->offset - usedPtr);
 	usedPtr += recLen;
 	freeSpace += recLen;
 
-	if (slot_n == slotCnt - 1) { // if slot_n is the last slot
-		if (slot_n > 0) {
-            for (i = slotCnt-2; i >= 0; --i) { // cascade eliminate empty slots at the back 
-                curr = (slot_t*) (data + i*sizeof(slot_t));
-                if (curr->length == EMPTY_SLOT) {--slotCnt; freeSpace += sizeof(slot_t);}
-                else break;
-            }
-        }
-		else slot->length = EMPTY_SLOT;
+	if(slot_n == slotCnt-1) {
+	  for (i = slotCnt-1; i >= 0; --i) { // cascade eliminate empty slots at the back 
+	   	curr = slot + i;
+	   	if (curr->length == EMPTY_SLOT) {
+				--slotCnt; 
+				freeSpace += sizeof(slot_t);
+			} else {
+				break;
+			}
+		}
 	} else {
-		curr->length = EMPTY_SLOT;
-        for (i = slot_n; i < slotCnt-1; ++i) {
-            curr = (slot_t*) (data + i*sizeof(slot_t));
-            curr->offset += recLen;
-        }
+    for (i = slot_n; i < slotCnt; ++i) {
+    	slot[i].offset += recLen;
+    }
 	}
 	
     return OK;
@@ -174,16 +174,23 @@ Status HFPage::firstRecord(RID& firstRid)
 {
     if (empty()) return DONE;
     int i;
-    slot_t* curr;
     firstRid.pageNo = curPage;
-    if (slot[0]->length != EMPTY_SLOT) {firstRid.slotNo = 0; return OK;}
+		for(i = 0; i < slotCnt; i++) {
+			if(slot[i].length != EMPTY_SLOT) {
+				firstRid.slotNo = i;									// not sure why it was i+1 below?
+			}
+		}
+		/*
+    slot_t* curr;
+    if (slot[0].length != EMPTY_SLOT) {firstRid.slotNo = 0; return OK;}
     else {
-        for (i = 0; i < slotCnt-1; ++i) {
+        for (i = 1; i < slotCnt; ++i) {
             curr = (slot_t*) (data + i*sizeof(slot_t));
             if (curr->length != EMPTY_SLOT) {firstRid.slotNo = i+1; return OK;}
         }
     }
-    return DONE;
+		*/
+    return OK;
 }
 
 // **********************************************************
@@ -209,14 +216,14 @@ Status HFPage::nextRecord (RID curRid, RID& nextRid)
 Status HFPage::getRecord(RID rid, char* recPtr, int& recLen)
 {
     if (empty()) return DONE;
-    int i;
     slot_t* curr;
     int slot_n = rid.slotNo;
     if (slot_n >= slotCnt) return DONE;
     curr = slot_n ? (slot_t*) (data + (slot_n-1)*sizeof(slot_t)) : slot;
     if (curr->length == EMPTY_SLOT) return DONE;
-    recPtr = curr->offset;
+
     recLen = curr->length;
+		memcpy(recPtr, data+curr->offset, recLen);
     return OK;
 }
 
@@ -227,7 +234,15 @@ Status HFPage::getRecord(RID rid, char* recPtr, int& recLen)
 // in recPtr.
 Status HFPage::returnRecord(RID rid, char*& recPtr, int& recLen)
 {
-    // fill in the body
+    if (empty()) return DONE;
+    slot_t* curr;
+    int slot_n = rid.slotNo;
+    if (slot_n >= slotCnt) return DONE;
+    curr = slot_n ? (slot_t*) (data + (slot_n-1)*sizeof(slot_t)) : slot;
+    if (curr->length == EMPTY_SLOT) return DONE;
+
+    recLen = curr->length;
+		recPtr = data + curr->offset;
     return OK;
 }
 
