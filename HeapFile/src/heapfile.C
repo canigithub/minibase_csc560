@@ -1,5 +1,8 @@
 #include "heapfile.h"
 
+#define CHECK_STATUS if(status != OK) { returnStatus = status; return; }
+
+
 // ******************************************************
 // Error messages for the heapfile layer
 
@@ -20,22 +23,22 @@ static error_string_table hfTable( HEAPFILE, hfErrMsgs );
 // ********************************************************
 // Constructor
 HeapFile::HeapFile( const char *name, Status& returnStatus )
-	Status status = get_file_entry(name, &firstDirPageId);
-	if(status != OK)  {
-		 status = MINIBASE_DB.allocate_page(&firstDirPageId, 1);
-		 if(status != OK) {
-		 		returnStatus = status;
-				return
-		}
-		 status = MINIBASE_DB.add_file_entry(name, firstDirPageId);
-		 if(status != OK) {
-		 		returnStatus = status;
-				return
-			}
-	firstDirPageId = fileStartPage;
-	} /* else {
 
-	}*/
+	// We assume the file already existed
+	Status status = get_file_entry(name, &firstDirPageId);
+	// If not, ask the database to allocate a new page use it for a new file entry, and make it a directory page
+	if(status != OK)  {								
+		HFPage *firstDirPage;
+		status = MINIBASE_DB.allocate_page(&firstDirPageId, 1); 		CHECK_STATUS ;
+		status = MINIBASE_DB.add_file_entry(name, firstDirPageId); 	CHECK_STATUS ;
+		status = DATABASE_BM.pinPage(firstDirPageId, firstDirPage); CHECK_STATUS ;
+		firstDirPage->init(firstDirPageId);
+	}  /*else {				// otherwise, the file already existed; do we have to load information about it?
+		Page* filePage = NULL;
+		status = MINIDBASE_BM.pinPage(firstDirPageId, &filePage);   // do we need filename parameter?
+		CHECK_STATUS ;
+	} */
+
 	fileName = strcpy(name);
 	file_deleted = 0;
   
@@ -48,8 +51,34 @@ HeapFile::HeapFile( const char *name, Status& returnStatus )
 HeapFile::~HeapFile()
 {
    // don't delete the page if it wasn't temporary
-	 if(!strcmp(filename, ""))
+	 if(!strcmp(filename, "")) {
+		HFPage *currDirPage = NULL;
+		status = DATABASE_BM.pinPage(firstDirPageId, currDirPage); CHECK_STATUS ;
+		PageId currDirPageId = firstDirPageId;
+		PageId nextDirPageId = firstDirPage->getNextPage();
+		PageId currDataPageId, nextDataPageId;
+		RID curRid, nextRid;
+		DataPageInfo *dpinfop = NULL;
+		int recLen;
+		while(currDirPageId != -1) {
+			if(!currDirPage->empty() {
+				status = currDirPage->firstRecord(&curRid);
+				if(status == OK) {
+					status = currDirPage->getRecord(curRid, (char *) dpinfop, &recLen);
+					assert(recLen == sizeof(DataPageInfo));
+					curDataPageId = dpinfop->pageId;
+				}
+			}
+			currDataPage = currDirPage->getRe
+			nextDirPageId = currDirPage->getNextPage();
+			deallocate_page(currDirPageId);
+			currDirPageId = nextDirPageId();
+		}
+		// iterate through directory pages, deallocating each data page
+			// look at
+	 	// deallocate all the pages?
 	 	MINIBASE_DB.deallocate_page(firstDirPageId); // last thing we do
+	}
 
 }
 
@@ -57,8 +86,14 @@ HeapFile::~HeapFile()
 // Return number of records in heap file
 int HeapFile::getRecCnt()
 {
-	
-   // fill in the body
+	PageId curr = firstDirPageId;
+	HFPage filePage;
+	status = MINIDBASE_BM.pinPage(firstDirPageId, &filePage);  CHECK_STATUS ;
+	while(!curr == -1) {
+		for(int i = 0; i < filePage.slotCnt; i++) {
+			if(filePage
+		}
+	}
    return OK;
 }
 
@@ -66,6 +101,8 @@ int HeapFile::getRecCnt()
 // Insert a record into the file
 Status HeapFile::insertRecord(char *recPtr, int recLen, RID& outRid)
 {
+		// assumption: Directory page is a HFPage
+		PageId curr = firstDirPageId;
     // fill in the body
     return OK;
 } 
@@ -91,6 +128,9 @@ Status HeapFile::updateRecord (const RID& rid, char *recPtr, int recLen)
 // read record from file, returning pointer and length
 Status HeapFile::getRecord (const RID& rid, char *recPtr, int& recLen)
 {
+	PageId pageNo = rid->pageNo;
+	int slotNo = rid->slotNo;
+	PageId curr = firstDirPageId;
   // fill in the body 
   return OK;
 }
@@ -116,7 +156,14 @@ Status HeapFile::deleteFile()
 // (Allocate pages in the db file via buffer manager)
 Status HeapFile::newDataPage(DataPageInfo *dpinfop)
 {
-    // fill in the body
+		PageId pageId;
+		HFPage *newPage;
+		Status status = newpage(&pageId, &newPage, 1);
+		if(status != OK)
+			return status;
+		dpinfo->pageId = pageId;
+		dpinfo->recct = 0;
+		dpinfo->availspace = newPage->available_space();
     return OK;
 }
 
@@ -140,7 +187,7 @@ Status HeapFile::findDataPage(const RID& rid,
 // *********************************************************************
 // Allocate directory space for a heap file page 
 
-Status allocateDirSpace(struct DataPageInfo * dpinfop,
+Status HeapFile::allocateDirSpace(struct DataPageInfo * dpinfop,
                             PageId &allocDirPageId,
                             RID &allocDataPageRid)
 {
