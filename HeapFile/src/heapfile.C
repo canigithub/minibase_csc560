@@ -20,10 +20,26 @@ static error_string_table hfTable( HEAPFILE, hfErrMsgs );
 // ********************************************************
 // Constructor
 HeapFile::HeapFile( const char *name, Status& returnStatus )
-{
-   
-    // fill in the body
-    returnStatus = OK;
+	Status status = get_file_entry(name, &firstDirPageId);
+	if(status != OK)  {
+		 status = MINIBASE_DB.allocate_page(&firstDirPageId, 1);
+		 if(status != OK) {
+		 		returnStatus = status;
+				return
+		}
+		 status = MINIBASE_DB.add_file_entry(name, firstDirPageId);
+		 if(status != OK) {
+		 		returnStatus = status;
+				return
+			}
+	firstDirPageId = fileStartPage;
+	} /* else {
+
+	}*/
+	fileName = strcpy(name);
+	file_deleted = 0;
+  
+	returnStatus = OK;
    
 }
 
@@ -31,7 +47,9 @@ HeapFile::HeapFile( const char *name, Status& returnStatus )
 // Destructor
 HeapFile::~HeapFile()
 {
-   // fill in the body 
+   // don't delete the page if it wasn't temporary
+	 if(!strcmp(filename, ""))
+	 	MINIBASE_DB.deallocate_page(firstDirPageId); // last thing we do
 
 }
 
@@ -39,6 +57,7 @@ HeapFile::~HeapFile()
 // Return number of records in heap file
 int HeapFile::getRecCnt()
 {
+	
    // fill in the body
    return OK;
 }
