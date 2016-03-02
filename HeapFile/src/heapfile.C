@@ -1,6 +1,5 @@
 #include "heapfile.h"
 
-#define CHECK_STATUS if(status != OK) { returnStatus = status; return; }
 
 
 // ******************************************************
@@ -91,19 +90,19 @@ HeapFile::~HeapFile()
 int HeapFile::getRecCnt()
 {
 	int num_records = 0;
-	PageId currDir = firstDirPageId;
-	RID currPageRecord;
+	PageId dirPageId = firstDirPageId;
+	RID dataPageRid;
 	HFPage* dirPage;
 	DataPageInfo *dpinfop;
 	int recLen
-	while(!currDir == -1) {
-		status = MINIBASE_BM.pinPage(currDir, dirPage);  CHECK_STATUS ;
-		status = dirPage->firstRecord(currPageRecord);	
+	while(dirPageId != -1) {
+		status = MINIBASE_BM.pinPage(dirPageId, dirPage);  CHECK_STATUS ;
+		status = dirPage->firstRecord(dataPageRid);	
 		while(status == OK) {
-			dirPage->getRecord(currPageRecord, (char *) dpinfop, recLen);
+			dirPage->getRecord(dataPageRid, (char *) dpinfop, recLen);
 			assert(recLen == sizeof(DataPageInfo));
 			num_records += dpinfo->recct;
-			status = dirPage->nextRecord(currPageRecord);
+			status = dirPage->nextRecord(dataPageRid);
 			MINIBASE_BM.unpinPage(currDir);
 		}
 		if(status != DONE)
