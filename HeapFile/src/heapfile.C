@@ -104,22 +104,64 @@ int HeapFile::getRecCnt()
 			assert(recLen == sizeof(DataPageInfo));
 			num_records += dpinfo->recct;
 			status = dirPage->nextRecord(currPageRecord);
-			MINIBASE_BM.unpingPage(currDir);
+			MINIBASE_BM.unpinPage(currDir);
 		}
 		if(status != DONE)
 			return status;
 		currDir = dirPage->getNextPage();
 	}
 
-  return num_records;;
+  return num_records;
 }
 
 // *****************************
 // Insert a record into the file
 Status HeapFile::insertRecord(char *recPtr, int recLen, RID& outRid)
 {
-		// assumption: Directory page is a HFPage
-		PageId curr = firstDirPageId;
+		PageId currDir = firstDirPageId;
+		RID currPageRecord;
+		HFPage *dirPage;
+		DataPageInfo *dpinfop;
+		int directoryEntryRecLen;
+
+		PageId targetPage = -1;
+		int reachedEndOfDirectory = 0;
+
+		while(targetPage == -1 && !reachedEndOfDirectory) {
+			status = MINIBASE_BM.pinPage(currDir, dirPage); CHECK_STATUS ;
+			status = dirPage->firstRecord(currPageRecord);	CHECK_STATUS ;		// start with first page in this directory
+			while(status == OK) {
+				dirPage->getRecord(currPageRecord, (char *) dpinfop, directoryEntryRecLen);
+				assert(directoryEntryRecLen == sizeof(DataPageInfo));
+				if(dpinfop->availspace >= recLen + 2*sizeof(short)) {					// sizeof(slot_t), which we can't access here
+					targetPage = dpinfop->pageId;	
+					break;																											// found the page for the record
+				}
+				if(targetPage != -1)
+					break;
+				status = dirPage->nextRecord(currPageRecord); CHECK_STATUS ;	// proceed to next page in this directory
+			}
+			if(status != DONE)  
+				return status;		
+
+			 // status == DONE, so we reached the last record in a directory page	
+
+			if(dirPage->getNextPage() != -1) {			// advance to the next directory page
+				nextDir = dirPage->getNextPage();
+				MINIBASE_BM.unpinPage(currDir);
+				currDir = nextDir;
+			} else {
+				break;
+			}
+
+		}
+		if(targetPage == -1) {
+			status = MINIBASE_DB.allocate_page(targetPage, 1); 		CHECK_STATUS ;
+			DataPageInfo *newPageInfo = malloc(sizeof(DataPageInfo));
+			status = DATABASE_BM.pinPage(firstDirPageId, firstDirPage); CHECK_STATUS ;
+			newPageInfo->
+			
+		}
     // fill in the body
     return OK;
 } 
