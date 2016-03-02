@@ -254,20 +254,72 @@ Status HeapFile::deleteRecord (const RID& rid)
 // updates the specified record in the heapfile.
 Status HeapFile::updateRecord (const RID& rid, char *recPtr, int recLen)
 {
-  // fill in the body
-  return OK;
+    PageId targetPageId = rid.pageNo;
+    PageId currDirPageId = firstDirPageId;
+    HFPage* currDirPage = NULL, targetDataPage = NULL;
+    DataPageInfo *dpinfop = NULL;
+    RID currRid, nextRid;
+    Status status;
+    char* dummy_ptr = NULL;
+    int dpinfo_recLen;
+    int dummy_recLen;
+    char* dummy_ptr;
+    while (currDirPageId != -1) {
+        status = MINIBASE_BM->pinPage(currDirPageId, currDirPage); CHECK_FAIL_STATUS;
+        status = currDirPage->firstRecord(currRid);
+        while (status == OK) {
+            status = currDirPage->getRecord(currRid, (char*)dpinfop, dpinfo_recLen); CHECK_FAIL_STATUS;
+            assert(dpinfo_recLen == sizeof(DataPageInfo));
+            if (dpinfop->pageId == targetPageId) {
+                status = MINIBASE_BM->pinPage(targetPageId, targetDataPage); CHECK_FAIL_STATUS;
+                status = targetDataPage->returnRecord(rid, dummy_ptr, dummy_recLen);
+                if (status != OK) return status;
+                if (dummy_recLen != recLen) return FAIL;
+                memcpy(dummy_ptr, recPtr, recLen);
+                return OK;
+                
+            } else {
+                status = currDirPage->nextRecord(currRID, nextRID);
+                currRID = nextRID;
+            }
+        }
+        status = MINIBASE_BM->unpinPage(currDirPageId); CHECK_FAIL_STATUS;
+        currDirPageId = currDirPage->getNextPage();
+    }
+    return FAIL;
 }
 
 // ***************************************************
 // read record from file, returning pointer and length
 Status HeapFile::getRecord (const RID& rid, char *recPtr, int& recLen)
 {
-	PageId targetPageNo = rid->pageNo;
-	int slotNo = rid->slotNo;
-
-	PageId curr = firstDirPageId;
-  // fill in the body 
-  return OK;
+    PageId targetPageId = rid.pageNo;
+    PageId currDirPageId = firstDirPageId;
+    HFPage* currDirPage = NULL, targetDataPage = NULL;
+    DataPageInfo *dpinfop = NULL;
+    RID currRid, nextRid;
+    Status status;
+    char* dummy_ptr = NULL;
+    int dpinfo_recLen;
+    while (currDirPageId != -1) {
+        status = MINIBASE_BM->pinPage(currDirPageId, currDirPage); CHECK_FAIL_STATUS;
+        status = currDirPage->firstRecord(currRid);
+        while (status == OK) {
+            status = currDirPage->getRecord(currRid, (char*)dpinfop, dpinfo_recLen); CHECK_FAIL_STATUS;
+            assert(dpinfo_recLen == sizeof(DataPageInfo));
+            if (dpinfop->pageId == targetPageId) {
+                status = MINIBASE_BM->pinPage(targetPageId, targetDataPage); CHECK_FAIL_STATUS;
+                return targetDataPage->getRecord(rid, recPtr, recLen);
+                
+            } else {
+                status = currDirPage->nextRecord(currRID, nextRID);
+                currRID = nextRID;
+            }
+        }
+        status = MINIBASE_BM->unpinPage(currDirPageId); CHECK_FAIL_STATUS;
+        currDirPageId = currDirPage->getNextPage();
+    }
+    return FAIL;
 }
 
 // **************************
