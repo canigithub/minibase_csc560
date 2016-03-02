@@ -34,7 +34,7 @@ HeapFile::HeapFile( const char *name, Status& returnStatus )
 		HFPage *firstDirPage = NULL;
 		status = MINIBASE_DB->allocate_page(firstDirPageId, 1);             CHECK_RETURN_STATUS ;
 		status = MINIBASE_DB->add_file_entry(name, firstDirPageId);         CHECK_RETURN_STATUS ;
-		status = DATABASE_BM->pinPage(firstDirPageId, firstDirPage);        CHECK_RETURN_STATUS ;
+		status = DATABASE_BM->pinPage(firstDirPageId, (Page*)firstDirPage);        CHECK_RETURN_STATUS ;
         firstDirPage->init(firstDirPageId);
 		status = DATABASE_BM->unpinPage(firstDirPageId);                    CHECK_RETURN_STATUS ;
 	}  /*else {				// otherwise, the file already existed; do we have to load information about it?
@@ -170,14 +170,14 @@ Status HeapFile::deleteRecord (const RID& rid)
     char* dummy_ptr = NULL;
     int recLen;
     while (currDirPageId != -1) {
-        status = MINIBASE_BM->pinPage(currDirPageId, currDirPage); CHECK_FAIL_STATUS;
+        status = MINIBASE_BM->pinPage(currDirPageId, (Page*)currDirPage); CHECK_FAIL_STATUS;
         status = currDirPage->firstRecord(currRid);
         while (status == OK) {
             status = currDirPage->getRecord(currRid, (char*)dpinfop, recLen); CHECK_FAIL_STATUS;
             assert(recLen == sizeof(DataPageInfo));
             if (dpinfop->pageId == targetPageId) {
                 Status ret_status;  // return_status;
-                status = MINIBASE_BM->pinPage(targetPageId, targetDataPage); CHECK_FAIL_STATUS;
+                status = MINIBASE_BM->pinPage(targetPageId, (Page*)targetDataPage); CHECK_FAIL_STATUS;
                 int del_recLen = -1;
                 targetDataPage->getRecord(rid, dummy_ptr, del_recLen);
                 ret_status = targetDataPage->deleteRecord(rid);
@@ -189,7 +189,7 @@ Status HeapFile::deleteRecord (const RID& rid)
                             PageId prevDelDirPage = currDirPage->getPrevPage();
                             PageId nextDelDirPage = currDirPage->getNextPage();
                             if (prevDelDirPage == -1) {firstDirPage = nextDelDirPage; return ret_status;}
-                            status = MINIBASE_BM->pinPage(prevDelDirPage, prevDirPage); CHECK_FAIL_STATUS;
+                            status = MINIBASE_BM->pinPage(prevDelDirPage, (Page*)prevDirPage); CHECK_FAIL_STATUS;
                             prevDirPage->setNextPage(nextDelDirPage);
                             status = MINIBASE_BM->unpinPage(prevDelDirPage); CHECK_FAIL_STATUS;
                             MINIBASE_DB->deallocate_page(currDirPageId);
@@ -256,7 +256,7 @@ Status HeapFile::deleteFile()
     if (file_deleted) return FAIL; // is a delete file still existing?
     file_deleted = 1;
     HFPage *currDirPage = NULL;
-    Status status = DATABASE_BM->pinPage(firstDirPageId, currDirPage); CHECK_FAIL_STATUS;
+    Status status = DATABASE_BM->pinPage(firstDirPageId, (Page*)currDirPage); CHECK_FAIL_STATUS;
     PageId currDirPageId = firstDirPageId;
     PageId nextDirPageId = currDirPage->getNextPage();
     PageId currDataPageId;
@@ -290,7 +290,7 @@ Status HeapFile::newDataPage(DataPageInfo *dpinfop)
 		Status status;
 
         status = MINIBASE_DB.allocate_page(pageId, 1); CHECK_FAIL_STATUS;
-        status = MINIBASE_BM.pinPage(pageId, newPage); CHECK_FAIL_STATUS;
+        status = MINIBASE_BM.pinPage(pageId, (Page*)newPage); CHECK_FAIL_STATUS;
         newPage->init(pageId);
 		dpinfo->pageId = pageId;
 		dpinfo->recct = 0;
@@ -321,13 +321,13 @@ Status HeapFile::findDataPage(const RID& rid,
     int dummy_recLen;
     int dpinfo_recLen;
     while (rpDirPageId != -1) {
-        status = MINIBASE_BM->pinPage(rpDirPageId, rpdirpage); CHECK_FAIL_STATUS;
+        status = MINIBASE_BM->pinPage(rpDirPageId, (Page*)rpdirpage); CHECK_FAIL_STATUS;
         status = rpdirpage->firstRecord(currDirRid);
         while (status == OK) {
             status = rpdirpage->getRecord(currDirRid, (char*)dpinfop, dpinfo_recLen); CHECK_FAIL_STATUS;
             assert(dpinfo_recLen == sizeof(DataPageInfo));
             if (dpinfop->pageId == rpDataPageId) {
-                status = MINIBASE_BM->pinPage(rpDataPageId, rpdatapage); CHECK_FAIL_STATUS;
+                status = MINIBASE_BM->pinPage(rpDataPageId, (Page*)rpdatapage); CHECK_FAIL_STATUS;
                 status = rpdatapage->getRecord(rid, dummy_ptr, dummy_recLen);
                 if (status != OK) {rpdirpage = NULL; rpdatapage = NULL; return status;}
                 rpDataPageRid.slotNo = rid.slotNo;
