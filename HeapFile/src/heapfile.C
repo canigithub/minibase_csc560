@@ -1,7 +1,7 @@
 #include "heapfile.h"
 
 #define CHECK_RETURN_STATUS if (status != OK) {returnStatus = status; return;}
-#define CHECK_STATUS if (status != OK) {return FAIL;}
+#define CHECK_STATUS if (status != OK) {return status;}
 #define ASSERT_STATUS assert(status == OK);
 
 // ******************************************************
@@ -245,8 +245,9 @@ Status HeapFile::getRecord (const RID& rid, char *recPtr, int& recLen)
 // initiate a sequential scan
 Scan *HeapFile::openScan(Status& status)
 {
-  // fill in the body 
-  return NULL;
+    Status status;
+    Scan *s = new Scan(this,status);
+    return s;
 }
 
 // ****************************************************
