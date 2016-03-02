@@ -93,17 +93,18 @@ int HeapFile::getRecCnt()
 	int num_records = 0;
 	PageId currDir = firstDirPageId;
 	RID currPageRecord;
-	HFPage dirPage;
+	HFPage* dirPage;
 	DataPageInfo *dpinfop;
 	int recLen
 	while(!currDir == -1) {
-		status = MINIBASE_BM.pinPage(currDir, &dirPage);  CHECK_STATUS ;
+		status = MINIBASE_BM.pinPage(currDir, dirPage);  CHECK_STATUS ;
 		status = dirPage->firstRecord(currPageRecord);	
 		while(status == OK) {
 			dirPage->getRecord(currPageRecord, (char *) dpinfop, recLen);
 			assert(recLen == sizeof(DataPageInfo));
 			num_records += dpinfo->recct;
 			status = dirPage->nextRecord(currPageRecord);
+			MINIBASE_BM.unpingPage(currDir);
 		}
 		if(status != DONE)
 			return status;
