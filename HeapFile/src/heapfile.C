@@ -118,6 +118,8 @@ int HeapFile::getRecCnt()
 // Insert a record into the file
 Status HeapFile::insertRecord(char *recPtr, int recLen, RID& outRid)
 {
+		PageId throwaway; // I see no reason why we need this information
+		RID throwaway2;
 		PageId currDir = firstDirPageId;
 		RID currPageRecord;
 		HFPage *dirPage;
@@ -156,13 +158,14 @@ Status HeapFile::insertRecord(char *recPtr, int recLen, RID& outRid)
 
 		}
 		if(targetPage == -1) {
-			status = MINIBASE_DB.allocate_page(targetPage, 1); 		CHECK_STATUS ;
 			DataPageInfo *newPageInfo = malloc(sizeof(DataPageInfo));
-			status = DATABASE_BM.pinPage(firstDirPageId, firstDirPage); CHECK_STATUS ;
-			newPageInfo->
-			
+			status = newDataPage(newPageInfo);			CHECK_STATUS ;
+			targetPage = newPageInfo->pageId;
+			status = allocateDirSpace(newPageInfo, throwaway, throwaway2);  CHECK_STATUS ;
 		}
-    // fill in the body
+		HFPage *actualPage;
+		status = MINIBASE_BM.pinPage(targetPage, actualPage) ; CHECK_STATUS ;
+		status = actualPage->insertRecord(recPtr, recLen, outRID); CHECK_STATUS ;
     return OK;
 } 
 
@@ -187,8 +190,9 @@ Status HeapFile::updateRecord (const RID& rid, char *recPtr, int recLen)
 // read record from file, returning pointer and length
 Status HeapFile::getRecord (const RID& rid, char *recPtr, int& recLen)
 {
-	PageId pageNo = rid->pageNo;
+	PageId targetPageNo = rid->pageNo;
 	int slotNo = rid->slotNo;
+
 	PageId curr = firstDirPageId;
   // fill in the body 
   return OK;
@@ -217,12 +221,16 @@ Status HeapFile::newDataPage(DataPageInfo *dpinfop)
 {
 		PageId pageId;
 		HFPage *newPage;
-		Status status = newpage(&pageId, &newPage, 1);
-		if(status != OK)
-			return status;
+		Status status;
+
+		status = MINIBASE_DB.allocate_page(pageId, 1); 			CHECK_STATUS ;
+		status = MINIBASE_BM.pinPage(pageId, newPage); 			CHECK_STATUS ;
+		newPage->init(pageId);
 		dpinfo->pageId = pageId;
 		dpinfo->recct = 0;
 		dpinfo->availspace = newPage->available_space();
+		status = MINIBASE_BM.unpinPage(pageId);							CHECK_STATUS ;
+
     return OK;
 }
 
