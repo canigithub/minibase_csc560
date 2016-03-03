@@ -95,9 +95,10 @@ int HeapDriver::test1()
         
 			//			cout << rid.slotNo << " ";
 
-            if (status != OK)
+            if (status != OK) {
                 cerr << "*** Error inserting record " << i << endl;
-            else if ( MINIBASE_BM->getNumUnpinnedBuffers()
+								printf("Status %d\n", status);
+            } else if ( MINIBASE_BM->getNumUnpinnedBuffers()
                             != MINIBASE_BM->getNumBuffers() ) {
                 cerr << "*** Insertion left a page pinned\n";
                 status = FAIL;
