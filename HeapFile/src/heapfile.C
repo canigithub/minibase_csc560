@@ -364,5 +364,3 @@ Status HeapFile::allocateDirSpace(struct DataPageInfo * dpinfop,
     end_of_dirPage = allocDirPageId;
     return OK;
 }
-
-// *******************************************
