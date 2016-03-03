@@ -4,6 +4,7 @@
 #define CHECK_STATUS if (status != OK) {return status;}
 #define ASSERT_STATUS assert(status == OK);
 
+
 // ******************************************************
 // Error messages for the heapfile layer
 
@@ -44,6 +45,7 @@ HeapFile::HeapFile( const char *name, Status& returnStatus ) {
 	} */
 
 	strcpy(fileName, name);
+	end_of_dirPage = firstDirPageId;
 	file_deleted = 0;
   
 	returnStatus = OK;
@@ -97,6 +99,11 @@ int HeapFile::getRecCnt()
   return num_records;
 }
 
+void checkPins(int i) {
+		if(MINIBASE_BM->getNumUnpinnedBuffers() != MINIBASE_BM->getNumBuffers())
+			printf("Warning! at time %d, %d pages are pinned\n", 
+				i, MINIBASE_BM->getNumBuffers() - MINIBASE_BM->getNumUnpinnedBuffers());
+	}
 // *****************************
 // Insert a record into the file
 Status HeapFile::insertRecord(char *recPtr, int recLen, RID& outRid)
@@ -107,62 +114,150 @@ Status HeapFile::insertRecord(char *recPtr, int recLen, RID& outRid)
 		RID currRid, nextRid;
 		HFPage *currDirPage;
 		DataPageInfo *dpinfop = (DataPageInfo*) malloc(sizeof(DataPageInfo));
-		int directoryEntryRecLen;
-        Status status;
-
+		HFPage *dataPage;
+    Status status;
 		PageId targetPageId = -1;
-		int reachedEndOfDirectory = 0; // why need this variable?
+
+		checkPins(0);
+
+		while(currDirPageId != -1) {
+    	status = MINIBASE_BM->pinPage(currDirPageId, (Page*&) currDirPage); CHECK_STATUS;
+			status = currDirPage->firstRecord(currRid); 
+			if(status != OK)
+				printf("No first record, skipping inner while loop\n");
+			// iterate over data pages in directory page
+			while(status == OK){
+				status = currDirPage->getRecord(currRid, (char*) dpinfop, recLen); CHECK_STATUS;
+				assert(recLen == sizeof(DataPageInfo));
+				if(dpinfop->availspace >= recLen + (int)(2*sizeof(short))) {
+					targetPageId = dpinfop->pageId;
+					status = MINIBASE_BM->pinPage(targetPageId, (Page*&)dataPage);CHECK_STATUS;
+					status = dataPage->insertRecord(recPtr, recLen, outRid);
+					dpinfop->recct += 1;
+					dpinfop->availspace -= int(recLen + 2*sizeof(short));
+					status = MINIBASE_BM->unpinPage(currDirPageId); CHECK_STATUS;
+					free(dpinfop);
+					return OK;
+				}
+				status = currDirPage->nextRecord(currRid, nextRid);
+				currRid = nextRid;
+			}
+
+			// we can insert a new data page into the directory 
+			if(currDirPage->available_space() >= (int)(sizeof(DataPageInfo) + 2*sizeof(short))) {
+				DataPageInfo *newDataPageInfo = (DataPageInfo*) malloc(sizeof(DataPageInfo));
+				status = newDataPage(dpinfop);
+				targetPageId = newDataPageInfo->pageId;
+				status = MINIBASE_BM->pinPage(targetPageId, (Page*&) dataPage);
+				dataPage->insertRecord(recPtr, recLen, outRid);
+				newDataPageInfo->recct += 1;
+				newDataPageInfo->availspace -= (recLen + 2*sizeof(short));
+				RID junk;
+				currDirPage->insertRecord((char*) newDataPageInfo, sizeof(DataPageInfo), junk);
+				status = MINIBASE_BM->unpinPage(targetPageId); CHECK_STATUS;
+				status = MINIBASE_BM->unpinPage(currDirPageId); CHECK_STATUS;
+				return OK;
+			}
+			
+			// we need to add a new directory page
+			nextDirPageId = currDirPage->getNextPage();
+			status = MINIBASE_BM->unpinPage(currDirPageId); CHECK_STATUS;
+			if(nextDirPageId == -1) {
+				DataPageInfo *newPageInfo = (DataPageInfo*) malloc(sizeof(DataPageInfo));
+				status = newDataPage(newPageInfo); CHECK_STATUS;
+				newPageInfo->recct += 1;
+				newPageInfo->availspace -= (recLen + 2*sizeof(short));
+				targetPageId = newPageInfo->pageId;
+				status = allocateDirSpace(newPageInfo, throwaway, throwaway2); CHECK_STATUS;
+				HFPage *actualPage = (HFPage *)malloc(sizeof(HFPage));
+				status = MINIBASE_BM->pinPage(targetPageId, (Page*&) actualPage); CHECK_STATUS;
+				status = actualPage->insertRecord(recPtr, recLen, outRid); CHECK_STATUS;
+				status = MINIBASE_BM->unpinPage(targetPageId); CHECK_STATUS;
+				return OK;
+			}
+			currDirPageId = nextDirPageId;
+		}
+		return FAIL;
+
+		// Iterate over directory pages
+/*
+
 
 		while(targetPageId == -1 && !reachedEndOfDirectory) {
-            status = MINIBASE_BM->pinPage(currDirPageId, (Page*&) currDirPage); CHECK_STATUS;
-            status = currDirPage->firstRecord(currRid); CHECK_STATUS;	// start with first page in this directory
+    	status = MINIBASE_BM->pinPage(currDirPageId, (Page*&) currDirPage); CHECK_STATUS;
+			printf("Passed status check #1\n");
+      status = currDirPage->firstRecord(currRid); 
+			printf("Passed status check #2\n");
+
+			// Iterate over data page
 			while(status == OK) {
 				status = currDirPage->getRecord(currRid, (char *) dpinfop, directoryEntryRecLen);
-                CHECK_STATUS;
+        CHECK_STATUS;
+				printf("Passed status check #3\n");
 				assert(directoryEntryRecLen == sizeof(DataPageInfo));
 				if(dpinfop->availspace >= recLen + (int)(2*sizeof(short))) {					// sizeof(slot_t), which we can't access here
 					targetPageId = dpinfop->pageId;
-                    // need to maintain DataPageInfo here
-                    dpinfop->recct += 1;
-                    dpinfop->availspace -= int(recLen + 2*sizeof(short));
+          // need to maintain DataPageInfo here
+          dpinfop->recct += 1;
+          dpinfop->availspace -= int(recLen + 2*sizeof(short));
 					break;  // found the page for the record
 				}
-				if(targetPageId != -1) // is this line redundant?
-					break;
 				status = currDirPage->nextRecord(currRid, nextRid);	// proceed to next page in this directory
-                currRid = nextRid;
+        currRid = nextRid;
 			}
-      if(status != DONE) {
+
+ 			if(targetPageId != -1) { // is this line redundant?
+				printf("Location 3.5\n");
+				status = MINIBASE_BM->unpinPage(currDirPageId);
+				break;
+			}
+	     if(status != DONE) {
 				free(dpinfop);
+				MINIBASE_BM->unpinPage(currDirPageId);
+				printf("Failed status check #4\n");
 				return status;
-			}
+			} // end iterate over data page 
 
 			 // status == DONE, so we reached the last record in a directory page	
 
 			if(currDirPage->getNextPage() != -1) {			// advance to the next directory page
 				nextDirPageId = currDirPage->getNextPage();
-				MINIBASE_BM->unpinPage(currDirPageId);
+				status = MINIBASE_BM->unpinPage(currDirPageId); CHECK_STATUS;
+				printf("Passed status check #5\n");
 				currDirPageId = nextDirPageId;
 			} else {
-                end_of_dirPage = currDirPageId;
-                MINIBASE_BM->unpinPage(currDirPageId);
+        end_of_dirPage = currDirPageId;
+        status = MINIBASE_BM->unpinPage(currDirPageId);
+				CHECK_STATUS;
+				checkPins(6);
+				printf("Passed status check #6\n");
 				break;
 			}
 
 		}
-				free(dpinfop);
-        if(targetPageId == -1) {
-            DataPageInfo *newPageInfo = (DataPageInfo*) malloc(sizeof(DataPageInfo));
-            status = newDataPage(newPageInfo); CHECK_STATUS;
-            newPageInfo->recct += 1;
-            newPageInfo->availspace -= (recLen + 2*sizeof(short));
-            targetPageId = newPageInfo->pageId;
-            status = allocateDirSpace(newPageInfo, throwaway, throwaway2); CHECK_STATUS;
-        }
-        HFPage *actualPage;
-        status = MINIBASE_BM->pinPage(targetPageId, (Page*&)actualPage); CHECK_STATUS;
-        status = actualPage->insertRecord(recPtr, recLen, outRid); CHECK_STATUS;
+		*/
+		checkPins(99);
+		free(dpinfop);
+    if(targetPageId == -1) {
+      DataPageInfo *newPageInfo = (DataPageInfo*) malloc(sizeof(DataPageInfo));
+      status = newDataPage(newPageInfo); CHECK_STATUS;
+			printf("Passed status check #6.5\n");
+      newPageInfo->recct += 1;
+      newPageInfo->availspace -= (recLen + 2*sizeof(short));
+      targetPageId = newPageInfo->pageId;
+      status = allocateDirSpace(newPageInfo, throwaway, throwaway2); CHECK_STATUS;
+			printf("Passed status check #7\n");
+    }
 
+		checkPins(8);
+      HFPage *actualPage;
+      status = MINIBASE_BM->pinPage(targetPageId, (Page*&)actualPage); CHECK_STATUS;
+			printf("Passed status check #8\n");
+      status = actualPage->insertRecord(recPtr, recLen, outRid); CHECK_STATUS;
+			status = MINIBASE_BM->unpinPage(targetPageId); CHECK_STATUS;
+			checkPins(9);
+
+				printf("Passed status check #9\n");
     return OK;
 } 
 
