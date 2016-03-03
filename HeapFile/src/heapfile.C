@@ -199,6 +199,9 @@ Status HeapFile::deleteRecord (const RID& rid)
                         if (currDirPage->empty()) {
                             PageId prevDelDirPage = currDirPage->getPrevPage();
                             PageId nextDelDirPage = currDirPage->getNextPage();
+                            if (currDirPageId == end_of_dirPage) {
+                                end_of_dirPage = prevDelDirPage;
+                            }
                             if (prevDelDirPage == -1) {firstDirPageId = nextDelDirPage; return ret_status;}
                             status = MINIBASE_BM->pinPage(prevDelDirPage, (Page*&)prevDirPage); CHECK_STATUS;
                             prevDirPage->setNextPage(nextDelDirPage);
