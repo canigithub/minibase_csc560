@@ -34,7 +34,14 @@ Scan::~Scan()
 // Also returns the RID of the retrieved record.
 Status Scan::getNext(RID& rid, char *recPtr, int& recLen)
 {
-  // put your code here
+	Status status;
+	if(scanIsDone)
+		return DONE;
+	rid = userRid;
+	status = dataPage->getRecord(rid, recPtr, recLen); CHECK_STATUS;
+	status = mvNext(userRid);
+	if(status != OK && status != DONE)
+		return status;
   return OK;
 }
 
@@ -117,4 +124,22 @@ Status Scan::nextDirPage() {
 	dirPageId = nextDirPageId;
 	status = MINIBASE_BM.pinPage(dirPageId, dirPage); CHECK_STATUS ;
   return OK;
+}
+
+Status Scan::mvNext(RID& rid) {
+	Status status;
+	RID nextRid;
+	status = dataPage->nextRecord(rid, nextRid);
+	if(status == DONE) {
+		status = nextDirPage();
+		if(status == DONE) {
+			scanIsDone = 1;	
+			return DONE;
+		}	
+		status = dataPage->firstRecord(nextRid);
+	} else {
+		CHECK_STATUS;
+	}
+	rid = nextRid;
+
 }
