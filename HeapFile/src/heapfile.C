@@ -1,7 +1,7 @@
 #include "heapfile.h"
 
 #define CHECK_RETURN_STATUS if (status != OK) {returnStatus = status; return;}
-#define CHECK_STATUS if (status != OK) {return FAIL;}
+#define CHECK_STATUS if (status != OK) {return status;}
 #define ASSERT_STATUS assert(status == OK);
 
 // ******************************************************
@@ -65,27 +65,6 @@ int HeapFile::getRecCnt()
 {
     Status status;
 	int num_records = 0;
-	/* version 1 */
-	PageId dirPageId = firstDirPageId;
-	RID dataPageRid;
-	HFPage* dirPage;
-	DataPageInfo *dpinfop;
-	int recLen
-	while(dirPageId != -1) {
-		status = MINIBASE_BM.pinPage(dirPageId, dirPage);  CHECK_STATUS ;
-		status = dirPage->firstRecord(dataPageRid);	
-		while(status == OK) {
-			dirPage->getRecord(dataPageRid, (char *) dpinfop, recLen);
-			assert(recLen == sizeof(DataPageInfo));
-			num_records += dpinfo->recct;
-			status = dirPage->nextRecord(dataPageRid);
-			MINIBASE_BM.unpinPage(currDir);
-		}
-		if(status != DONE)
-			return status;
-		currDir = dirPage->getNextPage();
-
-	/* version 2 */
 	PageId currDirPageId = firstDirPageId;
     HFPage* currDirPage;
 	RID currRid, nextRid;
@@ -106,9 +85,6 @@ int HeapFile::getRecCnt()
         status = MINIBASE_BM.unpinPage(currDir);
         if(status != OK) return status;
         currDirPageId = currDirPage->getNextPage();
-	
-	/* end of differences */
-
 	}
 
   return num_records;
@@ -269,8 +245,9 @@ Status HeapFile::getRecord (const RID& rid, char *recPtr, int& recLen)
 // initiate a sequential scan
 Scan *HeapFile::openScan(Status& status)
 {
-  // fill in the body 
-  return NULL;
+    Status status;
+    Scan *s = new Scan(this,status);
+    return s;
 }
 
 // ****************************************************
@@ -387,5 +364,3 @@ Status HeapFile::allocateDirSpace(struct DataPageInfo * dpinfop,
     end_of_dirPage = allocDirPageId;
     return OK;
 }
-
-// *******************************************
