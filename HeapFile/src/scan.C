@@ -25,8 +25,7 @@ Scan::Scan (HeapFile *hf, Status& status)
 // The deconstructor unpin all pages.
 Scan::~Scan()
 {
-	dirPageId = _hf->firstDirPageId;
-	Status status;
+ 	reset();
 }
 
 // *******************************************
