@@ -77,7 +77,7 @@ Status HFPage::insertRecord(char* recPtr, int recLen, RID& rid)
 		int i;
 		int slot_n;
 		//slot_t *curr;
-    if(available_space() < recLen + sizeof(slot_t))
+    if(available_space() < (int)(recLen + sizeof(slot_t)))
 			return DONE;
 
 		// find an empty slot
@@ -216,6 +216,7 @@ Status HFPage::nextRecord (RID curRid, RID& nextRid)
     int i;
     slot_t curr;
     int slot_n = curRid.slotNo;
+		//printf("Returning record %d of %d\n", slot_n+1, slotCnt);
     if (slot_n == slotCnt - 1) return DONE; // no 'next' exists
 		else if(slot_n > slotCnt -1)
 			return FAIL;
@@ -272,7 +273,7 @@ int HFPage::available_space(void)
 		for(int i = 0; i < slotCnt; i++)
 			if(slot[i].length == EMPTY_SLOT)
 				empty_slots++;
-    return freeSpace - sizeof(slot_t) - slotCnt * sizeof(slot_t) + empty_slots * sizeof(slot_t);;   
+    return freeSpace - sizeof(slot_t) + empty_slots * sizeof(slot_t);;   
 }
 
 // **********************************************************

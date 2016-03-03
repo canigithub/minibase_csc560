@@ -44,7 +44,7 @@ Status Scan::getNext(RID& rid, char *recPtr, int& recLen)
 	status = dataPage->getRecord(rid, recPtr, recLen); CHECK_STATUS;
 	status = mvNext(userRid);
 	if(status != OK && status != DONE)
-		return status;
+		scanIsDone = 1;
   return OK;
 }
 
@@ -88,7 +88,7 @@ Status Scan::firstDataPage()
 	
 	Status status;
 	int recLen;
-	DataPageInfo *dpinfop = NULL;
+	DataPageInfo *dpinfop = (DataPageInfo*) malloc(sizeof(DataPageInfo));
 
 	// pin the first directory page, grab the Rid for the first Data Page
 	dirPageId = _hf->firstDirPageId;
@@ -103,6 +103,7 @@ Status Scan::firstDataPage()
 	// pin the first data page, get its first record 
 	status = MINIBASE_BM->pinPage(dataPageId, (Page *&) dataPage);  CHECK_STATUS ;
 
+	free(dpinfop);
   return OK;
 }
 
@@ -124,7 +125,8 @@ Status Scan::nextDataPage(){
 	} 
 	
 	status = dirPage->getRecord(dataPageRid, (char *) dpinfop, recLen);
-	assert(recLen == sizeof(DataPageInfo));
+	if(status == DONE)
+		return DONE;
 	dataPageId = dpinfop->pageId;
 
 	status = MINIBASE_BM->pinPage(dataPageId, (Page *&) dataPage);
@@ -145,16 +147,13 @@ Status Scan::nextDirPage() {
 Status Scan::mvNext(RID& rid) {
 	Status status;
 	RID nextRid;
-	status = dataPage->nextRecord(rid, nextRid);
+	status = dataPage->nextRecord(userRid, nextRid);
 	if(status == DONE) {
-		status = nextDirPage();
+		status = nextDataPage();
 		if(status == DONE) {
-			scanIsDone = 1;	
-			return DONE;
+				return DONE;
 		}	
 		status = dataPage->firstRecord(nextRid);
-	} else {
-		CHECK_STATUS;
 	}
 	rid = nextRid;
 

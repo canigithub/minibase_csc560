@@ -105,7 +105,7 @@ int HeapDriver::test1()
             }
           }
 
-        if ( f.getRecCnt() != choice )
+        if ( f.getRecCnt() != choice )  
           {
             status = FAIL;
             cerr << "*** File reports " << f.getRecCnt() << " records, not "
@@ -123,6 +123,7 @@ int HeapDriver::test1()
       {
         cout << "  - Scan the records just inserted\n";
         scan = f.openScan(status);
+				printf("opened the scan\n");
 
         if (status != OK)
             cerr << "*** Error opening scan\n";
@@ -141,7 +142,7 @@ int HeapDriver::test1()
 
         while ( (status = scan->getNext(rid, (char *)&rec, len)) == OK )
           {
-			if ( len != reclen )
+						if ( len != reclen )
               {
                 cerr << "*** Record " << i << " had unexpected length " << len
                      << endl;
