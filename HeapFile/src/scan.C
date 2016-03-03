@@ -12,6 +12,10 @@
 #include "buf.h"
 #include "db.h"
 
+#define CHECK_RETURN_STATUS if (status != OK) {returnStatus = status; return;}
+#define CHECK_STATUS if (status != OK) {return status;}
+#define ASSERT_STATUS assert(status == OK);
+
 // *******************************************
 // The constructor pins the first page in the file
 // and initializes its private data members from the private data members from hf
@@ -67,8 +71,8 @@ Status Scan::init(HeapFile *hf)
 Status Scan::reset()
 {
 	Status status;
-	status = MINIBASE_BM.unpinPage(dirPageId); CHECK_STATUS ;
-	status = MINIBASE_BM.unpinPage(dataPageId);
+	status = MINIBASE_BM->unpinPage(dirPageId); CHECK_STATUS ;
+	status = MINIBASE_BM->unpinPage(dataPageId);
   return OK;
 }
 
@@ -82,21 +86,22 @@ Status Scan::reset()
 Status Scan::firstDataPage()
 {
 	
+	Status status;
 	int recLen;
 	DataPageInfo *dpinfop = NULL;
 
 	// pin the first directory page, grab the Rid for the first Data Page
 	dirPageId = _hf->firstDirPageId;
-	status = MINIBASE_BM.pinPage(dirPageId, (Page *) dirPage); CHECK_STATUS;
+	status = MINIBASE_BM->pinPage(dirPageId, (Page *&) dirPage); CHECK_STATUS;
 	status = dirPage->firstRecord(dataPageRid);  	CHECK_STATUS;
 
 	// grab the DataPageInfo* describing the first data page, containing the data page ID
-	status = dirPage.getRecord(dataPageRid, (char *) dpinfop, recLen); CHECK_STATUS ;
+	status = dirPage->getRecord(dataPageRid, (char *) dpinfop, recLen); CHECK_STATUS ;
 	assert(recLen == sizeof(DataPageInfo));
 	dataPageId = dpinfop->pageId;
 
 	// pin the first data page, get its first record 
-	status = MINIBASE_BM.pinPage(dataPageId, (Page *) dataPage);  CHECK_STATUS ;
+	status = MINIBASE_BM->pinPage(dataPageId, (Page *&) dataPage);  CHECK_STATUS ;
 
   return OK;
 }
@@ -105,23 +110,35 @@ Status Scan::firstDataPage()
 // Retrieve the next data page.
 Status Scan::nextDataPage(){
 	// try to find it in the same directory page
-	status = MINIBASE_BM.unpinPage(dataPageId);
-	status = dirPage->nextRecord(dataPageId);
+	Status status;
+	status = MINIBASE_BM->unpinPage(dataPageId);
+	RID nextDataPageRid;
+	status = dirPage->nextRecord(dataPageRid, nextDataPageRid);
+	dataPageRid = nextDataPageRid;
+	int recLen;
+
+	DataPageInfo *dpinfop = (DataPageInfo*) malloc(sizeof(DataPageInfo));
 	if(status == DONE) {
 		status = nextDirPage(); CHECK_STATUS;
-		status = dirPage->firstRecord(dataPageId); CHECK_STATUS ;
-	}
-	status = MINIBASE_BM.pinPage(dataPageId, (Page *) dataPage);
+		status = dirPage->firstRecord(dataPageRid); CHECK_STATUS ;
+	} 
+	
+	status = dirPage->getRecord(dataPageRid, (char *) dpinfop, recLen);
+	assert(recLen == sizeof(DataPageInfo));
+	dataPageId = dpinfop->pageId;
+
+	status = MINIBASE_BM->pinPage(dataPageId, (Page *&) dataPage);
   return OK;
 }
 
 // *******************************************
 // Retrieve the next directory page.
 Status Scan::nextDirPage() {
+	Status status;
 	PageId nextDirPageId = dirPage->getNextPage();
-	status = MINIBASE_BM.unpinPage(dirPageId); 		CHECK_STATUS ;
+	status = MINIBASE_BM->unpinPage(dirPageId); 		CHECK_STATUS ;
 	dirPageId = nextDirPageId;
-	status = MINIBASE_BM.pinPage(dirPageId, dirPage); CHECK_STATUS ;
+	status = MINIBASE_BM->pinPage(dirPageId, (Page *&) dirPage); CHECK_STATUS ;
   return OK;
 }
 
@@ -141,4 +158,5 @@ Status Scan::mvNext(RID& rid) {
 	}
 	rid = nextRid;
 
+	return status;
 }
