@@ -22,7 +22,7 @@ static const char *hfErrMsgs[] = {
 
 static error_string_table hfTable( HEAPFILE, hfErrMsgs );
 
-PageId end_of_dirPage; /// remember to comment this line in the end
+// PageId end_of_dirPage; /// remember to comment this line in the end
 
 // ********************************************************
 // Constructor
@@ -106,7 +106,7 @@ Status HeapFile::insertRecord(char *recPtr, int recLen, RID& outRid)
     // assume heapfile exists and firstDirPageId is valid and firstDirPage exists
     PageId currDirPageId = firstDirPageId, nextDirPageId;
     RID currdpinfoRid, nextdpinfoRid;
-    HFPage *currDirPage, *targetDataPage, *newDirPage;
+    HFPage *currDirPage, *targetDataPage;
     DataPageInfo *dpinfop;
     PageId targetDataPageId = -1;
     int dummyRecLen;
@@ -185,10 +185,6 @@ Status HeapFile::insertRecord(char *recPtr, int recLen, RID& outRid)
             status = MINIBASE_BM->unpinPage(targetDataPageId, TRUE); CHECK_STATUS
             // deal with new directory page
 			status = allocateDirSpace(newDataPageInfo, dummyPageId, dummyRid); CHECK_STATUS ///// check here later
-			// status = MINIBASE_BM->pinPage(dummyPageId, (Page*&)newDirPage); CHECK_STATUS
-			// status = newDirPage->insertRecord((char*)newDataPageInfo, (int)sizeof(DataPageInfo), dummyRid); 
-            // CHECK_STATUS
-			// status = MINIBASE_BM->unpinPage(dummyPageId, TRUE); CHECK_STATUS
 			return OK;
 		} else { // if nextDirPage exists
             currDirPageId = nextDirPageId;
@@ -202,58 +198,71 @@ Status HeapFile::insertRecord(char *recPtr, int recLen, RID& outRid)
 // delete record from file
 Status HeapFile::deleteRecord (const RID& rid)
 {
-    if (file_deleted) return FAIL;
-    PageId targetPageId = rid.pageNo;
-    PageId currDirPageId = firstDirPageId;
-    HFPage *currDirPage = NULL, *targetDataPage = NULL, *prevDirPage = NULL;
-    DataPageInfo *dpinfop = NULL;
-    RID currRid, nextRid;
+    if (file_deleted) return FAIL; ///// check this later
+    PageId dirPageId, dataPageId;
+    HFPage *dirPage, *dataPage, *prevDirPage, *nextDirPage;
+    RID dataPageRid;
+    DataPageInfo *dpinfop;
+    int recLen, dataRecLen;
+    char *dummyPtr;
     Status status;
-    char* dummy_ptr = NULL;
-    int recLen;
-    while (currDirPageId != -1) {
-        status = MINIBASE_BM->pinPage(currDirPageId, (Page*&)currDirPage); CHECK_STATUS
-        status = currDirPage->firstRecord(currRid);
-        while (status == OK) {
-            status = currDirPage->getRecord(currRid, (char*)dpinfop, recLen); CHECK_STATUS
-            assert(recLen == sizeof(DataPageInfo));
-            if (dpinfop->pageId == targetPageId) {
-                Status ret_status;  // return_status;
-                status = MINIBASE_BM->pinPage(targetPageId, (Page*&)targetDataPage); CHECK_STATUS
-                int del_recLen = -1;
-                targetDataPage->getRecord(rid, dummy_ptr, del_recLen);
-                ret_status = targetDataPage->deleteRecord(rid);
-                if (ret_status == OK) {
-                    if (targetDataPage->empty()) { // if empty data page, then deallocate it
-                        status = MINIBASE_DB->deallocate_page(targetPageId); CHECK_STATUS
-                        status = currDirPage->deleteRecord(currRid); CHECK_STATUS
-                        if (currDirPage->empty()) {
-                            PageId prevDelDirPage = currDirPage->getPrevPage();
-                            PageId nextDelDirPage = currDirPage->getNextPage();
-                            if (currDirPageId == end_of_dirPage) {
-                                end_of_dirPage = prevDelDirPage;
-                            }
-                            if (prevDelDirPage == -1) {firstDirPageId = nextDelDirPage; return ret_status;}
-                            status = MINIBASE_BM->pinPage(prevDelDirPage, (Page*&)prevDirPage); CHECK_STATUS
-                            prevDirPage->setNextPage(nextDelDirPage);
-                            status = MINIBASE_BM->unpinPage(prevDelDirPage); CHECK_STATUS
-                            MINIBASE_DB->deallocate_page(currDirPageId);
-                        }
-                    }
-                    else {
-                        dpinfop->availspace += (del_recLen + 2*sizeof(short));
-                        dpinfop->recct -= 1;
-                    }
-                }
-                return ret_status;
-            }
-            status = currDirPage->nextRecord(currRid, nextRid);
-            currRid = nextRid;
-        }
-        status = MINIBASE_BM->unpinPage(currDirPageId); CHECK_STATUS
-        currDirPageId = currDirPage->getNextPage();
+    status = findDataPage(rid, dirPageId, dirPage, dataPageId, dataPage, dataPageRid); CHECK_STATUS
+    if (dirPage == NULL || dataPage == NULL) return FAIL;
+    
+    /* if record is found*/
+    status = dataPage->returnRecord(rid, dummyPtr, dataRecLen); CHECK_STATUS 
+    status = dataPage->deleteRecord(rid); CHECK_STATUS
+    status = dirPage->returnRecord(dataPageRid, (char *&)dpinfop, recLen); CHECK_STATUS
+    dpinfop->recct += 1;
+    dpinfop->availspace += (int)(dataRecLen + 2*sizeof(short));
+    // cout << '(' << dpinfop->availspace << ',' << dataPage->available_space() <<')' << endl;
+    assert(dpinfop->availspace == dataPage->available_space());
+    
+    /* if dataPage is not empty after deletion */
+    if (!dataPage->empty()) {
+        status = MINIBASE_BM->unpinPage(dataPageId); CHECK_STATUS
+        status = MINIBASE_BM->unpinPage(dirPageId); CHECK_STATUS            
+        return OK;
     }
-    return FAIL;
+    
+    status = MINIBASE_DB->deallocate_page(dataPageId); CHECK_STATUS
+    status = dirPage->deleteRecord(dataPageRid); CHECK_STATUS
+    
+    /* if dataPage is empty but dirPage is not empty after deletion */
+    if (!dirPage->empty()) {
+        status = MINIBASE_BM->unpinPage(dataPageId); CHECK_STATUS
+        status = MINIBASE_BM->unpinPage(dirPageId); CHECK_STATUS            
+        return OK;
+    }
+    
+    /* if both dataPage and dirPage is empty after deletion */
+    PageId prevDirPageId, nextDirPageId;
+    prevDirPageId = dirPage->getPrevPage();
+    nextDirPageId = dirPage->getNextPage();
+    if (prevDirPageId == -1 && nextDirPageId == -1) {
+        file_deleted = 1;
+    } else if (prevDirPageId == -1 && nextDirPageId != -1) {
+        status = MINIBASE_BM->pinPage(nextDirPageId, (Page*&) nextDirPage); CHECK_STATUS
+        nextDirPage->setPrevPage(-1);
+        status = MINIBASE_BM->unpinPage(nextDirPageId); CHECK_STATUS
+        firstDirPageId = nextDirPageId;
+    } else if (prevDirPageId != -1 && nextDirPageId == -1) {
+        status = MINIBASE_BM->pinPage(prevDirPageId, (Page*&) prevDirPage); CHECK_STATUS
+        prevDirPage->setNextPage(-1);
+        status = MINIBASE_BM->unpinPage(prevDirPageId); CHECK_STATUS
+    } else {
+        status = MINIBASE_BM->pinPage(prevDirPageId, (Page*&) prevDirPage); CHECK_STATUS
+        status = MINIBASE_BM->pinPage(nextDirPageId, (Page*&) nextDirPage); CHECK_STATUS
+        prevDirPage->setNextPage(nextDirPageId);
+        nextDirPage->setPrevPage(prevDirPageId);
+        status = MINIBASE_BM->unpinPage(prevDirPageId); CHECK_STATUS
+        status = MINIBASE_BM->unpinPage(nextDirPageId); CHECK_STATUS
+    }
+    
+    status = MINIBASE_DB->deallocate_page(dirPageId); CHECK_STATUS
+    status = MINIBASE_BM->unpinPage(dataPageId); CHECK_STATUS
+    status = MINIBASE_BM->unpinPage(dirPageId); CHECK_STATUS            
+    return OK;
 }
 
 // *******************************************
@@ -358,37 +367,49 @@ Status HeapFile::newDataPage(DataPageInfo *dpinfop)
 Status HeapFile::findDataPage(const RID& rid,
                     PageId &rpDirPageId, HFPage *&rpdirpage,
                     PageId &rpDataPageId,HFPage *&rpdatapage,
-                    RID &rpDataPageRid) // why needs this?
+                    RID &rpDataPageRid)
 {
     rpDataPageId = rid.pageNo;
     rpDirPageId = firstDirPageId;
-    DataPageInfo *dpinfop = NULL;
-    RID currDirRid, nextDirRid;
+    PageId nextDirPageId;
+    DataPageInfo *dpinfop = (DataPageInfo*) malloc(sizeof(DataPageInfo));
+    RID currDataPageRid, nextDataPageRid;
     Status status;
     char* dummy_ptr = NULL;
     int dummy_recLen;
     int dpinfo_recLen;
     while (rpDirPageId != -1) {
         status = MINIBASE_BM->pinPage(rpDirPageId, (Page*&)rpdirpage); CHECK_STATUS
-        status = rpdirpage->firstRecord(currDirRid);
+        status = rpdirpage->firstRecord(currDataPageRid);
         while (status == OK) {
-            status = rpdirpage->getRecord(currDirRid, (char*)dpinfop, dpinfo_recLen); CHECK_STATUS
+            status = rpdirpage->getRecord(currDataPageRid, (char*)dpinfop, dpinfo_recLen); CHECK_STATUS
             assert(dpinfo_recLen == sizeof(DataPageInfo));
             if (dpinfop->pageId == rpDataPageId) {
                 status = MINIBASE_BM->pinPage(rpDataPageId, (Page*&)rpdatapage); CHECK_STATUS
                 status = rpdatapage->returnRecord(rid, dummy_ptr, dummy_recLen);
-                if (status != OK) {rpdirpage = NULL; rpdatapage = NULL; return status;}
-								rpDataPageRid = currDirRid;
-                return OK;
+                if (status != OK) {
+                    status = MINIBASE_BM->unpinPage(rpDataPageId); CHECK_STATUS
+                    status = MINIBASE_BM->unpinPage(rpDirPageId); CHECK_STATUS
+                    rpdirpage = NULL; rpdatapage = NULL;
+                    free(dpinfop); 
+                    return status;
+                } else {
+                    rpDataPageRid = currDataPageRid;
+                    free(dpinfop); 
+                    return OK;
+                }
             } else {
-                status = rpdirpage->nextRecord(currDirRid, nextDirRid);
-                currDirRid = nextDirRid;
+                status = rpdirpage->nextRecord(currDataPageRid, nextDataPageRid);
+                currDataPageRid = nextDataPageRid;
             }
         }
-        rpDirPageId = rpdirpage->getNextPage();
+        assert(status == DONE);
+        nextDirPageId = rpdirpage->getNextPage();
         status = MINIBASE_BM->unpinPage(rpDirPageId); CHECK_STATUS
+        rpDirPageId = nextDirPageId;
     }
     rpdirpage = NULL; rpdatapage = NULL;
+    free(dpinfop);
     return FAIL;
 }
 

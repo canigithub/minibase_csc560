@@ -241,6 +241,7 @@ int HeapDriver::test2()
             if ( i & 1 )        // Delete the odd-numbered ones.
               {
                 // cout << "To delete record " << rid << endl;
+                // cout << ">>>i:" << i << '\t';
                 status = f.deleteRecord( rid );
 				// cout << " To delete record " << rid.slotNo << endl;
                 if ( status != OK )
