@@ -90,7 +90,8 @@ int HeapDriver::test1()
           {
             Rec rec = { i, i*2.5 };
             sprintf(rec.name, "record %i",i);
-
+            
+            // cout << endl << ">>>i:" << i << " ";
             status = f.insertRecord((char *)&rec, reclen, rid);
         
 			//			cout << rid.slotNo << " ";
@@ -139,10 +140,10 @@ int HeapDriver::test1()
       {
         int len, i = 0;
         Rec rec;
-
+        // cout << "ready to sacn:" << endl;
         while ( (status = scan->getNext(rid, (char *)&rec, len)) == OK )
-          {
-						if ( len != reclen )
+          {  
+			if ( len != reclen )
               {
                 cerr << "*** Record " << i << " had unexpected length " << len
                      << endl;
@@ -160,6 +161,9 @@ int HeapDriver::test1()
 
             char name[ sizeof rec.name ];
             sprintf( name, "record %i", i );
+            
+            // cout << rec.ival << '\t' << rec.fval << '\t' << rec.name << endl;
+            
             if( (rec.ival != i) 
                 || (rec.fval != i*2.5)
                 || (0 != strcmp( rec.name, name )) )
@@ -177,7 +181,9 @@ int HeapDriver::test1()
               }
             ++i;
           }
-
+          
+        // cout << "finish scan while loop." << endl;
+        // cout << "i = " << i << endl;
         if ( status == DONE )
           {
             if ( MINIBASE_BM->getNumUnpinnedBuffers() != MINIBASE_BM->getNumBuffers() ) {

@@ -212,12 +212,20 @@ Status HFPage::firstRecord(RID& firstRid)
 // returns DONE if no more records exist on the page; otherwise OK
 Status HFPage::nextRecord (RID curRid, RID& nextRid)
 {
+    // cout << "in HFPage: " << ' ';
+    // cout << "curRid:" << curRid.pageNo << ',' << curRid.slotNo << '\t'; 
+    // cout << "nextRid:" << nextRid.pageNo << ',' << nextRid.slotNo << endl;
+	
     if (empty()) return FAIL;
     int i;
     slot_t curr;
     int slot_n = curRid.slotNo;
 		//printf("Returning record %d of %d\n", slot_n+1, slotCnt);
-    if (slot_n == slotCnt - 1) return DONE; // no 'next' exists
+    if (slot_n == slotCnt - 1) { // no 'next' exists
+        nextRid.pageNo = -1;
+        nextRid.slotNo = -1;
+        return DONE; 
+    }
 		else if(slot_n > slotCnt -1)
 			return FAIL;
     nextRid.pageNo = curPage;
