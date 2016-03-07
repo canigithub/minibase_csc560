@@ -271,15 +271,17 @@ Status HeapFile::updateRecord (const RID& rid, char *recPtr, int recLen)
 {
     PageId dirPageId, dataPageId;
     HFPage *dirPage, *dataPage;
-    RID retRid;
-    int dummy_recLen;
-    char* dummy_ptr;
-    Status status = findDataPage(rid, dirPageId, dirPage, dataPageId, dataPage, retRid);
+    RID dummyRid;
+    int len;
+    char* dummyPtr;
+    Status status;
+    status = findDataPage(rid, dirPageId, dirPage, dataPageId, dataPage, dummyRid);
     if (dirPage == NULL || dataPage == NULL) return FAIL;
-    status = dataPage->returnRecord(rid, dummy_ptr, dummy_recLen);
-    if (status != OK) return status;
-    if (dummy_recLen != recLen) return FAIL;
-    memcpy(dummy_ptr, recPtr, recLen);
+    status = dataPage->returnRecord(rid, dummyPtr, len); CHECK_STATUS
+    if (len != recLen) return FAIL;
+    memcpy(dummyPtr, recPtr, len);
+    status = MINIBASE_BM->unpinPage(dataPageId); CHECK_STATUS
+    status = MINIBASE_BM->unpinPage(dirPageId); CHECK_STATUS        
     return OK;
 }
 

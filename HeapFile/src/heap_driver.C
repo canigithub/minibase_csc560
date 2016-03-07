@@ -406,9 +406,10 @@ int HeapDriver::test3()
       }
 
     delete scan;
-
+  
     if ( status == OK )
         cout << "  Test 3 completed successfully.\n";
+    
     return (status == OK);
 }
 
