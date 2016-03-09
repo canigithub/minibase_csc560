@@ -30,6 +30,7 @@ Scan::Scan (HeapFile *hf, Status& status)
 Scan::~Scan()
 {
  	// reset();
+    // cout << "in scan destructor";
 }
 
 // *******************************************

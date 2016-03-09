@@ -121,6 +121,7 @@ void TestDriver::runTest( Status& status, TestDriver::testFunction test )
                      : "Errors logged:\n");
         minibase_errors.show_errors(cerr);
       }
+    //   cout << ">>> at the end of runTest, result = " << result << endl;
 }
 
 
@@ -184,13 +185,14 @@ Status TestDriver::runAllTests()
 
     runTest( answer, &TestDriver::test1 );
     sv_answer = (answer == OK) ? sv_answer : FAIL;
-
+    
     runTest( answer, &TestDriver::test2 );
     sv_answer = (answer == OK) ? sv_answer : FAIL;
-
-    runTest( answer, &TestDriver::test3 );
+    // return sv_answer;
+    
+    runTest( answer, &TestDriver::test3 ); 
     sv_answer = (answer == OK) ? sv_answer : FAIL;
-
+    
     runTest( answer, &TestDriver::test4 );
     sv_answer = (answer == OK) ? sv_answer : FAIL;
 

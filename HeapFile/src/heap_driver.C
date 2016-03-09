@@ -82,7 +82,7 @@ int HeapDriver::test1()
         cerr << "*** The heap file has left pages pinned\n";
         status = FAIL;
     }
-
+    
     if ( status == OK )
       {
         cout << "  - Add " << choice << " records to the file\n";
@@ -124,13 +124,13 @@ int HeapDriver::test1()
       {
         cout << "  - Scan the records just inserted\n";
         scan = f.openScan(status);
-				printf("opened the scan\n");
+				// printf("opened the scan\n");
 
         if (status != OK)
             cerr << "*** Error opening scan\n";
         else if ( MINIBASE_BM->getNumUnpinnedBuffers() == MINIBASE_BM->getNumBuffers() )
           {
-            cerr << "*** The heap-file scan has not pinned the first page\n";
+            cerr << "*** The  heap-file scan has not pinned the first page\n";
 			cerr << MINIBASE_BM->getNumUnpinnedBuffers() - MINIBASE_BM->getNumBuffers() << endl;
             status = FAIL;
           }
@@ -201,8 +201,12 @@ int HeapDriver::test1()
     delete scan;
 
     if ( status == OK )
-        cout << "  Test 1 completed successfully.\n";
+        cout << "  Test 1 completed successfully.\n"; 
+    cout << "# unpined buf = " << MINIBASE_BM->getNumUnpinnedBuffers() << endl; 
+    cout << "# bufs = " << MINIBASE_BM->getNumBuffers() << endl;
+    
     return (status == OK);
+    // return OK;
 }
 
 
@@ -214,13 +218,19 @@ int HeapDriver::test2()
     Status status = OK;
     Scan* scan = 0;
     RID rid;
-
+    
+    // cout << "before open the file." << endl;
+    // return (status = OK);
+    
     cout << "  - Open the same heap file as test 1\n";
     HeapFile f("file_1", status);
 
+    // cout << ">>> after opened the file. status = " << status << endl;
+    // return (status = OK);
+    
     if (status != OK)
         cerr << "*** Error opening heap file\n";
-
+        
 
     if ( status == OK )
       {
@@ -242,6 +252,7 @@ int HeapDriver::test2()
               {
                 // cout << "To delete record " << rid << endl;
                 // cout << ">>>i:" << i << '\t';
+                // cout << "delete #" << i << endl;
                 status = f.deleteRecord( rid );
 				// cout << " To delete record " << rid.slotNo << endl;
                 if ( status != OK )
@@ -262,7 +273,9 @@ int HeapDriver::test2()
 
     delete scan;
     scan = 0;
-
+    
+    // return (status = OK);
+    
     if ( status == OK
          && MINIBASE_BM->getNumUnpinnedBuffers() != MINIBASE_BM->getNumBuffers() )
       {
@@ -284,6 +297,7 @@ int HeapDriver::test2()
 
         while ( (status = scan->getNext(rid, (char *)&rec, len)) == OK )
           {
+            // cout << "retrieve #" << i << endl;
             if( (rec.ival != i)  ||
                 (rec.fval != i*2.5) )
               {
@@ -307,7 +321,12 @@ int HeapDriver::test2()
 
     if ( status == OK )
         cout << "  Test 2 completed successfully.\n";
+        
+    cout << "# unpined buf = " << MINIBASE_BM->getNumUnpinnedBuffers() << endl; 
+    cout << "# bufs = " << MINIBASE_BM->getNumBuffers() << endl;
+    
     return (status == OK);
+    // return OK;
 }
 
 
@@ -343,6 +362,7 @@ int HeapDriver::test3()
           {
             rec.fval = 7*i;     // We'll check that i==rec.ival below.
             status = f.updateRecord( rid, (char*)&rec, len );
+            // cout << ">>>i:" << i << endl;
             if ( status != OK )
               {
                 cerr << "*** Error updating record " << i << endl;
@@ -354,7 +374,8 @@ int HeapDriver::test3()
         if ( status == DONE )
             status = OK;
       }
-
+      
+    // cout << "before delete scan." << endl;
     delete scan;
     scan = 0;
 
@@ -401,6 +422,8 @@ int HeapDriver::test3()
             i += 2;     // Because we deleted the odd ones...
           }
 
+        // cout << "exit 2nd while loop in test3" << endl;
+        
         if ( status == DONE )
             status = OK;
       }
@@ -410,7 +433,11 @@ int HeapDriver::test3()
     if ( status == OK )
         cout << "  Test 3 completed successfully.\n";
     
+    cout << "# unpined buf = " << MINIBASE_BM->getNumUnpinnedBuffers() << endl; 
+    cout << "# bufs = " << MINIBASE_BM->getNumBuffers() << endl;
+    
     return (status == OK);
+    // return OK;
 }
 
 
@@ -425,7 +452,10 @@ int HeapDriver::test4()
 
     cout << "  - Create a heap file\n";
     HeapFile f( "file_2", status );
-
+    
+    cout << "# unpined buf = " << MINIBASE_BM->getNumUnpinnedBuffers() << endl; 
+    cout << "# bufs = " << MINIBASE_BM->getNumBuffers() << endl;
+    
    if (status != OK)
         cerr << "*** Could not create heap file\n";
     else if ( MINIBASE_BM->getNumUnpinnedBuffers()

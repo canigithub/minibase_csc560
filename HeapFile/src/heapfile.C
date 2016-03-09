@@ -27,25 +27,41 @@ static error_string_table hfTable( HEAPFILE, hfErrMsgs );
 // ********************************************************
 // Constructor
 HeapFile::HeapFile( const char *name, Status& returnStatus ) {
-
+    
+    cout << ">>> enter hf ctor." << endl;
 	// We assume the file already existed
 	Status status = MINIBASE_DB->get_file_entry(name, firstDirPageId);
-	// If not, ask the database to allocate a new page use it for a new file entry, and make it a directory page
-	if(status != OK)  {								
+    cout << ">>> get_file_entry status = " << status << " firstDirPageId = " << firstDirPageId << endl;
+    fileName = (char*) malloc(MAX_NAME * sizeof(char));
+    strcpy(fileName, name);
+        
+	/* If not, ask the database to allocate a new page use it for a new file entry 
+       and make it a directory page */
+	if(status != OK)  {					
+        cout << ">>> create new file entry." << std::flush;			
 		HFPage *firstDirPage = NULL;
 		status = MINIBASE_DB->allocate_page(firstDirPageId, 1); CHECK_RETURN_STATUS
+        // cout << "@ after ctor.alloc_page" << ',' << std::flush;
+        cout << "firstDirPageId = " << firstDirPageId << ',' << std::flush;
 		status = MINIBASE_DB->add_file_entry(name, firstDirPageId); CHECK_RETURN_STATUS
-		status = MINIBASE_BM->pinPage(firstDirPageId, (Page*&)firstDirPage);        
-        CHECK_RETURN_STATUS
+        // cout << "@ after ctor.add_entry" << ',' << std::flush;
+		status = MINIBASE_BM->pinPage(firstDirPageId, (Page*&)firstDirPage); CHECK_RETURN_STATUS
+        // cout << "@ after ctor.pinPage" << ',' << std::flush;
         firstDirPage->init(firstDirPageId);
+        // cout << "@ after ctor.init" << ',' << std::flush;
+        cout << "fileNameSize = " << sizeof(fileName) << " name = " << name << endl << std::flush;
+        cout << "fileName = " << fileName << ' ' << &name << std::flush;
+        cout << "@ after ctor.strcpy" << endl << std::flush;
 		status = MINIBASE_BM->unpinPage(firstDirPageId, TRUE); CHECK_RETURN_STATUS
+        cout << "@ after ctor.unpinPage" << endl << std::flush;
+        
 	}
-	strcpy(fileName, name);
+	cout << ">>> @ after if statement" << endl << std::flush;
+    
 	// end_of_dirPage = firstDirPageId;
 	file_deleted = 0;
-  
 	returnStatus = OK;
-   
+    cout << ">>> @ end of heapfile constructor" << endl << std::flush;
 }
 
 // ******************
@@ -53,8 +69,17 @@ HeapFile::HeapFile( const char *name, Status& returnStatus ) {
 HeapFile::~HeapFile()
 {
    // don't delete the file if it wasn't temporary
-	if(strcmp(fileName, "")) return;
-    Status status = deleteFile(); ASSERT_STATUS;
+   cout << ">>> enter dtor" << endl;
+   cout << "fileName = " << fileName << endl;
+   free(fileName);
+//    cout << ">>> enter the destructor." << endl;
+	if(!strcmp(fileName, "")) { 
+        Status status = deleteFile(); ASSERT_STATUS;
+    }
+    
+    // cout << ">>> at the end of destructor." << endl;
+    
+    cout << ">>> leave dtor" << endl;
 }
 
 // *************************************
@@ -278,6 +303,7 @@ Status HeapFile::updateRecord (const RID& rid, char *recPtr, int recLen)
     status = findDataPage(rid, dirPageId, dirPage, dataPageId, dataPage, dummyRid);
     if (dirPage == NULL || dataPage == NULL) return FAIL;
     status = dataPage->returnRecord(rid, dummyPtr, len); CHECK_STATUS
+    /* if the updated record length is not equal to the original, return FAIL */
     if (len != recLen) return FAIL;
     memcpy(dummyPtr, recPtr, len);
     status = MINIBASE_BM->unpinPage(dataPageId); CHECK_STATUS
