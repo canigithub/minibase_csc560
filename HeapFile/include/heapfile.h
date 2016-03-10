@@ -83,11 +83,16 @@ class HeapFile {
 
     // delete the file from the database
     Status deleteFile();
-
+    
+    PageId getFirstDirPageId() const {
+        return firstDirPageId;
+    }
+    
 
   private:
     friend class Scan;
-
+    
+    
     PageId      firstDirPageId;  // page number of header page
     int         file_deleted;	 // flag for whether file is deleted (initialized to be false in constructor)
     char       *fileName;	 // heapfile name

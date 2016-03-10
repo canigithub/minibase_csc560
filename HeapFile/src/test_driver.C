@@ -87,9 +87,10 @@ void TestDriver::testFailure( Status& status, Status expectedStatus,
         status = FAIL;
         cerr << "*** " << activity << " did not return a failure status.\n";
       }
-    else if ( status != expectedStatus )
+    else if ( status != expectedStatus ) {
+        // cout << "status = " << status << " expectedStatus = " << expectedStatus << endl;
         cerr << "*** " << activity << " correctly returned a failure status,\n"
-             << "    but not the expected one.\n";
+             << "    but not the expected one.\n"; }
     else if ( postedErrExpected && !minibase_errors.error() )
         cerr << "*** " << activity << " correctly returned a failure status,\n"
              << "    but did not log the error.\n";

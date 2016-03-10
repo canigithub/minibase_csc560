@@ -28,40 +28,40 @@ static error_string_table hfTable( HEAPFILE, hfErrMsgs );
 // Constructor
 HeapFile::HeapFile( const char *name, Status& returnStatus ) {
     
-    cout << ">>> enter hf ctor." << endl;
+    // cout << ">>> enter hf ctor." << endl;
 	// We assume the file already existed
 	Status status = MINIBASE_DB->get_file_entry(name, firstDirPageId);
-    cout << ">>> get_file_entry status = " << status << " firstDirPageId = " << firstDirPageId << endl;
+    // cout << ">>> get_file_entry status = " << status << " firstDirPageId = " << firstDirPageId << endl;
     fileName = (char*) malloc(MAX_NAME * sizeof(char));
     strcpy(fileName, name);
         
 	/* If not, ask the database to allocate a new page use it for a new file entry 
        and make it a directory page */
 	if(status != OK)  {					
-        cout << ">>> create new file entry." << std::flush;			
+        // cout << ">>> create new file entry." << std::flush;			
 		HFPage *firstDirPage = NULL;
 		status = MINIBASE_DB->allocate_page(firstDirPageId, 1); CHECK_RETURN_STATUS
         // cout << "@ after ctor.alloc_page" << ',' << std::flush;
-        cout << "firstDirPageId = " << firstDirPageId << ',' << std::flush;
+        // cout << "firstDirPageId = " << firstDirPageId << ',' << std::flush;
 		status = MINIBASE_DB->add_file_entry(name, firstDirPageId); CHECK_RETURN_STATUS
         // cout << "@ after ctor.add_entry" << ',' << std::flush;
 		status = MINIBASE_BM->pinPage(firstDirPageId, (Page*&)firstDirPage); CHECK_RETURN_STATUS
         // cout << "@ after ctor.pinPage" << ',' << std::flush;
         firstDirPage->init(firstDirPageId);
         // cout << "@ after ctor.init" << ',' << std::flush;
-        cout << "fileNameSize = " << sizeof(fileName) << " name = " << name << endl << std::flush;
-        cout << "fileName = " << fileName << ' ' << &name << std::flush;
-        cout << "@ after ctor.strcpy" << endl << std::flush;
+        // cout << "fileNameSize = " << sizeof(fileName) << " name = " << name << endl << std::flush;
+        // cout << "fileName = " << fileName << ' ' << &name << std::flush;
+        // cout << "@ after ctor.strcpy" << endl << std::flush;
 		status = MINIBASE_BM->unpinPage(firstDirPageId, TRUE); CHECK_RETURN_STATUS
-        cout << "@ after ctor.unpinPage" << endl << std::flush;
+        // cout << "@ after ctor.unpinPage" << endl << std::flush;
         
 	}
-	cout << ">>> @ after if statement" << endl << std::flush;
+	// cout << ">>> @ after if statement" << endl << std::flush;
     
 	// end_of_dirPage = firstDirPageId;
 	file_deleted = 0;
 	returnStatus = OK;
-    cout << ">>> @ end of heapfile constructor" << endl << std::flush;
+    // cout << ">>> @ end of heapfile constructor" << endl << std::flush;
 }
 
 // ******************
@@ -69,17 +69,17 @@ HeapFile::HeapFile( const char *name, Status& returnStatus ) {
 HeapFile::~HeapFile()
 {
    // don't delete the file if it wasn't temporary
-   cout << ">>> enter dtor" << endl;
-   cout << "fileName = " << fileName << endl;
-   free(fileName);
+//    cout << ">>> enter dtor" << endl;
+//    cout << "fileName = " << fileName << endl;
+    free(fileName);
 //    cout << ">>> enter the destructor." << endl;
-	if(!strcmp(fileName, "")) { 
+    if(!strcmp(fileName, "")) { 
         Status status = deleteFile(); ASSERT_STATUS;
     }
     
     // cout << ">>> at the end of destructor." << endl;
     
-    cout << ">>> leave dtor" << endl;
+    // cout << ">>> leave dtor" << endl;
 }
 
 // *************************************
@@ -114,11 +114,11 @@ int HeapFile::getRecCnt()
     return num_records;
 }
 
-void checkPins(int i) {
-		if(MINIBASE_BM->getNumUnpinnedBuffers() != MINIBASE_BM->getNumBuffers())
-			printf("Warning! at time %d, %d pages are pinned\n", 
-				i, MINIBASE_BM->getNumBuffers() - MINIBASE_BM->getNumUnpinnedBuffers());
-	}
+// void checkPins(int i) {
+// 		if(MINIBASE_BM->getNumUnpinnedBuffers() != MINIBASE_BM->getNumBuffers())
+// 			printf("Warning! at time %d, %d pages are pinned\n", 
+// 				i, MINIBASE_BM->getNumBuffers() - MINIBASE_BM->getNumUnpinnedBuffers());
+// 	}
 // *****************************
 // Insert a record into the file
 Status HeapFile::insertRecord(char *recPtr, int recLen, RID& outRid)
@@ -126,6 +126,13 @@ Status HeapFile::insertRecord(char *recPtr, int recLen, RID& outRid)
     // PageId throwaway; // I see no reason why we need this information
 	// RID throwaway2;
     Status status;
+    
+    /* if recLen is longer than the size of an empty hfpage, log error */
+    if ((int)(recLen + 2*sizeof(short)) > 1004) { // 1004 is the free space of an empty hfpage 
+        minibase_errors.add_error(HEAPFILE, hfErrMsgs[4]);
+        return HEAPFILE;
+    }
+    
     PageId dummyPageId;
     RID dummyRid;
     // assume heapfile exists and firstDirPageId is valid and firstDirPage exists
@@ -174,6 +181,7 @@ Status HeapFile::insertRecord(char *recPtr, int recLen, RID& outRid)
 		}
         assert(status == DONE);
         // cout << "dirPageSize2:" << currDirPage->available_space() << "(" << currDirPageId << ")" << ' ';
+        
 		/* if currDirPage has enough space for a dpinfo record */ 
 		if(currDirPage->available_space() >= (int)(sizeof(DataPageInfo) + 2*sizeof(short))) {
             // cout << "I dir&data" << ' ';
@@ -181,7 +189,7 @@ Status HeapFile::insertRecord(char *recPtr, int recLen, RID& outRid)
 			status = newDataPage(newDataPageInfo); CHECK_STATUS
 			targetDataPageId = newDataPageInfo->pageId;
 			status = MINIBASE_BM->pinPage(targetDataPageId, (Page*&)targetDataPage); CHECK_STATUS
-			status = targetDataPage->insertRecord(recPtr, recLen, outRid); ASSERT_STATUS; /// 
+			status = targetDataPage->insertRecord(recPtr, recLen, outRid); CHECK_STATUS 
 			newDataPageInfo->recct += 1;
 			newDataPageInfo->availspace -= (recLen + 2*sizeof(short));
             assert(newDataPageInfo->availspace == targetDataPage->available_space());
@@ -198,18 +206,42 @@ Status HeapFile::insertRecord(char *recPtr, int recLen, RID& outRid)
         /* if all dirPages are full, we need to allocate a new dirPage */
 		if(nextDirPageId == -1) {
             // deal with new data page
-            // cout << "create dirPage" << ' ';
+            // cout << "> create dirPage" << endl;;
 			DataPageInfo *newDataPageInfo = (DataPageInfo*) malloc(sizeof(DataPageInfo));
 			status = newDataPage(newDataPageInfo); CHECK_STATUS
             targetDataPageId = newDataPageInfo->pageId;
             status = MINIBASE_BM->pinPage(targetDataPageId, (Page*&)targetDataPage); CHECK_STATUS
-			status = targetDataPage->insertRecord(recPtr, recLen, outRid); ASSERT_STATUS; /// 
+			status = targetDataPage->insertRecord(recPtr, recLen, outRid); ASSERT_STATUS; 
 			newDataPageInfo->recct += 1;
 			newDataPageInfo->availspace -= (recLen + 2*sizeof(short));
             assert(newDataPageInfo->availspace == targetDataPage->available_space());
             status = MINIBASE_BM->unpinPage(targetDataPageId, TRUE); CHECK_STATUS
             // deal with new directory page
-			status = allocateDirSpace(newDataPageInfo, dummyPageId, dummyRid); CHECK_STATUS ///// check here later
+			status = allocateDirSpace(newDataPageInfo, dummyPageId, dummyRid); CHECK_STATUS
+            // cout << "dummyPageId = " << dummyPageId << endl;
+            
+            /// test dirPage chain start
+            // PageId testId = dummyPageId;
+            // cout << "> file_1: " << testId << ", ";
+            // HFPage *testPage;
+            // status = MINIBASE_BM->pinPage(testId, (Page *&)testPage); if (status != OK) return status;
+            // cout << "next:" << testPage->getNextPage() << " prev:" << testPage->getPrevPage() << endl;
+            // status = MINIBASE_BM->unpinPage(testId); if (status != OK) return status;
+            
+            // HFPage *firstPage;
+            // PageId testId2 = firstDirPageId, testId3;
+            // cout << "firstDirPageId = " << firstDirPageId << endl;
+            // cout << "> file_1(2): ";
+            // while (testId2 != -1) {
+            //     cout << testId2 << ", ";
+            //     status = MINIBASE_BM->pinPage(testId2, (Page *&)firstPage); if (status != OK) return status;
+            //     testId3 = firstPage->getNextPage();
+            //     status = MINIBASE_BM->unpinPage(testId2); if (status != OK) return status;
+            //     testId2 = testId3;
+            // }
+            
+            /// end
+             
 			return OK;
 		} else { // if nextDirPage exists
             currDirPageId = nextDirPageId;
@@ -223,7 +255,7 @@ Status HeapFile::insertRecord(char *recPtr, int recLen, RID& outRid)
 // delete record from file
 Status HeapFile::deleteRecord (const RID& rid)
 {
-    if (file_deleted) return FAIL; ///// check this later
+    if (file_deleted) return FAIL; 
     PageId dirPageId, dataPageId;
     HFPage *dirPage, *dataPage, *prevDirPage, *nextDirPage;
     RID dataPageRid;
@@ -304,7 +336,11 @@ Status HeapFile::updateRecord (const RID& rid, char *recPtr, int recLen)
     if (dirPage == NULL || dataPage == NULL) return FAIL;
     status = dataPage->returnRecord(rid, dummyPtr, len); CHECK_STATUS
     /* if the updated record length is not equal to the original, return FAIL */
-    if (len != recLen) return FAIL;
+    if (len != recLen) {
+        // hfTable(HEAPFILE, hfErrMsgs[3]);
+        minibase_errors.add_error(HEAPFILE, hfErrMsgs[3]);
+        return HEAPFILE;
+    }
     memcpy(dummyPtr, recPtr, len);
     status = MINIBASE_BM->unpinPage(dataPageId); CHECK_STATUS
     status = MINIBASE_BM->unpinPage(dirPageId); CHECK_STATUS        
@@ -318,10 +354,13 @@ Status HeapFile::getRecord (const RID& rid, char *recPtr, int& recLen)
     PageId dirPageId, dataPageId;
     HFPage *dirPage, *dataPage;
     RID retRid;
-    Status status = findDataPage(rid, dirPageId, dirPage, dataPageId, dataPage, retRid);
-		CHECK_STATUS
+    Status status;
+    status = findDataPage(rid, dirPageId, dirPage, dataPageId, dataPage, retRid); CHECK_STATUS
     if (dirPage == NULL || dataPage == NULL) return FAIL;
-    return dataPage->getRecord(rid, recPtr, recLen);
+    Status ret_status =  dataPage->getRecord(rid, recPtr, recLen);
+    status = MINIBASE_BM->unpinPage(dataPageId); CHECK_STATUS
+    status = MINIBASE_BM->unpinPage(dirPageId); CHECK_STATUS        
+    return ret_status;
 }
 
 // **************************
@@ -336,33 +375,43 @@ Scan *HeapFile::openScan(Status& status)
 // ****************************************************
 // Wipes out the heapfile from the database permanently. 
 Status HeapFile::deleteFile()
-{
-    if (file_deleted) return FAIL; // is a delete file still existing?
-    file_deleted = 1;
-    HFPage *currDirPage = NULL;
-    Status status = MINIBASE_BM->pinPage(firstDirPageId, (Page*&)currDirPage); CHECK_STATUS
-    PageId currDirPageId = firstDirPageId;
-    PageId nextDirPageId = currDirPage->getNextPage();
-    PageId currDataPageId;
-    RID currRid, nextRid;
+{   
+    // cout << "> enter deleteFile()" << endl << flush;
+    if (file_deleted) {
+        minibase_errors.add_error(HEAPFILE, hfErrMsgs[8]);
+        return HEAPFILE; // is a delete file still existing?
+    }
+    Status status;
+    HFPage *currDirPage;
+    PageId currDirPageId = firstDirPageId, nextDirPageId, currDataPageId;
+    RID currDataPageRid, nextDataPageRid;
     DataPageInfo *dpinfop = NULL;
     int recLen;
     
-    while(currDirPageId != -1) {
-        status = currDirPage->firstRecord(currRid);
+    while (currDirPageId != -1) {
+        // cout << "In dirPageId = " << currDirPageId << endl; 
+        status = MINIBASE_BM->pinPage(currDirPageId, (Page *&) currDirPage); CHECK_STATUS
+        status = currDirPage->firstRecord(currDataPageRid); 
         while (status == OK) {
-            status = currDirPage->getRecord(currRid, (char *) dpinfop, recLen); CHECK_STATUS
+            status = currDirPage->returnRecord(currDataPageRid, (char *&)dpinfop, recLen); CHECK_STATUS
             assert(recLen == sizeof(DataPageInfo));
             currDataPageId = dpinfop->pageId;
             status = MINIBASE_DB->deallocate_page(currDataPageId); CHECK_STATUS
-            status = currDirPage->nextRecord(currRid, nextRid);
-            currRid = nextRid;
+            // cout << "@ after deallocate_page()" << endl;
+            status = currDirPage->nextRecord(currDataPageRid, nextDataPageRid);
+            // cout << "next record in dir page. status = " << status << endl;
+            currDataPageRid = nextDataPageRid;
         }
+        // cout << "out of inner while loop. status = " << status << endl;
+        assert(status == DONE);
         nextDirPageId = currDirPage->getNextPage();
         status = MINIBASE_DB->deallocate_page(currDirPageId); CHECK_STATUS
+        status = MINIBASE_BM->unpinPage(firstDirPageId); CHECK_STATUS
         currDirPageId = nextDirPageId;
     }
-		return OK;
+    
+    file_deleted = 1;
+	return OK;
 }
 
 // ****************************************************************
@@ -448,9 +497,10 @@ Status HeapFile::allocateDirSpace(struct DataPageInfo * dpinfop,
                             PageId &allocDirPageId,
                             RID &allocDataPageRid)
 {
-    // cout << "now alloc new dirPage" << ' ';
+    // cout << "> enter allocateDirSpace()" << ' ';
     Status status;
-    HFPage *allocDirPage, *dummyDirPage;
+    HFPage *dummyDirPage;
+    HFPage *allocDirPage = (HFPage *) malloc(sizeof(HFPage));
     PageId nextDirPageId;
     status = MINIBASE_DB->allocate_page(allocDirPageId, 1); CHECK_STATUS
     status = MINIBASE_BM->pinPage(allocDirPageId, (Page*&)allocDirPage); CHECK_STATUS
@@ -472,6 +522,13 @@ Status HeapFile::allocateDirSpace(struct DataPageInfo * dpinfop,
     }
     assert(lastDirPageId != -1);
     allocDirPage->setPrevPage(lastDirPageId);
+    allocDirPage->setNextPage(-1);
+    // cout << "> prev dirPage = " << allocDirPage->getPrevPage() << ' ';
+    // cout << "> new dirPage = " << allocDirPageId << ' ';
+    // cout << "> next dirPage = " << allocDirPage->getNextPage() << endl;
+    // if (allocDirPageId == 66) {
+    //     cout << "currDirPageId = 66, nextDirPageId = " << allocDirPage->getNextPage() << endl;
+    // }
     status = allocDirPage->insertRecord((char*)dpinfop, sizeof(DataPageInfo), allocDataPageRid); CHECK_STATUS
     // cout << "size of new dirPage2:" << allocDirPage->available_space() << ' ';
 	status = MINIBASE_BM->unpinPage(allocDirPageId, TRUE); CHECK_STATUS

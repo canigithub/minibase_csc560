@@ -98,7 +98,7 @@ int HeapDriver::test1()
 
             if (status != OK) {
                 cerr << "*** Error inserting record " << i << endl;
-								printf("Status %d\n", status);
+				printf("Status %d\n", status);
             } else if ( MINIBASE_BM->getNumUnpinnedBuffers()
                             != MINIBASE_BM->getNumBuffers() ) {
                 cerr << "*** Insertion left a page pinned\n";
@@ -113,6 +113,22 @@ int HeapDriver::test1()
                  << choice << endl;
           }
       }
+
+//       cout << "after insertion 2000 finished" << endl;
+      
+//     PageId firstDirPageId = f.getFirstDirPageId(), nextId;
+//     cout << ">file_1: ";
+//     HFPage *firstDirPage;
+//     while (firstDirPageId != -1) {
+//         cout << firstDirPageId << ", ";
+//         status = MINIBASE_BM->pinPage(firstDirPageId, (Page *&)firstDirPage); if (status != OK) return status;
+//         nextId = firstDirPage->getNextPage();
+//         status = MINIBASE_BM->unpinPage(firstDirPageId); if (status != OK) return status;    
+//         firstDirPageId = nextId;
+//     }
+//     cout << endl;
+    
+//    cout << "finish test1 tests" << endl;
 
 
       // In general, a sequential scan won't be in the same order as the
@@ -142,7 +158,8 @@ int HeapDriver::test1()
         Rec rec;
         // cout << "ready to sacn:" << endl;
         while ( (status = scan->getNext(rid, (char *)&rec, len)) == OK )
-          {  
+          {
+            //   cout << endl << "(" << rid.pageNo << "," << rid.slotNo <<")";  
 			if ( len != reclen )
               {
                 cerr << "*** Record " << i << " had unexpected length " << len
@@ -202,8 +219,6 @@ int HeapDriver::test1()
 
     if ( status == OK )
         cout << "  Test 1 completed successfully.\n"; 
-    cout << "# unpined buf = " << MINIBASE_BM->getNumUnpinnedBuffers() << endl; 
-    cout << "# bufs = " << MINIBASE_BM->getNumBuffers() << endl;
     
     return (status == OK);
     // return OK;
@@ -322,8 +337,8 @@ int HeapDriver::test2()
     if ( status == OK )
         cout << "  Test 2 completed successfully.\n";
         
-    cout << "# unpined buf = " << MINIBASE_BM->getNumUnpinnedBuffers() << endl; 
-    cout << "# bufs = " << MINIBASE_BM->getNumBuffers() << endl;
+    // cout << "# unpined buf = " << MINIBASE_BM->getNumUnpinnedBuffers() << endl; 
+    // cout << "# bufs = " << MINIBASE_BM->getNumBuffers() << endl;
     
     return (status == OK);
     // return OK;
@@ -427,14 +442,27 @@ int HeapDriver::test3()
         if ( status == DONE )
             status = OK;
       }
-
+      
+      
+      
     delete scan;
   
     if ( status == OK )
         cout << "  Test 3 completed successfully.\n";
     
-    cout << "# unpined buf = " << MINIBASE_BM->getNumUnpinnedBuffers() << endl; 
-    cout << "# bufs = " << MINIBASE_BM->getNumBuffers() << endl;
+    // cout << "# unpined buf = " << MINIBASE_BM->getNumUnpinnedBuffers() << endl; 
+    // cout << "# bufs = " << MINIBASE_BM->getNumBuffers() << endl;
+    
+    // PageId firstDirPageId = f.getFirstDirPageId();
+    // cout << ">file_1: ";
+    // HFPage *firstDirPage;
+    // status = MINIBASE_BM->pinPage(firstDirPageId, (Page *&)firstDirPage); if (status != OK) return status;
+    // while (firstDirPageId != -1) {
+    //     firstDirPageId = firstDirPage->getNextPage();
+    //     cout << firstDirPageId << ", ";
+    // }
+    // cout << endl;
+    // status = MINIBASE_BM->unpinPage(firstDirPageId); if (status != OK) return status;
     
     return (status == OK);
     // return OK;
@@ -453,8 +481,8 @@ int HeapDriver::test4()
     cout << "  - Create a heap file\n";
     HeapFile f( "file_2", status );
     
-    cout << "# unpined buf = " << MINIBASE_BM->getNumUnpinnedBuffers() << endl; 
-    cout << "# bufs = " << MINIBASE_BM->getNumBuffers() << endl;
+    // cout << "# unpined buf = " << MINIBASE_BM->getNumUnpinnedBuffers() << endl; 
+    // cout << "# bufs = " << MINIBASE_BM->getNumBuffers() << endl;
     
    if (status != OK)
         cerr << "*** Could not create heap file\n";
@@ -564,11 +592,15 @@ int HeapDriver::test5()
         int len;
         Rec rec;
         status = scan->getNext(rid, (char *)&rec, len);
+        // cout << "(" << rid.pageNo << "," << rid.slotNo << ")" << " : ";
+        // cout << "ival = " << rec.ival << " fval = " << rec.fval << " name = " << rec.name << endl; 
+        // cout << "status = " << status << endl;
         if ( status != OK )
             cerr << "*** Error reading first record\n";
         else
           {
             status = f.updateRecord( rid, (char*)&rec, len-1 );
+            // cout << "@ after f.updateRec, status = " << status << endl;
             testFailure( status, HEAPFILE, "Shortening a record" );
             if ( status == OK )
               {
