@@ -2,7 +2,6 @@
 /////////////  The Header File for the Buffer Manager /////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-
 #ifndef BUF_H
 #define BUF_H
 
@@ -26,11 +25,58 @@ enum bufErrCodes  {HASHMEMORY, HASHDUPLICATEINSERT, HASHREMOVEERROR, HASHNOTFOUN
 
 class Replacer; // may not be necessary as described below in the constructor
 
+struct BufDescr {
+    
+    PageId  pageid;
+    int     pincount;
+    int     dirty;
+    int     love;
+    BufDescr(PageId pid=-1, int pcnt=0, int d=0, int l=0) : 
+        pageid(pid), pincount(pcnt), dirty(d), love(l) {}
+    ~BufDescr() {}                                
+}
+
+// <page number, frame number> pair
+struct PageToFrameHashEntry {
+    
+    PageId  pageid;
+    int     frameid;
+    PageToFrameHashEntry* next;
+    PageToFrameHashEntry* prev;
+    PageToFrameHashEntry(PageId pid, int fid) : 
+        pageid(pid), frameid(fid), next(NULL), prev(NULL) {}
+    ~PageToFrameHashEntry() {}
+}
+
+// Linkedlist for love/hate lists.
+struct RListNode {
+    
+    int    frameid;
+    PageId pageid;
+    ListNode* next;
+    ListNode* prev;
+    ListNode(int fid) : 
+        frameid(fid), pageid(-1), next(NULL), prev(NULL) {}
+    ~ListNode() {}
+}
+
 class BufMgr {
 
 private: 
    unsigned int    numBuffers;
    // fill in this area
+   BufDescr** bufDescr;
+   PageToFrameHashEntry** htDir;
+   RListNode* RLHead;
+   RListNode* RLTail;
+   
+   int hash(PageId pid) {
+       return pid % HTSIZE;
+   }
+   
+   void buildReplacementList();
+   int lookUpFrameid(PageId pageid);
+   
 public:
     Page* bufPool; // The actual buffer pool
 

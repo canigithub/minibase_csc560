@@ -4,7 +4,9 @@
 
 
 #include "buf.h"
+#include <assert.h>
 
+#define CHECK_STATUS if (status != OK) {return status;}
 
 // Define buffer manager error messages here
 //enum bufErrCodes  {...};
@@ -36,6 +38,20 @@ static error_string_table bufTable(BUFMGR,bufErrMsgs);
 
 BufMgr::BufMgr (int numbuf, Replacer *replacer) {
   // put your code here
+  numBuffers = numbuf;
+  bufPool = (Page*)malloc(numbuf * sizeof(Page));
+  
+  bufDescr = new BufDescr*[numbuf];
+  for (int i = 0; i < numbuf; ++i) {
+      bufDescr[i] = new BufDescr();
+  }
+  
+  htDir = (PageToFrameHashEntry**)malloc(HTSIZE * sizeof(PageToFrameHashEntry*));
+  for (int i = 0; i < HTSIZE; ++i) {
+      htDir[i] = NULL;
+  }
+  
+  buildReplacementList();
 }
 
 //*************************************************************
@@ -45,11 +61,74 @@ BufMgr::~BufMgr(){
   // put your code here
 }
 
+void BufMgr::buildReplacementList() {
+    RLHead = new RListNode(0);
+    RListNode* curListNode = RLHead;
+    for (int i = 1; i < numBuffers; ++i) {
+        curListNode->next = new RListNode(i);
+        curListNode->next->prev = curListNode;
+        curListNode = curListNode->next;
+    }
+    RLTail = curListNode;
+}
+
+int BufMgr::lookUpFrameid(PageId pageid) {
+    int htIndex = hash(pageid);
+    PageToFrameHashEntry* curEntry = htDir[htIndex];
+    while (curEntry) {
+          if (curEntry->pageid == pageid) {
+              return curEntry->frameid;
+          }
+          curEntry = curEntry->next;
+      }
+      return -1; // return invalid frameid
+}
+
 //*************************************************************
 //** This is the implementation of pinPage
 //************************************************************
 Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage) {
-  // put your code here
+  
+  Status status;
+  
+  int frameid = lookUpFrameid(PageId_in_a_DB);
+  if (frameid != -1) {
+      ++(bufDescr[frameid]->pincount);
+      page = bufPool[frameid];
+      if (!emptyPage) {
+            status = MINIBASE_DB->read_page(PageId_in_a_DB, page); 
+            CHECK_STATUS
+        } 
+        return OK;
+  }
+  
+  // if the page is not in bufPool means in RList
+  RListNode* curRListNode = RLHead;
+  if (!curRListNode) {
+      minibase_errors.add_error(QEMPTY, bufErrMsgs[5]);
+      return QEMPTY;
+  }
+  
+  RLHead = RLHead->next;
+  
+  frameid = curRListNode->frameid;
+  delete curRListNode;
+  
+  if (bufDescr[frameid]->dirty) {
+      flushPage(bufDescr[frameid]->pageid);
+  }
+  
+  assert(bufDescr[frameid]->pincount == 0);
+  
+  ++(bufDescr[frameid]->pincount);
+  bufDescr[frameid]->pageid = PageId_in_a_DB;
+  bufDescr[frameid]->dirty = 0;
+  bufDescr[frameid]->love = 0;
+  page = bufPool[frameid];
+  if (!emptyPage) {
+        status = MINIBASE_DB->read_page(PageId_in_a_DB, page); 
+        CHECK_STATUS
+  }  
   return OK;
 }//end pinPage
 
@@ -57,7 +136,35 @@ Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage) {
 //** This is the implementation of unpinPage
 //************************************************************
 Status BufMgr::unpinPage(PageId page_num, int dirty=FALSE, int hate = FALSE){
-  // put your code here
+  
+  Status status;
+  int frameid = lookUpFrameid(page_num);
+  if (frameid == -1) {
+      minibase_errors.add_error(BUFFERPAGENOTFOUND, bufErrMsgs[9]);
+      return BUFFERPAGENOTFOUND;
+  }
+  
+  if (bufDescr[frameid]->pincount <= 0) {
+      minibase_errors.add_error(BUFFERPAGENOTPINNED, bufErrMsgs[10]);
+      return BUFFERPAGENOTPINNED;
+  }
+  
+  --(bufDescr[frameid]->pincount);
+  if (!hate) bufDescr[frameid]->love = 1; 
+  
+  if (bufDescr[frameid]->pincount == 0) {
+      RListNode* newNode = new RListNode(frameid);
+      if (bufDescr[frameid]->love) {
+          newNode->prev = RLTail;
+          RLTail->next = newNode;
+          RLTail = newNode;
+      } else {
+          newNode->next = RLHead;
+          RLHead->prev = newNode;
+          RLHead = newNode;
+      }
+  }
+  
   return OK;
 }
 

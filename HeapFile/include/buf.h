@@ -114,7 +114,7 @@ class BufMgr {
                                 // An array of Descriptors one per frame.
     FrameDesc      *frmeTable;  // [numBuffers]
 
-    Replacer       *replacer;
+    Replacer       *replacer;r
 
     // Factor out the common code for the two versions of Flush
     Status privFlushPages(int pageid, int all_pages=0);
