@@ -33,6 +33,8 @@ BMTester::~BMTester()
 
 int BMTester::test1() 
 {
+	setbuf(stdout, NULL);
+	printf("In BMTester::test1()\n");
 	Status st;
 	Page*	pg;
 	int	first,last;

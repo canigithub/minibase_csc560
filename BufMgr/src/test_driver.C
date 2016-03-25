@@ -110,8 +110,12 @@ void TestDriver::testFailure( Status& status, Status expectedStatus,
 
 void TestDriver::runTest( Status& status, TestDriver::testFunction test )
 {
+		
+		printf("In runTest\n");
     minibase_errors.clear_errors();
+		printf("Cleared errors\n");
     int result = (this->*test)();
+		printf("Finished a test\n");
     if ( !result || minibase_errors.error() )
       {
         status = FAIL;
@@ -192,6 +196,9 @@ Status TestDriver::runTests()
 Status TestDriver::runAllTests()
 {
     Status answer = OK;
+		printf("Sanity check: in runAllTests\n");
+		setbuf(stdout, NULL);
+		printf("?\n");
     runTest( answer, &TestDriver::test1 );
     runTest( answer, &TestDriver::test2 );
     runTest( answer, &TestDriver::test3 );
