@@ -25,6 +25,7 @@ enum bufErrCodes  {HASHMEMORY, HASHDUPLICATEINSERT, HASHREMOVEERROR, HASHNOTFOUN
 
 class Replacer; // may not be necessary as described below in the constructor
 
+typedef struct BufDescr BufDescr;
 struct BufDescr {
     
     PageId  pageid;
@@ -34,9 +35,10 @@ struct BufDescr {
     BufDescr(PageId pid=-1, int pcnt=0, int d=0, int l=0) : 
         pageid(pid), pincount(pcnt), dirty(d), love(l) {}
     ~BufDescr() {}                                
-}
+};
 
 // <page number, frame number> pair
+typedef struct PageToFrameHashEntry PageToFrameHashEntry;
 struct PageToFrameHashEntry {
     
     PageId  pageid;
@@ -46,19 +48,20 @@ struct PageToFrameHashEntry {
     PageToFrameHashEntry(PageId pid, int fid) : 
         pageid(pid), frameid(fid), next(NULL), prev(NULL) {}
     ~PageToFrameHashEntry() {}
-}
+};
 
 // Linkedlist for love/hate lists.
+typedef struct RListNode RListNode;
 struct RListNode {
     
     int    frameid;
     PageId pageid;
-    ListNode* next;
-    ListNode* prev;
-    ListNode(int fid) : 
+    RListNode* next;
+    RListNode* prev;
+    RListNode(int fid) : 
         frameid(fid), pageid(-1), next(NULL), prev(NULL) {}
-    ~ListNode() {}
-}
+    ~RListNode() {}
+};
 
 class BufMgr {
 
@@ -88,7 +91,9 @@ public:
 
     ~BufMgr();           // Flush all valid dirty pages to disk
 
-    Status pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage);
+		// said it was OK on Piazza
+    // Status pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage);
+		Status pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage);
         // Check if this page is in buffer pool, otherwise
         // find a frame for this page, read in and pin it.
         // also write out the old page if it's dirty before reading
@@ -119,11 +124,13 @@ public:
 	// Flush all pages of the buffer pool to disk, as per flushPage.
 
     /*** Methods for compatibility with project 1 ***/
-    Status pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage, const char *filename);
+		Status pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage, const char *filename);
+    //Status pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage, const char *filename=NULL);
 	// Should be equivalent to the above pinPage()
 	// Necessary for backward compatibility with project 1
-
-    Status unpinPage(PageId globalPageId_in_a_DB, int dirty, const char *filename);
+	
+		Status unpinPage(PageId globalPageId_in_a_DB, int dirty, const char *filename);
+		//Status unpinPage(PageId globalPageId_in_a_DB, int dirty=FALSE, const char *filename=NULL); 
 	// Should be equivalent to the above unpinPage()
 	// Necessary for backward compatibility with project 1
     

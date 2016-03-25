@@ -24,7 +24,7 @@ SRCS = main.C buf.C BMTester.C test_driver.C \
 OBJS = $(SRCS:.C=.o)
 
 $(MAIN):  $(OBJS)
-	 $(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(MAIN) $(LFLAGS)
+	 $(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -g -o $(MAIN) $(LFLAGS)
 
 .C.o:
 	$(CC) $(CFLAGS) $(INCLUDES) $(LFLAGS) -c $<

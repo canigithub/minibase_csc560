@@ -5,6 +5,7 @@
 
 #include "buf.h"
 #include <assert.h>
+#include <csignal>
 
 #define CHECK_STATUS if (status != OK) {return status;}
 
@@ -73,6 +74,7 @@ void BufMgr::buildReplacementList() {
 }
 
 int BufMgr::lookUpFrameid(PageId pageid) {
+		//std::raise(SIGINT);
     int htIndex = hash(pageid);
     PageToFrameHashEntry* curEntry = htDir[htIndex];
     while (curEntry) {
@@ -87,6 +89,7 @@ int BufMgr::lookUpFrameid(PageId pageid) {
 //*************************************************************
 //** This is the implementation of pinPage
 //************************************************************
+// Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage=FALSE) {
 Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage) {
   
   Status status;
@@ -140,6 +143,7 @@ Status BufMgr::unpinPage(PageId page_num, int dirty=FALSE, int hate = FALSE){
   //Status status;
   int frameid = lookUpFrameid(page_num);
   if (frameid == -1) {
+			printf("1\n");
       minibase_errors.add_error(BUFMGR, bufErrMsgs[9]);
       return BUFMGR;
   }
@@ -202,8 +206,9 @@ Status BufMgr::flushAllPages(){
 
 
 /*** Methods for compatibility with project 1 ***/
-Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage=0, const char *filename=NULL){
-  
+// Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage=0, const char *filename=NULL){
+Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage, const char *filename){
+
   Status status;
   
   int frameid = lookUpFrameid(PageId_in_a_DB);
@@ -250,11 +255,14 @@ Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage=0, cons
 //*************************************************************
 //** This is the implementation of unpinPage
 //************************************************************
+// Status BufMgr::unpinPage(PageId globalPageId_in_a_DB, int dirty, const char *filename=NULL){
 Status BufMgr::unpinPage(PageId globalPageId_in_a_DB, int dirty, const char *filename=NULL){
   
+
   //Status status;
   int frameid = lookUpFrameid(globalPageId_in_a_DB);
   if (frameid == -1) {
+			printf("2\n");
       minibase_errors.add_error(BUFMGR, bufErrMsgs[9]);
       return BUFMGR;
   }
