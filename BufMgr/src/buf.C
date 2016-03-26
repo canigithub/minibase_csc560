@@ -86,6 +86,50 @@ int BufMgr::lookUpFrameid(PageId pageid) {
       return -1; // return invalid frameid
 }
 
+void BufMgr::addToPFHash(PageId pageid, int frameid) {
+	PageToFrameHashEntry* newEntry = malloc(sizeof(PageToFrameHashEntry));
+	newEntry->pageid = pageid;
+	newEntry->frameid = frameid;
+	newEntry->next = NULL;
+	newEntry->prev = NULL;
+
+  int htIndex = hash(pageid);
+	PageToFrameHashEntry* curr = htDir[htIndex];
+
+	if((htDir[htindex]) = NULL) {
+		htDir[htindex] = newEntry;
+	} else {
+		while(curr->next) {
+			curr = curr->next;
+		}
+		curr->next = newEntry;
+		newEntry->prev = curr;
+	}
+
+}
+
+Status BufMgr::removeFromPFHashTable(PageId pageid) {
+	int htIndex = hash(pageid);
+	PageToFrameHashEntry* curr = htDir[htIndex]; 
+	if(!curr) {
+      minibase_errors.add_error(BUFMGR, bufErrMsgs[5]);			// TODO: change this number so it's meaningful
+			return BUFMGR;
+	}
+	while(curr->next && curr->pageid != pageid)
+		curr = curr->next;
+
+	if(curr->pageid != pageid) {
+      minibase_errors.add_error(BUFMGR, bufErrMsgs[5]);			// TODO: change this number so it's meaningful
+			return BUFMGR;
+	}
+
+	curr->prev->next = curr->next;
+	if(curr->next)
+		curr->next->prev = curr->prev;
+	free(curr);
+
+}
+
 //*************************************************************
 //** This is the implementation of pinPage
 //************************************************************
@@ -116,6 +160,9 @@ Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage) {
   
   frameid = curRListNode->frameid;
   delete curRListNode;
+
+
+	addToPFHash(PageId_in_a_DB, frameid);
   
   if (bufDescr[frameid]->dirty) {
       flushPage(bufDescr[frameid]->pageid);
@@ -168,6 +215,9 @@ Status BufMgr::unpinPage(PageId page_num, int dirty=FALSE, int hate = FALSE){
           RLHead = newNode;
       }
   }
+
+	status = removeFromPFHashTable(pageid);
+	CHECK_STATUS
   
   return OK;
 }
@@ -233,6 +283,7 @@ Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage, const 
   
   frameid = curRListNode->frameid;
   delete curRListNode;
+	addToPFHash(PageId_in_a_DB, frameid);
   
   if (bufDescr[frameid]->dirty) {
       flushPage(bufDescr[frameid]->pageid);
@@ -280,6 +331,9 @@ Status BufMgr::unpinPage(PageId globalPageId_in_a_DB, int dirty, const char *fil
       RLHead->prev = newNode;
       RLHead = newNode;
   }
+
+	status = removeFromPFHashTable(pageid);
+	CHECK_STATUS
   
   return OK;
 }
