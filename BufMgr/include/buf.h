@@ -79,6 +79,8 @@ private:
    
    void buildReplacementList();
    int lookUpFrameid(PageId pageid);
+	 void addToPFHash(PageID pageid, int frameid);
+ 	 Status removeFromPFHashTable(PageId pageid) {
    
 public:
     Page* bufPool; // The actual buffer pool
