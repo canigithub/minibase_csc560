@@ -196,9 +196,6 @@ Status TestDriver::runTests()
 Status TestDriver::runAllTests()
 {
     Status answer = OK;
-		printf("Sanity check: in runAllTests\n");
-		setbuf(stdout, NULL);
-		printf("?\n");
     runTest( answer, &TestDriver::test1 );
     runTest( answer, &TestDriver::test2 );
     runTest( answer, &TestDriver::test3 );

@@ -87,17 +87,13 @@ int BufMgr::lookUpFrameid(PageId pageid) {
 }
 
 void BufMgr::addToPFHash(PageId pageid, int frameid) {
-	PageToFrameHashEntry* newEntry = malloc(sizeof(PageToFrameHashEntry));
-	newEntry->pageid = pageid;
-	newEntry->frameid = frameid;
-	newEntry->next = NULL;
-	newEntry->prev = NULL;
+	PageToFrameHashEntry* newEntry = new PageToFrameHashEntry(pageid, frameid);
 
   int htIndex = hash(pageid);
 	PageToFrameHashEntry* curr = htDir[htIndex];
 
-	if((htDir[htindex]) = NULL) {
-		htDir[htindex] = newEntry;
+	if((htDir[htIndex]) == NULL) {
+		htDir[htIndex] = newEntry;
 	} else {
 		while(curr->next) {
 			curr = curr->next;
@@ -106,7 +102,6 @@ void BufMgr::addToPFHash(PageId pageid, int frameid) {
 		newEntry->prev = curr;
 	}
 
-	free(curr);
 
 }
 
@@ -144,7 +139,8 @@ Status BufMgr::removeFromPFHashTable(PageId pageid) {
 	if(!curr->next && !curr->prev)
 		htDir[htIndex] = NULL;
 
-	free(curr);
+	delete(curr);
+	return OK;
 
 }
 
@@ -205,7 +201,7 @@ Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage) {
 //************************************************************
 Status BufMgr::unpinPage(PageId page_num, int dirty=FALSE, int hate = FALSE){
   
-  //Status status;
+  Status status;
   int frameid = lookUpFrameid(page_num);
   if (frameid == -1) {
 			printf("1\n");
@@ -234,7 +230,7 @@ Status BufMgr::unpinPage(PageId page_num, int dirty=FALSE, int hate = FALSE){
       }
   }
 
-	status = removeFromPFHashTable(pageid);
+	status = removeFromPFHashTable(page_num);
 	CHECK_STATUS
   
   return OK;
@@ -328,7 +324,7 @@ Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage, const 
 Status BufMgr::unpinPage(PageId globalPageId_in_a_DB, int dirty, const char *filename=NULL){
   
 
-  //Status status;
+  Status status;
   int frameid = lookUpFrameid(globalPageId_in_a_DB);
   if (frameid == -1) {
 			printf("2\n");
@@ -350,7 +346,7 @@ Status BufMgr::unpinPage(PageId globalPageId_in_a_DB, int dirty, const char *fil
       RLHead = newNode;
   }
 
-	status = removeFromPFHashTable(pageid);
+	status = removeFromPFHashTable(globalPageId_in_a_DB);
 	CHECK_STATUS
   
   return OK;

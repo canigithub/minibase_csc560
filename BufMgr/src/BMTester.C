@@ -43,40 +43,40 @@ int BMTester::test1()
 	last = first + NUMBUF + 5;
 
 	cout << "--------------------- Test 1 ----------------------\n";
-        st = OK;
+    st = OK;
 	for (int i=first;i<=last;i++){
 		if (MINIBASE_BM->pinPage(i,pg,0)!=OK)  {
        		        st = FAIL;
 			MINIBASE_SHOW_ERRORS();
-        	}
-        	cout<<"after pinPage" << i <<endl;
+       	}
+       	cout<<"after pinPage" << i <<endl;
 		sprintf(data,"This is test 1 for page %d\n",i);
 		strcpy((char*)pg,data);
 		if (MINIBASE_BM->unpinPage(i,1,0)!=OK) {
-            		st = FAIL;
+        	st = FAIL;
 			MINIBASE_SHOW_ERRORS();
-        	}
-        	cout<<"after unpinPage"<< i << endl;
-    	}
+       	}
+       	cout<<"after unpinPage"<< i << endl;
+   	}
 
 	cout << "\n" << endl;
 
-    	for (int i=first;i<=last;i++){
-       		if (MINIBASE_BM->pinPage(i,pg,0)!=OK) {
-            		st = FAIL;
+   	for (int i=first;i<=last;i++){
+   		if (MINIBASE_BM->pinPage(i,pg,0)!=OK) {
+       		st = FAIL;
 			MINIBASE_SHOW_ERRORS();
-        	}
-        	cout<<"PAGE["<<i<<"]: "<<(char *)pg;
-        	sprintf(data,"This is test 1 for page %d\n",i);
-        	if (strcmp(data,(char*)pg)) {
-            		st = FAIL;
-            		cerr << "Error: page content incorrect!\n";
-        	}
-        	if (MINIBASE_BM->unpinPage(i,FALSE,FALSE)!=OK)  {
-            		st = FAIL;
+       	}
+       	cout<<"PAGE["<<i<<"]: "<<(char *)pg;
+       	sprintf(data,"This is test 1 for page %d\n",i);
+       	if (strcmp(data,(char*)pg)) {
+       		st = FAIL;
+       		cerr << "Error: page content incorrect!\n";
+       	}
+       	if (MINIBASE_BM->unpinPage(i,FALSE,FALSE)!=OK)  {
+       		st = FAIL;
 			MINIBASE_SHOW_ERRORS();
-        	}
-        }
+       	}
+    }
 	minibase_errors.clear_errors();
 	return st == OK;
 }
