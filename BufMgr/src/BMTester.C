@@ -50,6 +50,7 @@ int BMTester::test1()
 			MINIBASE_SHOW_ERRORS();
        	}
        	cout<<"after pinPage" << i <<endl;
+		printf("page points to %ld\n", pg); 
 		sprintf(data,"This is test 1 for page %d\n",i);
 		strcpy((char*)pg,data);
 		if (MINIBASE_BM->unpinPage(i,1,0)!=OK) {
@@ -68,6 +69,7 @@ int BMTester::test1()
        	}
        	cout<<"PAGE["<<i<<"]: "<<(char *)pg;
        	sprintf(data,"This is test 1 for page %d\n",i);
+				printf("Stored content: %s\n", (char*)pg);
        	if (strcmp(data,(char*)pg)) {
        		st = FAIL;
        		cerr << "Error: page content incorrect!\n";
