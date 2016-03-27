@@ -106,26 +106,44 @@ void BufMgr::addToPFHash(PageId pageid, int frameid) {
 		newEntry->prev = curr;
 	}
 
+	free(curr);
+
 }
+
+// called from unpinPage
 
 Status BufMgr::removeFromPFHashTable(PageId pageid) {
 	int htIndex = hash(pageid);
 	PageToFrameHashEntry* curr = htDir[htIndex]; 
+
+	// bucket is empty
 	if(!curr) {
-      minibase_errors.add_error(BUFMGR, bufErrMsgs[5]);			// TODO: change this number so it's meaningful
+      minibase_errors.add_error(BUFMGR, bufErrMsgs[2]);
 			return BUFMGR;
 	}
+
+	// advance to correct entry, stop if we reach the end
 	while(curr->next && curr->pageid != pageid)
 		curr = curr->next;
 
+	// page was not in the hash table
 	if(curr->pageid != pageid) {
-      minibase_errors.add_error(BUFMGR, bufErrMsgs[5]);			// TODO: change this number so it's meaningful
+      minibase_errors.add_error(BUFMGR, bufErrMsgs[4]);	
 			return BUFMGR;
 	}
 
-	curr->prev->next = curr->next;
+	// if curr is not the first entry in the table...
+	if(curr->prev)
+		curr->prev->next = curr->next;
+
+	// if curr is not the last entry in the table...
 	if(curr->next)
 		curr->next->prev = curr->prev;
+
+	// curr is the only entry in the hash table
+	if(!curr->next && !curr->prev)
+		htDir[htIndex] = NULL;
+
 	free(curr);
 
 }
