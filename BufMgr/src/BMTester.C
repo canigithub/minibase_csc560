@@ -148,6 +148,7 @@ int BMTester::test2()
             st = FAIL;
             MINIBASE_SHOW_ERRORS();
         }
+
         cout << "Page " << i+5 <<" pinned in frame "<< j <<endl;
         if (j != frame[i-NUMBUF-1]) {
             st = FAIL;

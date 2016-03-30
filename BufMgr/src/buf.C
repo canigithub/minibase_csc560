@@ -38,7 +38,6 @@ static error_string_table bufTable(BUFMGR,bufErrMsgs);
 //************************************************************
 
 BufMgr::BufMgr (int numbuf, Replacer *replacer) {
-  // put your code here
   numBuffers = numbuf;
   bufPool = (Page*)malloc(numbuf * sizeof(Page));
   
@@ -214,11 +213,12 @@ Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage) {
   // if the page is not in bufPool means in RList
   RListNode* curRListNode = RLHead;
   if (!curRListNode) {
-      minibase_errors.add_error(BUFMGR, bufErrMsgs[5]);
+      minibase_errors.add_error(BUFMGR, bufErrMsgs[7]);
       return BUFMGR;
   }
 
 	//printf("Using buffer pool frame %d for page %d\n", curRListNode->frameid, PageId_in_a_DB);
+
   
 	if(!RLHead->next) {
 		// printf("buf.C line 209: At end of replacment list!\n");
@@ -370,7 +370,17 @@ Status BufMgr::flushPage(PageId pageid) {
 //** This is the implementation of flushAllPages
 //************************************************************
 Status BufMgr::flushAllPages(){
-  //put your code here
+	printf("In flushAllPages()\n");
+	Status status;
+	int frameid;
+	PageId pageid;
+	for(frameid = 0; frameid < NUMBUF; frameid++) {
+		pageid = bufDescr[frameid]->pageid;
+		if(pageid != -1) {
+			status = flushPage(pageid);
+			CHECK_STATUS
+		}
+	}
   return OK;
 }
 
@@ -396,20 +406,19 @@ Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage, const 
   // if the page is not in bufPool means in RList
   RListNode* curRListNode = RLHead;
   if (!curRListNode) {
-      minibase_errors.add_error(BUFMGR, bufErrMsgs[5]);
+      minibase_errors.add_error(BUFMGR, bufErrMsgs[7]);
       return BUFMGR;
   }
-
-	//printf("Using buffer pool frame %d for page %d\n", curRListNode->frameid, PageId_in_a_DB);
   
-	// printf("Incrementing RLHead from %ld ", (unsigned long) RLHead);
   RLHead = RLHead->next;
-	// printf("to %ld\n", (unsigned long) RLHead);
-	// printf("** changed replacement list **\n");
-	printReplacementList();
+
+	/* TODO: Uncomment _after_ modifying unpinpage to check if RLTail is NULL, and reacting appropriately
+	if(!RLHead) {
+		RLTail = NULL;
+	}
+	*/
   
   frameid = curRListNode->frameid;
-	//printf("Deleting old head, at address %ld\n", (unsigned long) curRListNode);
   delete curRListNode;
 
 	PageId page_num = bufDescr[frameid]->pageid;
@@ -419,8 +428,6 @@ Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage, const 
 	addToPFHash(PageId_in_a_DB, frameid);
   
   if (bufDescr[frameid]->dirty) {
-			// printf("content of frame %d is dirty, writing to disk\n", frameid);
-			// printf("Content written: %s\n", (char*)&bufPool[frameid]); 
       flushPage(bufDescr[frameid]->pageid);
   }
   
@@ -485,6 +492,12 @@ Status BufMgr::unpinPage(PageId globalPageId_in_a_DB, int dirty, const char *fil
 //** This is the implementation of getNumUnpinnedBuffers
 //************************************************************
 unsigned int BufMgr::getNumUnpinnedBuffers(){
+	int i;
+	int count = 0;
+	for(i = 0; i < NUMBUF; i++) {
+		if(bufDescr[i]->pincount == 0)
+			count++;
+	}
   //put your code here
-  return 0;
+  return count;
 }
