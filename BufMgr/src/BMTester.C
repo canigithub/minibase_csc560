@@ -103,7 +103,6 @@ int BMTester::test2()
     // Pin and unpin a series of pages, the first half are loved,
     // the latter half are hated.
 
-		printf("\n\nNUMBUF = %d\n\n", NUMBUF);
     for (i=1;i<=NUMBUF;i++){
         if (MINIBASE_BM->pinPage(i+5,pg,0)!=OK) {
                 st = FAIL;
