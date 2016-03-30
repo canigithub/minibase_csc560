@@ -322,7 +322,17 @@ Status BufMgr::unpinPage(PageId page_num, int dirty=FALSE, int hate = FALSE){
 //** This is the implementation of newPage
 //************************************************************
 Status BufMgr::newPage(PageId& firstPageId, Page*& firstpage, int howmany) {
-  // put your code here
+  Status status;
+  
+  int n_unpinned = getNumUnpinnedBuffers();
+  if (n_unpinned == 0) {
+      minibase_errors.add_error(BUFMGR, bufErrMsgs[7]);
+      return BUFMGR;
+  }
+  
+  status = MINIBASE_DB->allocate_page(firstPageId, howmany)
+  CHECK_STATUS
+  status = pinPage(firstPageId, firstpage, 1); CHECK_STATUS
   return OK;
 }
 
@@ -330,7 +340,15 @@ Status BufMgr::newPage(PageId& firstPageId, Page*& firstpage, int howmany) {
 //** This is the implementation of freePage
 //************************************************************
 Status BufMgr::freePage(PageId globalPageId){
-  // put your code here
+  
+  Status status;
+  int frameid = lookUpFrameid(globalPageId);
+  if (bufDescr[frameid]->pincount > 0) {
+      minibase_errors.add_error(BUFMGR, bufErrMsgs[11]);
+      return BUFMGR;
+  }
+  status = MINIBASE_DB->deallocate_page(firstPageId); CHECK_STATUS
+  
   return OK;
 }
 

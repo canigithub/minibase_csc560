@@ -1,0 +1,15 @@
+start: start debugging
+list: list the source code
+step: step into
+next: step over
+x: examine raw memory
+watch: examine variable whenever it changes
+rwatch: read watch 
+cont: run the program until some watch point
+info watch/break: 
+bt: backtrace
+frame: choose a frame
+set var: 
+
+test_drive.C:131
+break 166

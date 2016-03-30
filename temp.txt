@@ -1,0 +1,15 @@
+static const char* bufErrMsgs[] = { 
+  // error message strings go here
+0 ”Not enough memory to allocate hash entry",
+1 "Inserting a duplicate entry in the hash table",
+2 "Removing a non-existing entry from the hash table",
+3 "Page not in hash table",
+4 "Not enough memory to allocate queue node",
+5 "Poping an empty queue",
+6 "OOOOOOPS, something is wrong",
+7 "Buffer pool full",
+8 "Not enough memory in buffer manager",
+9 "Page not in buffer pool",
+10”Unpinning an unpinned page",
+11”Freeing a pinned page"
+};
