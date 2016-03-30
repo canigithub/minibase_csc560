@@ -78,6 +78,7 @@ private:
    }
    
    void buildReplacementList();
+	 void printReplacementList();
    int lookUpFrameid(PageId pageid);
 	 void addToPFHash(PageId pageid, int frameid);
  	 Status removeFromPFHashTable(PageId pageid);

@@ -73,6 +73,17 @@ void BufMgr::buildReplacementList() {
     }
     RLTail = curListNode;
 		printf("Exiting buildReplacementList, RLHead has frameid%d\n", RLHead->frameid);
+		printf("** changed replacement list **\n");
+		printReplacementList();
+}
+
+void BufMgr::printReplacementList() {
+	RListNode* curr = RLHead;
+	while(curr) {
+		printf("[%d/]->", curr->frameid);
+		curr = curr->next;
+	}
+	printf("\n\n");
 }
 
 int BufMgr::lookUpFrameid(PageId pageid) {
@@ -105,8 +116,8 @@ void BufMgr::addToPFHash(PageId pageid, int frameid) {
 	PageToFrameHashEntry* newEntry = new PageToFrameHashEntry(pageid, frameid);
 
   int htIndex = hash(pageid);
-	printf("About to add to hash bucket %d\n", htIndex);
-	printLinkedList(htIndex);
+	//printf("About to add to hash bucket %d\n", htIndex);
+	//printLinkedList(htIndex);
 	PageToFrameHashEntry* curr = htDir[htIndex];
 
 	if((htDir[htIndex]) == NULL) {
@@ -119,8 +130,9 @@ void BufMgr::addToPFHash(PageId pageid, int frameid) {
 		newEntry->prev = curr;
 	}
 
-	printf("After add to hash bucket %d\n", htIndex);
+	printf("After add to hash bucket %d:", htIndex);
 	printLinkedList(htIndex);
+	printf("\n");
 
 }
 
@@ -130,8 +142,8 @@ Status BufMgr::removeFromPFHashTable(PageId pageid) {
 	int htIndex = hash(pageid);
 	PageToFrameHashEntry* curr = htDir[htIndex]; 
 
-	printf("About to remove page %d from hash bucket %d\n", pageid, htIndex);
-	printLinkedList(htIndex);
+	//printf("About to remove page %d from hash bucket %d\n", pageid, htIndex);
+	//printLinkedList(htIndex);
   
 	// bucket is empty
 	if(!curr) {
@@ -143,7 +155,7 @@ Status BufMgr::removeFromPFHashTable(PageId pageid) {
 	while(curr->next && curr->pageid != pageid)
 		curr = curr->next;
 
-	printf("Stopped traversing at entry with pageid %d\n", curr->pageid);
+	//printf("Stopped traversing at entry with pageid %d\n", curr->pageid);
 
 	// page was not in the hash table
 	if(curr->pageid != pageid) {
@@ -169,8 +181,9 @@ Status BufMgr::removeFromPFHashTable(PageId pageid) {
 
 	delete(curr);
 
-	printf("After remove from hash bucket %d\n", htIndex);
+	printf("After remove from hash bucket %d", htIndex);
 	printLinkedList(htIndex);
+	printf("\n");
 
 	return OK;
 
@@ -194,7 +207,7 @@ Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage) {
         } 
         return OK;
   }
-	printf("Didn't find page %d in hash table\n", PageId_in_a_DB);
+	// printf("Didn't find page %d in hash table\n", PageId_in_a_DB);
   
   // if the page is not in bufPool means in RList
   RListNode* curRListNode = RLHead;
@@ -205,7 +218,13 @@ Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage) {
 
 	printf("Using buffer pool frame %d for page %d\n", curRListNode->frameid, PageId_in_a_DB);
   
+	if(!RLHead->next)
+		printf("buf.C line 209: At end of replacment list!\n");
+//	printf("Advancing RLHead from %ld ", (unsigned long) RLHead);
   RLHead = RLHead->next;
+//	printf("to %ld\n", (unsigned long) RLHead);
+//	printf("Replacement list:");
+	printReplacementList();
   
   frameid = curRListNode->frameid;
   delete curRListNode;
@@ -244,7 +263,7 @@ Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage) {
 //************************************************************
 Status BufMgr::unpinPage(PageId page_num, int dirty=FALSE, int hate = FALSE){
   
-	printf("using unpinPage version 1\n");
+	printf("\n\nUsing unpinPage version 1\n");
   int frameid = lookUpFrameid(page_num);
   if (frameid == -1) {
       minibase_errors.add_error(BUFMGR, bufErrMsgs[9]);
@@ -252,8 +271,10 @@ Status BufMgr::unpinPage(PageId page_num, int dirty=FALSE, int hate = FALSE){
   }
 
 	if(dirty) {
-		printf("page %d stored at frameid %d is dirty\n", page_num, frameid);
+		printf("Unpinning page %d stored at frameid %d as dirty\n", page_num, frameid);
 		bufDescr[frameid]->dirty = 1;
+	} else {
+		printf("Page %d at frameid %d is _not_ dirty\n", page_num, frameid);
 	}
   
   if (bufDescr[frameid]->pincount <= 0) {
@@ -262,25 +283,33 @@ Status BufMgr::unpinPage(PageId page_num, int dirty=FALSE, int hate = FALSE){
   }
   
   --(bufDescr[frameid]->pincount);
-  if (!hate) bufDescr[frameid]->love = 1; 
+  if (!hate) {
+		printf("* Page %d is designated as loved\n", page_num);
+		bufDescr[frameid]->love = 1; 
+	}
   
   if (bufDescr[frameid]->pincount == 0) {
+			printf("Pin count is 0; adding frame %d to replacement list, recalling that page %d is ", frameid, page_num);
       RListNode* newNode = new RListNode(frameid);
       if (bufDescr[frameid]->love) {
+					printf("loved\n");
           newNode->prev = RLTail;
           RLTail->next = newNode;
           RLTail = newNode;
+
+					if(!RLHead) {
+						RLHead = RLTail;
+					}
       } else {
-					setbuf(stdout, NULL);
-					printf("Address of RLHead: %ld\n", (unsigned long) RLHead);
-					printf("Address of RLHead->next: %ld\n", (unsigned long) RLHead->next);
-					printf("Address of RLHead->prev: %ld\n", (unsigned long) RLHead->prev);
+					printf("hated\n");
+					if(!RLHead) {
+						RLHead = RLTail;
+					}
           newNode->next = RLHead;
-					printf("Writing address %ld to RLHead->prev\n", (unsigned long) newNode);
           RLHead->prev = newNode;
-					printf("3");
           RLHead = newNode;
       }
+			printReplacementList();
   }
 
   return OK;
@@ -355,9 +384,14 @@ Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage, const 
 
 	printf("Using buffer pool frame %d for page %d\n", curRListNode->frameid, PageId_in_a_DB);
   
+	printf("Incrementing RLHead from %ld ", (unsigned long) RLHead);
   RLHead = RLHead->next;
+	printf("to %ld\n", (unsigned long) RLHead);
+	printf("** changed replacement list **\n");
+	printReplacementList();
   
   frameid = curRListNode->frameid;
+	printf("Deleting old head, at address %ld\n", (unsigned long) curRListNode);
   delete curRListNode;
 
 	PageId page_num = bufDescr[frameid]->pageid;
@@ -415,10 +449,14 @@ Status BufMgr::unpinPage(PageId globalPageId_in_a_DB, int dirty, const char *fil
   --(bufDescr[frameid]->pincount);
   
   if (bufDescr[frameid]->pincount == 0) {
+			printf("Reassigning RLHead from %ld ", (unsigned long) RLHead);
       RListNode* newNode = new RListNode(frameid);
       newNode->next = RLHead;
       RLHead->prev = newNode;
       RLHead = newNode;
+			printf("to %ld\n", (unsigned long) RLHead);
+			printf("** changed replacement list **\n");
+			printReplacementList();
   }
 
   return OK;
