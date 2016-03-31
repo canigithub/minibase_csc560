@@ -58,8 +58,8 @@ struct RListNode {
     PageId pageid;
     RListNode* next;
     RListNode* prev;
-    RListNode(int fid) : 
-        frameid(fid), pageid(-1), next(NULL), prev(NULL) {}
+    RListNode(int fid, PageId pid = -1) : 
+        frameid(fid), pageid(pid), next(NULL), prev(NULL) {}
     ~RListNode() {}
 };
 
@@ -78,11 +78,14 @@ private:
    }
    
    void buildReplacementList();
+   void freeReplacementList();
 	 void printReplacementList();
    int lookUpFrameid(PageId pageid);
 	 void addToPFHash(PageId pageid, int frameid);
  	 Status removeFromPFHashTable(PageId pageid);
 	 void printLinkedList(int);
+     int inReplacementList(PageId);
+     Status removeFromReplacementList(PageId);
 public:
     Page* bufPool; // The actual buffer pool
 
