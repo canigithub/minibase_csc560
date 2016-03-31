@@ -330,8 +330,9 @@ Status BufMgr::newPage(PageId& firstPageId, Page*& firstpage, int howmany) {
       return BUFMGR;
   }
   
-  status = MINIBASE_DB->allocate_page(firstPageId, howmany)
+  status = MINIBASE_DB->allocate_page(firstPageId, howmany);
   CHECK_STATUS
+	printf("Allocated %d new page/s, starting with pageId %d\n", howmany, firstPageId);
   status = pinPage(firstPageId, firstpage, 1); CHECK_STATUS
   return OK;
 }
@@ -347,7 +348,8 @@ Status BufMgr::freePage(PageId globalPageId){
       minibase_errors.add_error(BUFMGR, bufErrMsgs[11]);
       return BUFMGR;
   }
-  status = MINIBASE_DB->deallocate_page(firstPageId); CHECK_STATUS
+  status = MINIBASE_DB->deallocate_page(globalPageId); CHECK_STATUS
+	printf("Freed page %d\n", globalPageId);
   
   return OK;
 }

@@ -206,7 +206,7 @@ int BMTester::test3()
     {
       if (MINIBASE_BM->newPage(pages[i], pagesptrs[i]) !=OK) {
         st = FAIL;
-	cout << "\tnewPage failed...\n";
+					cout << "\tnewPage failed...\n";
       }
     }
   

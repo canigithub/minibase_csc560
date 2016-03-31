@@ -1,2362 +1,306 @@
-Error: pinned page freed!
-Error: pinned page freed!
-Error: pinned page freed!
-Error: pinned page freed!
-Error: pinned page freed!
-First error occurred: DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-Buffer Manager: Unpinning an unpinned page
-First error occurred: DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-First error occurred: DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-First error occurred: DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-First error occurred: DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-First error occurred: DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-First error occurred: DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-First error occurred: DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-First error occurred: DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-First error occurred: DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-DB Manager: bad page number: db.C:543
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-Buffer Manager: Unpinning an unpinned page
-[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->
 
+Running Buffer Management tests...
+In flushAllPages()
+In runTest
+Cleared errors
+In BMTester::test1()
+--------------------- Test 1 ----------------------
+after pinPage5
+after unpinPage5
+after pinPage6
+after unpinPage6
+after pinPage7
+after unpinPage7
+after pinPage8
+after unpinPage8
+after pinPage9
+after unpinPage9
+after pinPage10
 after unpinPage10
-Using buffer pool frame 8 for page 11
-[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->
-
-After add to hash bucket 4:[11, 8]->
-
 after pinPage11
-
-
-Using unpinPage version 1
-Unpinning page 11 stored at frameid 8 as dirty
-* Page 11 is designated as loved
-Pin count is 0; adding frame 8 to replacement list, recalling that page 11 is loved
-[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->
-
 after unpinPage11
-Using buffer pool frame 9 for page 12
-[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->
-
-After add to hash bucket 5:[5, 2]->[12, 9]->
-
 after pinPage12
-
-
-Using unpinPage version 1
-Unpinning page 12 stored at frameid 9 as dirty
-* Page 12 is designated as loved
-Pin count is 0; adding frame 9 to replacement list, recalling that page 12 is loved
-[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->
-
 after unpinPage12
-Using buffer pool frame 10 for page 13
-[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->
-
-After add to hash bucket 6:[6, 3]->[13, 10]->
-
 after pinPage13
-
-
-Using unpinPage version 1
-Unpinning page 13 stored at frameid 10 as dirty
-* Page 13 is designated as loved
-Pin count is 0; adding frame 10 to replacement list, recalling that page 13 is loved
-[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->
-
 after unpinPage13
-Using buffer pool frame 11 for page 14
-[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->
-
-After add to hash bucket 0:[0, 0]->[7, 4]->[14, 11]->
-
 after pinPage14
-
-
-Using unpinPage version 1
-Unpinning page 14 stored at frameid 11 as dirty
-* Page 14 is designated as loved
-Pin count is 0; adding frame 11 to replacement list, recalling that page 14 is loved
-[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
 after unpinPage14
-Using buffer pool frame 12 for page 15
-[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
-After add to hash bucket 1:[1, 1]->[8, 5]->[15, 12]->
-
 after pinPage15
-
-
-Using unpinPage version 1
-Unpinning page 15 stored at frameid 12 as dirty
-* Page 15 is designated as loved
-Pin count is 0; adding frame 12 to replacement list, recalling that page 15 is loved
-[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->
-
 after unpinPage15
-Using buffer pool frame 13 for page 16
-[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->
-
-After add to hash bucket 2:[9, 6]->[16, 13]->
-
 after pinPage16
-
-
-Using unpinPage version 1
-Unpinning page 16 stored at frameid 13 as dirty
-* Page 16 is designated as loved
-Pin count is 0; adding frame 13 to replacement list, recalling that page 16 is loved
-[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->
-
 after unpinPage16
-Using buffer pool frame 14 for page 17
-[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->
-
-After add to hash bucket 3:[10, 7]->[17, 14]->
-
 after pinPage17
-
-
-Using unpinPage version 1
-Unpinning page 17 stored at frameid 14 as dirty
-* Page 17 is designated as loved
-Pin count is 0; adding frame 14 to replacement list, recalling that page 17 is loved
-[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->
-
 after unpinPage17
-Using buffer pool frame 15 for page 18
-[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->
-
-After add to hash bucket 4:[11, 8]->[18, 15]->
-
 after pinPage18
-
-
-Using unpinPage version 1
-Unpinning page 18 stored at frameid 15 as dirty
-* Page 18 is designated as loved
-Pin count is 0; adding frame 15 to replacement list, recalling that page 18 is loved
-[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->
-
 after unpinPage18
-Using buffer pool frame 16 for page 19
-[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->
-
-After add to hash bucket 5:[5, 2]->[12, 9]->[19, 16]->
-
 after pinPage19
-
-
-Using unpinPage version 1
-Unpinning page 19 stored at frameid 16 as dirty
-* Page 19 is designated as loved
-Pin count is 0; adding frame 16 to replacement list, recalling that page 19 is loved
-[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->
-
 after unpinPage19
-Using buffer pool frame 17 for page 20
-[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->
-
-After add to hash bucket 6:[6, 3]->[13, 10]->[20, 17]->
-
 after pinPage20
-
-
-Using unpinPage version 1
-Unpinning page 20 stored at frameid 17 as dirty
-* Page 20 is designated as loved
-Pin count is 0; adding frame 17 to replacement list, recalling that page 20 is loved
-[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->
-
 after unpinPage20
-Using buffer pool frame 18 for page 21
-[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->
-
-After add to hash bucket 0:[0, 0]->[7, 4]->[14, 11]->[21, 18]->
-
 after pinPage21
-
-
-Using unpinPage version 1
-Unpinning page 21 stored at frameid 18 as dirty
-* Page 21 is designated as loved
-Pin count is 0; adding frame 18 to replacement list, recalling that page 21 is loved
-[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->
-
 after unpinPage21
-Using buffer pool frame 19 for page 22
-[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->
-
-After add to hash bucket 1:[1, 1]->[8, 5]->[15, 12]->[22, 19]->
-
 after pinPage22
-
-
-Using unpinPage version 1
-Unpinning page 22 stored at frameid 19 as dirty
-* Page 22 is designated as loved
-Pin count is 0; adding frame 19 to replacement list, recalling that page 22 is loved
-[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->
-
 after unpinPage22
-Using buffer pool frame 0 for page 23
-[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->
-
-After add to hash bucket 2:[9, 6]->[16, 13]->[23, 0]->
-
-content of frame 0 is dirty, writing to disk
-Content written: F
-got frameId 0 from hash table
-In flushPage
-Writing to page 0:
-F
-Now calling write_page
-After remove from hash bucket 0[7, 4]->[14, 11]->[21, 18]->
-
 after pinPage23
-
-
-Using unpinPage version 1
-Unpinning page 23 stored at frameid 0 as dirty
-* Page 23 is designated as loved
-Pin count is 0; adding frame 0 to replacement list, recalling that page 23 is loved
-[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->
-
 after unpinPage23
-Using buffer pool frame 1 for page 24
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->
-
-After add to hash bucket 3:[10, 7]->[17, 14]->[24, 1]->
-
-content of frame 1 is dirty, writing to disk
-Content written: 
-got frameId 1 from hash table
-In flushPage
-Writing to page 1:
-
-Now calling write_page
-After remove from hash bucket 1[8, 5]->[15, 12]->[22, 19]->
-
 after pinPage24
-
-
-Using unpinPage version 1
-Unpinning page 24 stored at frameid 1 as dirty
-* Page 24 is designated as loved
-Pin count is 0; adding frame 1 to replacement list, recalling that page 24 is loved
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
 after unpinPage24
-Using buffer pool frame 2 for page 25
-[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 4:[11, 8]->[18, 15]->[25, 2]->
-
-content of frame 2 is dirty, writing to disk
-Content written: This is test 1 for page 5
-
-got frameId 2 from hash table
-In flushPage
-Writing to page 5:
-This is test 1 for page 5
-
-Now calling write_page
-After remove from hash bucket 5[12, 9]->[19, 16]->
-
 after pinPage25
-
-
-Using unpinPage version 1
-Unpinning page 25 stored at frameid 2 as dirty
-* Page 25 is designated as loved
-Pin count is 0; adding frame 2 to replacement list, recalling that page 25 is loved
-[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->
-
 after unpinPage25
-Using buffer pool frame 3 for page 26
-[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->
-
-After add to hash bucket 5:[12, 9]->[19, 16]->[26, 3]->
-
-content of frame 3 is dirty, writing to disk
-Content written: This is test 1 for page 6
-
-got frameId 3 from hash table
-In flushPage
-Writing to page 6:
-This is test 1 for page 6
-
-Now calling write_page
-After remove from hash bucket 6[13, 10]->[20, 17]->
-
 after pinPage26
-
-
-Using unpinPage version 1
-Unpinning page 26 stored at frameid 3 as dirty
-* Page 26 is designated as loved
-Pin count is 0; adding frame 3 to replacement list, recalling that page 26 is loved
-[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->
-
 after unpinPage26
-Using buffer pool frame 4 for page 27
-[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->
-
-After add to hash bucket 6:[13, 10]->[20, 17]->[27, 4]->
-
-content of frame 4 is dirty, writing to disk
-Content written: This is test 1 for page 7
-
-got frameId 4 from hash table
-In flushPage
-Writing to page 7:
-This is test 1 for page 7
-
-Now calling write_page
-After remove from hash bucket 0[14, 11]->[21, 18]->
-
 after pinPage27
-
-
-Using unpinPage version 1
-Unpinning page 27 stored at frameid 4 as dirty
-* Page 27 is designated as loved
-Pin count is 0; adding frame 4 to replacement list, recalling that page 27 is loved
-[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->
-
 after unpinPage27
-Using buffer pool frame 5 for page 28
-[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->
-
-After add to hash bucket 0:[14, 11]->[21, 18]->[28, 5]->
-
-content of frame 5 is dirty, writing to disk
-Content written: This is test 1 for page 8
-
-got frameId 5 from hash table
-In flushPage
-Writing to page 8:
-This is test 1 for page 8
-
-Now calling write_page
-After remove from hash bucket 1[15, 12]->[22, 19]->
-
 after pinPage28
-
-
-Using unpinPage version 1
-Unpinning page 28 stored at frameid 5 as dirty
-* Page 28 is designated as loved
-Pin count is 0; adding frame 5 to replacement list, recalling that page 28 is loved
-[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->
-
 after unpinPage28
-Using buffer pool frame 6 for page 29
-[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->
-
-After add to hash bucket 1:[15, 12]->[22, 19]->[29, 6]->
-
-content of frame 6 is dirty, writing to disk
-Content written: This is test 1 for page 9
-
-got frameId 6 from hash table
-In flushPage
-Writing to page 9:
-This is test 1 for page 9
-
-Now calling write_page
-After remove from hash bucket 2[16, 13]->[23, 0]->
-
 after pinPage29
-
-
-Using unpinPage version 1
-Unpinning page 29 stored at frameid 6 as dirty
-* Page 29 is designated as loved
-Pin count is 0; adding frame 6 to replacement list, recalling that page 29 is loved
-[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->
-
 after unpinPage29
-Using buffer pool frame 7 for page 30
-[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->
-
-After add to hash bucket 2:[16, 13]->[23, 0]->[30, 7]->
-
-content of frame 7 is dirty, writing to disk
-Content written: This is test 1 for page 10
-
-got frameId 7 from hash table
-In flushPage
-Writing to page 10:
-This is test 1 for page 10
-
-Now calling write_page
-After remove from hash bucket 3[17, 14]->[24, 1]->
-
 after pinPage30
-
-
-Using unpinPage version 1
-Unpinning page 30 stored at frameid 7 as dirty
-* Page 30 is designated as loved
-Pin count is 0; adding frame 7 to replacement list, recalling that page 30 is loved
-[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->
-
 after unpinPage30
 
-
-Using buffer pool frame 8 for page 5
-[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->
-
-After add to hash bucket 5:[12, 9]->[19, 16]->[26, 3]->[5, 8]->
-
-content of frame 8 is dirty, writing to disk
-Content written: This is test 1 for page 11
-
-got frameId 8 from hash table
-In flushPage
-Writing to page 11:
-This is test 1 for page 11
-
-Now calling write_page
-After remove from hash bucket 4[18, 15]->[25, 2]->
 
 PAGE[5]: This is test 1 for page 5
 Stored content: This is test 1 for page 5
 
-
-
-Using unpinPage version 1
-Page 5 at frameid 8 is _not_ dirty
-* Page 5 is designated as loved
-Pin count is 0; adding frame 8 to replacement list, recalling that page 5 is loved
-[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->
-
-Using buffer pool frame 9 for page 6
-[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->
-
-After add to hash bucket 6:[13, 10]->[20, 17]->[27, 4]->[6, 9]->
-
-content of frame 9 is dirty, writing to disk
-Content written: This is test 1 for page 12
-
-got frameId 9 from hash table
-In flushPage
-Writing to page 12:
-This is test 1 for page 12
-
-Now calling write_page
-After remove from hash bucket 5[19, 16]->[26, 3]->[5, 8]->
-
 PAGE[6]: This is test 1 for page 6
 Stored content: This is test 1 for page 6
-
-
-
-Using unpinPage version 1
-Page 6 at frameid 9 is _not_ dirty
-* Page 6 is designated as loved
-Pin count is 0; adding frame 9 to replacement list, recalling that page 6 is loved
-[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->
-
-Using buffer pool frame 10 for page 7
-[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->
-
-After add to hash bucket 0:[14, 11]->[21, 18]->[28, 5]->[7, 10]->
-
-content of frame 10 is dirty, writing to disk
-Content written: This is test 1 for page 13
-
-got frameId 10 from hash table
-In flushPage
-Writing to page 13:
-This is test 1 for page 13
-
-Now calling write_page
-After remove from hash bucket 6[20, 17]->[27, 4]->[6, 9]->
 
 PAGE[7]: This is test 1 for page 7
 Stored content: This is test 1 for page 7
 
-
-
-Using unpinPage version 1
-Page 7 at frameid 10 is _not_ dirty
-* Page 7 is designated as loved
-Pin count is 0; adding frame 10 to replacement list, recalling that page 7 is loved
-[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->
-
-Using buffer pool frame 11 for page 8
-[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->
-
-After add to hash bucket 1:[15, 12]->[22, 19]->[29, 6]->[8, 11]->
-
-content of frame 11 is dirty, writing to disk
-Content written: This is test 1 for page 14
-
-got frameId 11 from hash table
-In flushPage
-Writing to page 14:
-This is test 1 for page 14
-
-Now calling write_page
-After remove from hash bucket 0[21, 18]->[28, 5]->[7, 10]->
-
 PAGE[8]: This is test 1 for page 8
 Stored content: This is test 1 for page 8
-
-
-
-Using unpinPage version 1
-Page 8 at frameid 11 is _not_ dirty
-* Page 8 is designated as loved
-Pin count is 0; adding frame 11 to replacement list, recalling that page 8 is loved
-[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
-Using buffer pool frame 12 for page 9
-[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
-After add to hash bucket 2:[16, 13]->[23, 0]->[30, 7]->[9, 12]->
-
-content of frame 12 is dirty, writing to disk
-Content written: This is test 1 for page 15
-
-got frameId 12 from hash table
-In flushPage
-Writing to page 15:
-This is test 1 for page 15
-
-Now calling write_page
-After remove from hash bucket 1[22, 19]->[29, 6]->[8, 11]->
 
 PAGE[9]: This is test 1 for page 9
 Stored content: This is test 1 for page 9
 
-
-
-Using unpinPage version 1
-Page 9 at frameid 12 is _not_ dirty
-* Page 9 is designated as loved
-Pin count is 0; adding frame 12 to replacement list, recalling that page 9 is loved
-[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->
-
-Using buffer pool frame 13 for page 10
-[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->
-
-After add to hash bucket 3:[17, 14]->[24, 1]->[10, 13]->
-
-content of frame 13 is dirty, writing to disk
-Content written: This is test 1 for page 16
-
-got frameId 13 from hash table
-In flushPage
-Writing to page 16:
-This is test 1 for page 16
-
-Now calling write_page
-After remove from hash bucket 2[23, 0]->[30, 7]->[9, 12]->
-
 PAGE[10]: This is test 1 for page 10
 Stored content: This is test 1 for page 10
-
-
-
-Using unpinPage version 1
-Page 10 at frameid 13 is _not_ dirty
-* Page 10 is designated as loved
-Pin count is 0; adding frame 13 to replacement list, recalling that page 10 is loved
-[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->
-
-Using buffer pool frame 14 for page 11
-[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->
-
-After add to hash bucket 4:[18, 15]->[25, 2]->[11, 14]->
-
-content of frame 14 is dirty, writing to disk
-Content written: This is test 1 for page 17
-
-got frameId 14 from hash table
-In flushPage
-Writing to page 17:
-This is test 1 for page 17
-
-Now calling write_page
-After remove from hash bucket 3[24, 1]->[10, 13]->
 
 PAGE[11]: This is test 1 for page 11
 Stored content: This is test 1 for page 11
 
-
-
-Using unpinPage version 1
-Page 11 at frameid 14 is _not_ dirty
-* Page 11 is designated as loved
-Pin count is 0; adding frame 14 to replacement list, recalling that page 11 is loved
-[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->
-
-Using buffer pool frame 15 for page 12
-[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->
-
-After add to hash bucket 5:[19, 16]->[26, 3]->[5, 8]->[12, 15]->
-
-content of frame 15 is dirty, writing to disk
-Content written: This is test 1 for page 18
-
-got frameId 15 from hash table
-In flushPage
-Writing to page 18:
-This is test 1 for page 18
-
-Now calling write_page
-After remove from hash bucket 4[25, 2]->[11, 14]->
-
 PAGE[12]: This is test 1 for page 12
 Stored content: This is test 1 for page 12
-
-
-
-Using unpinPage version 1
-Page 12 at frameid 15 is _not_ dirty
-* Page 12 is designated as loved
-Pin count is 0; adding frame 15 to replacement list, recalling that page 12 is loved
-[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->
-
-Using buffer pool frame 16 for page 13
-[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->
-
-After add to hash bucket 6:[20, 17]->[27, 4]->[6, 9]->[13, 16]->
-
-content of frame 16 is dirty, writing to disk
-Content written: This is test 1 for page 19
-
-got frameId 16 from hash table
-In flushPage
-Writing to page 19:
-This is test 1 for page 19
-
-Now calling write_page
-After remove from hash bucket 5[26, 3]->[5, 8]->[12, 15]->
 
 PAGE[13]: This is test 1 for page 13
 Stored content: This is test 1 for page 13
 
-
-
-Using unpinPage version 1
-Page 13 at frameid 16 is _not_ dirty
-* Page 13 is designated as loved
-Pin count is 0; adding frame 16 to replacement list, recalling that page 13 is loved
-[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->
-
-Using buffer pool frame 17 for page 14
-[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->
-
-After add to hash bucket 0:[21, 18]->[28, 5]->[7, 10]->[14, 17]->
-
-content of frame 17 is dirty, writing to disk
-Content written: This is test 1 for page 20
-
-got frameId 17 from hash table
-In flushPage
-Writing to page 20:
-This is test 1 for page 20
-
-Now calling write_page
-After remove from hash bucket 6[27, 4]->[6, 9]->[13, 16]->
-
 PAGE[14]: This is test 1 for page 14
 Stored content: This is test 1 for page 14
-
-
-
-Using unpinPage version 1
-Page 14 at frameid 17 is _not_ dirty
-* Page 14 is designated as loved
-Pin count is 0; adding frame 17 to replacement list, recalling that page 14 is loved
-[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->
-
-Using buffer pool frame 18 for page 15
-[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->
-
-After add to hash bucket 1:[22, 19]->[29, 6]->[8, 11]->[15, 18]->
-
-content of frame 18 is dirty, writing to disk
-Content written: This is test 1 for page 21
-
-got frameId 18 from hash table
-In flushPage
-Writing to page 21:
-This is test 1 for page 21
-
-Now calling write_page
-After remove from hash bucket 0[28, 5]->[7, 10]->[14, 17]->
 
 PAGE[15]: This is test 1 for page 15
 Stored content: This is test 1 for page 15
 
-
-
-Using unpinPage version 1
-Page 15 at frameid 18 is _not_ dirty
-* Page 15 is designated as loved
-Pin count is 0; adding frame 18 to replacement list, recalling that page 15 is loved
-[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->
-
-Using buffer pool frame 19 for page 16
-[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->
-
-After add to hash bucket 2:[23, 0]->[30, 7]->[9, 12]->[16, 19]->
-
-content of frame 19 is dirty, writing to disk
-Content written: This is test 1 for page 22
-
-got frameId 19 from hash table
-In flushPage
-Writing to page 22:
-This is test 1 for page 22
-
-Now calling write_page
-After remove from hash bucket 1[29, 6]->[8, 11]->[15, 18]->
-
 PAGE[16]: This is test 1 for page 16
 Stored content: This is test 1 for page 16
-
-
-
-Using unpinPage version 1
-Page 16 at frameid 19 is _not_ dirty
-* Page 16 is designated as loved
-Pin count is 0; adding frame 19 to replacement list, recalling that page 16 is loved
-[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->
-
-Using buffer pool frame 0 for page 17
-[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->
-
-After add to hash bucket 3:[24, 1]->[10, 13]->[17, 0]->
-
-content of frame 0 is dirty, writing to disk
-Content written: This is test 1 for page 23
-
-got frameId 0 from hash table
-In flushPage
-Writing to page 23:
-This is test 1 for page 23
-
-Now calling write_page
-After remove from hash bucket 2[30, 7]->[9, 12]->[16, 19]->
 
 PAGE[17]: This is test 1 for page 17
 Stored content: This is test 1 for page 17
 
-
-
-Using unpinPage version 1
-Page 17 at frameid 0 is _not_ dirty
-* Page 17 is designated as loved
-Pin count is 0; adding frame 0 to replacement list, recalling that page 17 is loved
-[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->
-
-Using buffer pool frame 1 for page 18
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->
-
-After add to hash bucket 4:[25, 2]->[11, 14]->[18, 1]->
-
-content of frame 1 is dirty, writing to disk
-Content written: This is test 1 for page 24
-
-got frameId 1 from hash table
-In flushPage
-Writing to page 24:
-This is test 1 for page 24
-
-Now calling write_page
-After remove from hash bucket 3[10, 13]->[17, 0]->
-
 PAGE[18]: This is test 1 for page 18
 Stored content: This is test 1 for page 18
-
-
-
-Using unpinPage version 1
-Page 18 at frameid 1 is _not_ dirty
-* Page 18 is designated as loved
-Pin count is 0; adding frame 1 to replacement list, recalling that page 18 is loved
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-Using buffer pool frame 2 for page 19
-[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 5:[26, 3]->[5, 8]->[12, 15]->[19, 2]->
-
-content of frame 2 is dirty, writing to disk
-Content written: This is test 1 for page 25
-
-got frameId 2 from hash table
-In flushPage
-Writing to page 25:
-This is test 1 for page 25
-
-Now calling write_page
-After remove from hash bucket 4[11, 14]->[18, 1]->
 
 PAGE[19]: This is test 1 for page 19
 Stored content: This is test 1 for page 19
 
-
-
-Using unpinPage version 1
-Page 19 at frameid 2 is _not_ dirty
-* Page 19 is designated as loved
-Pin count is 0; adding frame 2 to replacement list, recalling that page 19 is loved
-[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->
-
-Using buffer pool frame 3 for page 20
-[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->
-
-After add to hash bucket 6:[27, 4]->[6, 9]->[13, 16]->[20, 3]->
-
-content of frame 3 is dirty, writing to disk
-Content written: This is test 1 for page 26
-
-got frameId 3 from hash table
-In flushPage
-Writing to page 26:
-This is test 1 for page 26
-
-Now calling write_page
-After remove from hash bucket 5[5, 8]->[12, 15]->[19, 2]->
-
 PAGE[20]: This is test 1 for page 20
 Stored content: This is test 1 for page 20
-
-
-
-Using unpinPage version 1
-Page 20 at frameid 3 is _not_ dirty
-* Page 20 is designated as loved
-Pin count is 0; adding frame 3 to replacement list, recalling that page 20 is loved
-[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->
-
-Using buffer pool frame 4 for page 21
-[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->
-
-After add to hash bucket 0:[28, 5]->[7, 10]->[14, 17]->[21, 4]->
-
-content of frame 4 is dirty, writing to disk
-Content written: This is test 1 for page 27
-
-got frameId 4 from hash table
-In flushPage
-Writing to page 27:
-This is test 1 for page 27
-
-Now calling write_page
-After remove from hash bucket 6[6, 9]->[13, 16]->[20, 3]->
 
 PAGE[21]: This is test 1 for page 21
 Stored content: This is test 1 for page 21
 
-
-
-Using unpinPage version 1
-Page 21 at frameid 4 is _not_ dirty
-* Page 21 is designated as loved
-Pin count is 0; adding frame 4 to replacement list, recalling that page 21 is loved
-[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->
-
-Using buffer pool frame 5 for page 22
-[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->
-
-After add to hash bucket 1:[29, 6]->[8, 11]->[15, 18]->[22, 5]->
-
-content of frame 5 is dirty, writing to disk
-Content written: This is test 1 for page 28
-
-got frameId 5 from hash table
-In flushPage
-Writing to page 28:
-This is test 1 for page 28
-
-Now calling write_page
-After remove from hash bucket 0[7, 10]->[14, 17]->[21, 4]->
-
 PAGE[22]: This is test 1 for page 22
 Stored content: This is test 1 for page 22
-
-
-
-Using unpinPage version 1
-Page 22 at frameid 5 is _not_ dirty
-* Page 22 is designated as loved
-Pin count is 0; adding frame 5 to replacement list, recalling that page 22 is loved
-[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->
-
-Using buffer pool frame 6 for page 23
-[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->
-
-After add to hash bucket 2:[30, 7]->[9, 12]->[16, 19]->[23, 6]->
-
-content of frame 6 is dirty, writing to disk
-Content written: This is test 1 for page 29
-
-got frameId 6 from hash table
-In flushPage
-Writing to page 29:
-This is test 1 for page 29
-
-Now calling write_page
-After remove from hash bucket 1[8, 11]->[15, 18]->[22, 5]->
 
 PAGE[23]: This is test 1 for page 23
 Stored content: This is test 1 for page 23
 
-
-
-Using unpinPage version 1
-Page 23 at frameid 6 is _not_ dirty
-* Page 23 is designated as loved
-Pin count is 0; adding frame 6 to replacement list, recalling that page 23 is loved
-[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->
-
-Using buffer pool frame 7 for page 24
-[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->
-
-After add to hash bucket 3:[10, 13]->[17, 0]->[24, 7]->
-
-content of frame 7 is dirty, writing to disk
-Content written: This is test 1 for page 30
-
-got frameId 7 from hash table
-In flushPage
-Writing to page 30:
-This is test 1 for page 30
-
-Now calling write_page
-After remove from hash bucket 2[9, 12]->[16, 19]->[23, 6]->
-
 PAGE[24]: This is test 1 for page 24
 Stored content: This is test 1 for page 24
-
-
-
-Using unpinPage version 1
-Page 24 at frameid 7 is _not_ dirty
-* Page 24 is designated as loved
-Pin count is 0; adding frame 7 to replacement list, recalling that page 24 is loved
-[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->
-
-Using buffer pool frame 8 for page 25
-[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->
-
-After add to hash bucket 4:[11, 14]->[18, 1]->[25, 8]->
-
-After remove from hash bucket 5[12, 15]->[19, 2]->
 
 PAGE[25]: This is test 1 for page 25
 Stored content: This is test 1 for page 25
 
-
-
-Using unpinPage version 1
-Page 25 at frameid 8 is _not_ dirty
-* Page 25 is designated as loved
-Pin count is 0; adding frame 8 to replacement list, recalling that page 25 is loved
-[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->
-
-Using buffer pool frame 9 for page 26
-[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->
-
-After add to hash bucket 5:[12, 15]->[19, 2]->[26, 9]->
-
-After remove from hash bucket 6[13, 16]->[20, 3]->
-
 PAGE[26]: This is test 1 for page 26
 Stored content: This is test 1 for page 26
-
-
-
-Using unpinPage version 1
-Page 26 at frameid 9 is _not_ dirty
-* Page 26 is designated as loved
-Pin count is 0; adding frame 9 to replacement list, recalling that page 26 is loved
-[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->
-
-Using buffer pool frame 10 for page 27
-[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->
-
-After add to hash bucket 6:[13, 16]->[20, 3]->[27, 10]->
-
-After remove from hash bucket 0[14, 17]->[21, 4]->
 
 PAGE[27]: This is test 1 for page 27
 Stored content: This is test 1 for page 27
 
-
-
-Using unpinPage version 1
-Page 27 at frameid 10 is _not_ dirty
-* Page 27 is designated as loved
-Pin count is 0; adding frame 10 to replacement list, recalling that page 27 is loved
-[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->
-
-Using buffer pool frame 11 for page 28
-[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->
-
-After add to hash bucket 0:[14, 17]->[21, 4]->[28, 11]->
-
-After remove from hash bucket 1[15, 18]->[22, 5]->
-
 PAGE[28]: This is test 1 for page 28
 Stored content: This is test 1 for page 28
-
-
-
-Using unpinPage version 1
-Page 28 at frameid 11 is _not_ dirty
-* Page 28 is designated as loved
-Pin count is 0; adding frame 11 to replacement list, recalling that page 28 is loved
-[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
-Using buffer pool frame 12 for page 29
-[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
-After add to hash bucket 1:[15, 18]->[22, 5]->[29, 12]->
-
-After remove from hash bucket 2[16, 19]->[23, 6]->
 
 PAGE[29]: This is test 1 for page 29
 Stored content: This is test 1 for page 29
 
-
-
-Using unpinPage version 1
-Page 29 at frameid 12 is _not_ dirty
-* Page 29 is designated as loved
-Pin count is 0; adding frame 12 to replacement list, recalling that page 29 is loved
-[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->
-
-Using buffer pool frame 13 for page 30
-[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->
-
-After add to hash bucket 2:[16, 19]->[23, 6]->[30, 13]->
-
-After remove from hash bucket 3[17, 0]->[24, 7]->
-
 PAGE[30]: This is test 1 for page 30
 Stored content: This is test 1 for page 30
 
-
-
-Using unpinPage version 1
-Page 30 at frameid 13 is _not_ dirty
-* Page 30 is designated as loved
-Pin count is 0; adding frame 13 to replacement list, recalling that page 30 is loved
-[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->
-
 Finished a test
-Building replacement list, RLHead had address 9203056
-Exiting buildReplacementList, RLHead has frameid0
-** changed replacement list **
-[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->
-
-Didn't find page 0 in hash table
-Using buffer pool frame 0 for page 0
-Incrementing RLHead from 9203056 to 9203088
-** changed replacement list **
-[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->
-
-Deleting old head, at address 9203056
-After add to hash bucket 0:[0, 0]->
-
-
-
-Using unpinPage version 1
-Unpinning page 0 stored at frameid 0 as dirty
-* Page 0 is designated as loved
-Pin count is 0; adding frame 0 to replacement list, recalling that page 0 is loved
-[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->
-
-Didn't find page 1 in hash table
-Using buffer pool frame 1 for page 1
-Incrementing RLHead from 9203088 to 9203120
-** changed replacement list **
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->
-
-Deleting old head, at address 9203088
-After add to hash bucket 1:[1, 1]->
-
-
-
-Using unpinPage version 1
-Unpinning page 1 stored at frameid 1 as dirty
-* Page 1 is designated as loved
-Pin count is 0; adding frame 1 to replacement list, recalling that page 1 is loved
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
+In flushAllPages()
 In runTest
 Cleared errors
 --------------------- Test 2 ----------------------
-
-
-NUMBUF = 20
-
-Using buffer pool frame 2 for page 6
-[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 6:[6, 2]->
-
-Using buffer pool frame 3 for page 7
-[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 0:[0, 0]->[7, 3]->
-
-Using buffer pool frame 4 for page 8
-[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 1:[1, 1]->[8, 4]->
-
-Using buffer pool frame 5 for page 9
-[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 2:[9, 5]->
-
-Using buffer pool frame 6 for page 10
-[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 3:[10, 6]->
-
-Using buffer pool frame 7 for page 11
-[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 4:[11, 7]->
-
-Using buffer pool frame 8 for page 12
-[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 5:[12, 8]->
-
-Using buffer pool frame 9 for page 13
-[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 6:[6, 2]->[13, 9]->
-
-Using buffer pool frame 10 for page 14
-[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 0:[0, 0]->[7, 3]->[14, 10]->
-
-Using buffer pool frame 11 for page 15
-[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 1:[1, 1]->[8, 4]->[15, 11]->
-
-Using buffer pool frame 12 for page 16
-[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 2:[9, 5]->[16, 12]->
-
-Using buffer pool frame 13 for page 17
-[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 3:[10, 6]->[17, 13]->
-
-Using buffer pool frame 14 for page 18
-[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 4:[11, 7]->[18, 14]->
-
-Using buffer pool frame 15 for page 19
-[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 5:[12, 8]->[19, 15]->
-
-Using buffer pool frame 16 for page 20
-[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 6:[6, 2]->[13, 9]->[20, 16]->
-
-Using buffer pool frame 17 for page 21
-[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 0:[0, 0]->[7, 3]->[14, 10]->[21, 17]->
-
-Using buffer pool frame 18 for page 22
-[19/]->[0/]->[1/]->
-
-After add to hash bucket 1:[1, 1]->[8, 4]->[15, 11]->[22, 18]->
-
-Using buffer pool frame 19 for page 23
-[0/]->[1/]->
-
-After add to hash bucket 2:[9, 5]->[16, 12]->[23, 19]->
-
-Using buffer pool frame 0 for page 24
-[1/]->
-
-After add to hash bucket 3:[10, 6]->[17, 13]->[24, 0]->
-
-content of frame 0 is dirty, writing to disk
-Content written: F
-got frameId 0 from hash table
-In flushPage
-Writing to page 0:
-F
-Now calling write_page
-After remove from hash bucket 0[7, 3]->[14, 10]->[21, 17]->
-
-Using buffer pool frame 1 for page 25
-buf.C line 209: At end of replacment list!
-
-
-After add to hash bucket 4:[11, 7]->[18, 14]->[25, 1]->
-
-content of frame 1 is dirty, writing to disk
-Content written: 
-got frameId 1 from hash table
-In flushPage
-Writing to page 1:
-
-Now calling write_page
-After remove from hash bucket 1[8, 4]->[15, 11]->[22, 18]->
-
-
-
-Using unpinPage version 1
-Unpinning page 6 stored at frameid 2 as dirty
-* Page 6 is designated as loved
-Pin count is 0; adding frame 2 to replacement list, recalling that page 6 is loved
-[2/]->
-
 Page 6 at frame 2 is unpinned as loved.
-
-
-Using unpinPage version 1
-Unpinning page 7 stored at frameid 3 as dirty
-* Page 7 is designated as loved
-Pin count is 0; adding frame 3 to replacement list, recalling that page 7 is loved
-[2/]->[3/]->
-
 Page 7 at frame 3 is unpinned as loved.
-
-
-Using unpinPage version 1
-Unpinning page 8 stored at frameid 4 as dirty
-* Page 8 is designated as loved
-Pin count is 0; adding frame 4 to replacement list, recalling that page 8 is loved
-[2/]->[3/]->[4/]->
-
 Page 8 at frame 4 is unpinned as loved.
-
-
-Using unpinPage version 1
-Unpinning page 9 stored at frameid 5 as dirty
-* Page 9 is designated as loved
-Pin count is 0; adding frame 5 to replacement list, recalling that page 9 is loved
-[2/]->[3/]->[4/]->[5/]->
-
 Page 9 at frame 5 is unpinned as loved.
-
-
-Using unpinPage version 1
-Unpinning page 10 stored at frameid 6 as dirty
-* Page 10 is designated as loved
-Pin count is 0; adding frame 6 to replacement list, recalling that page 10 is loved
-[2/]->[3/]->[4/]->[5/]->[6/]->
-
 Page 10 at frame 6 is unpinned as loved.
-
-
-Using unpinPage version 1
-Unpinning page 11 stored at frameid 7 as dirty
-* Page 11 is designated as loved
-Pin count is 0; adding frame 7 to replacement list, recalling that page 11 is loved
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->
-
 Page 11 at frame 7 is unpinned as loved.
-
-
-Using unpinPage version 1
-Unpinning page 12 stored at frameid 8 as dirty
-* Page 12 is designated as loved
-Pin count is 0; adding frame 8 to replacement list, recalling that page 12 is loved
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->
-
 Page 12 at frame 8 is unpinned as loved.
-
-
-Using unpinPage version 1
-Unpinning page 13 stored at frameid 9 as dirty
-* Page 13 is designated as loved
-Pin count is 0; adding frame 9 to replacement list, recalling that page 13 is loved
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->
-
 Page 13 at frame 9 is unpinned as loved.
-
-
-Using unpinPage version 1
-Unpinning page 14 stored at frameid 10 as dirty
-* Page 14 is designated as loved
-Pin count is 0; adding frame 10 to replacement list, recalling that page 14 is loved
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->
-
 Page 14 at frame 10 is unpinned as loved.
-
-
-Using unpinPage version 1
-Unpinning page 15 stored at frameid 11 as dirty
-* Page 15 is designated as loved
-Pin count is 0; adding frame 11 to replacement list, recalling that page 15 is loved
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
 Page 15 at frame 11 is unpinned as loved.
-
-
-Using unpinPage version 1
-Unpinning page 16 stored at frameid 12 as dirty
-Pin count is 0; adding frame 12 to replacement list, recalling that page 16 is hated
-[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
 Page 16 at frame 12 is unpinned as hated.
-
-
-Using unpinPage version 1
-Unpinning page 17 stored at frameid 13 as dirty
-Pin count is 0; adding frame 13 to replacement list, recalling that page 17 is hated
-[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
 Page 17 at frame 13 is unpinned as hated.
-
-
-Using unpinPage version 1
-Unpinning page 18 stored at frameid 14 as dirty
-Pin count is 0; adding frame 14 to replacement list, recalling that page 18 is hated
-[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
 Page 18 at frame 14 is unpinned as hated.
-
-
-Using unpinPage version 1
-Unpinning page 19 stored at frameid 15 as dirty
-Pin count is 0; adding frame 15 to replacement list, recalling that page 19 is hated
-[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
 Page 19 at frame 15 is unpinned as hated.
-
-
-Using unpinPage version 1
-Unpinning page 20 stored at frameid 16 as dirty
-Pin count is 0; adding frame 16 to replacement list, recalling that page 20 is hated
-[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
 Page 20 at frame 16 is unpinned as hated.
-
-
-Using unpinPage version 1
-Unpinning page 21 stored at frameid 17 as dirty
-Pin count is 0; adding frame 17 to replacement list, recalling that page 21 is hated
-[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
 Page 21 at frame 17 is unpinned as hated.
-
-
-Using unpinPage version 1
-Unpinning page 22 stored at frameid 18 as dirty
-Pin count is 0; adding frame 18 to replacement list, recalling that page 22 is hated
-[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
 Page 22 at frame 18 is unpinned as hated.
-
-
-Using unpinPage version 1
-Unpinning page 23 stored at frameid 19 as dirty
-Pin count is 0; adding frame 19 to replacement list, recalling that page 23 is hated
-[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
 Page 23 at frame 19 is unpinned as hated.
-
-
-Using unpinPage version 1
-Unpinning page 24 stored at frameid 0 as dirty
-Pin count is 0; adding frame 0 to replacement list, recalling that page 24 is hated
-[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
 Page 24 at frame 0 is unpinned as hated.
-
-
-Using unpinPage version 1
-Unpinning page 25 stored at frameid 1 as dirty
-Pin count is 0; adding frame 1 to replacement list, recalling that page 25 is hated
-[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
 Page 25 at frame 1 is unpinned as hated.
 
 Testing replacement policy with respect to hated pages...
 Pinning 10 unseen pages.
-Using buffer pool frame 1 for page 45
-[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
-After add to hash bucket 3:[10, 6]->[17, 13]->[24, 0]->[45, 1]->
-
-content of frame 1 is dirty, writing to disk
-Content written: 
-got frameId 1 from hash table
-In flushPage
-Writing to page 25:
-
-Now calling write_page
-After remove from hash bucket 4[11, 7]->[18, 14]->[2, -1]->[3, -1]->[4, -1]->[5, -1]->[6, -1]->[7, -1]->[8, -1]->[9, -1]->[10, -1]->[11, -1]->
-
-
-
-Using unpinPage version 1
-Unpinning page 45 stored at frameid 1 as dirty
-* Page 45 is designated as loved
-Pin count is 0; adding frame 1 to replacement list, recalling that page 45 is loved
-[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->
-
 Page 45 pinned in frame 1
-Using buffer pool frame 0 for page 44
-[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->
-
-After add to hash bucket 2:[9, 5]->[16, 12]->[23, 19]->[44, 0]->
-
-content of frame 0 is dirty, writing to disk
-Content written: 
-got frameId 0 from hash table
-In flushPage
-Writing to page 24:
-
-Now calling write_page
-After remove from hash bucket 3[10, 6]->[17, 13]->[45, 1]->
-
-
-
-Using unpinPage version 1
-Unpinning page 44 stored at frameid 0 as dirty
-* Page 44 is designated as loved
-Pin count is 0; adding frame 0 to replacement list, recalling that page 44 is loved
-[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->
-
 Page 44 pinned in frame 0
-Using buffer pool frame 19 for page 43
-[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->
-
-After add to hash bucket 1:[8, 4]->[15, 11]->[22, 18]->[43, 19]->
-
-content of frame 19 is dirty, writing to disk
-Content written: 
-got frameId 19 from hash table
-In flushPage
-Writing to page 23:
-
-Now calling write_page
-After remove from hash bucket 2[9, 5]->[16, 12]->[44, 0]->
-
-
-
-Using unpinPage version 1
-Unpinning page 43 stored at frameid 19 as dirty
-* Page 43 is designated as loved
-Pin count is 0; adding frame 19 to replacement list, recalling that page 43 is loved
-[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->
-
 Page 43 pinned in frame 19
-Using buffer pool frame 18 for page 42
-[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->
-
-After add to hash bucket 0:[7, 3]->[14, 10]->[21, 17]->[42, 18]->
-
-content of frame 18 is dirty, writing to disk
-Content written: 
-got frameId 18 from hash table
-In flushPage
-Writing to page 22:
-
-Now calling write_page
-After remove from hash bucket 1[8, 4]->[15, 11]->[43, 19]->
-
-
-
-Using unpinPage version 1
-Unpinning page 42 stored at frameid 18 as dirty
-* Page 42 is designated as loved
-Pin count is 0; adding frame 18 to replacement list, recalling that page 42 is loved
-[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->
-
 Page 42 pinned in frame 18
-Using buffer pool frame 17 for page 41
-[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->
-
-After add to hash bucket 6:[6, 2]->[13, 9]->[20, 16]->[41, 17]->
-
-content of frame 17 is dirty, writing to disk
-Content written: 
-got frameId 17 from hash table
-In flushPage
-Writing to page 21:
-
-Now calling write_page
-After remove from hash bucket 0[7, 3]->[14, 10]->[42, 18]->
-
-
-
-Using unpinPage version 1
-Unpinning page 41 stored at frameid 17 as dirty
-* Page 41 is designated as loved
-Pin count is 0; adding frame 17 to replacement list, recalling that page 41 is loved
-[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->
-
 Page 41 pinned in frame 17
-Using buffer pool frame 16 for page 40
-[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->
-
-After add to hash bucket 5:[12, 8]->[19, 15]->[40, 16]->
-
-content of frame 16 is dirty, writing to disk
-Content written: 
-got frameId 16 from hash table
-In flushPage
-Writing to page 20:
-
-Now calling write_page
-After remove from hash bucket 6[6, 2]->[13, 9]->[41, 17]->
-
-
-
-Using unpinPage version 1
-Unpinning page 40 stored at frameid 16 as dirty
-* Page 40 is designated as loved
-Pin count is 0; adding frame 16 to replacement list, recalling that page 40 is loved
-[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->
-
 Page 40 pinned in frame 16
-Using buffer pool frame 15 for page 39
-[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->
-
-After add to hash bucket 4:[11, 7]->[18, 14]->[2, -1]->[3, -1]->[4, -1]->[5, -1]->[6, -1]->[7, -1]->[8, -1]->[9, -1]->[10, -1]->[11, -1]->[1, -1]->[0, -1]->[19, -1]->[18, -1]->[17, -1]->[16, -1]->[39, 15]->
-
-content of frame 15 is dirty, writing to disk
-Content written: 
-got frameId 15 from hash table
-In flushPage
-Writing to page 19:
-
-Now calling write_page
-After remove from hash bucket 5[12, 8]->[40, 16]->
-
-
-
-Using unpinPage version 1
-Unpinning page 39 stored at frameid 15 as dirty
-* Page 39 is designated as loved
-Pin count is 0; adding frame 15 to replacement list, recalling that page 39 is loved
-[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->
-
 Page 39 pinned in frame 15
-Using buffer pool frame 14 for page 38
-[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->
-
-After add to hash bucket 3:[10, 6]->[17, 13]->[45, 1]->[38, 14]->
-
-content of frame 14 is dirty, writing to disk
-Content written: 
-got frameId 14 from hash table
-In flushPage
-Writing to page 18:
-
-Now calling write_page
-After remove from hash bucket 4[11, 7]->[2, -1]->[3, -1]->[4, -1]->[5, -1]->[6, -1]->[7, -1]->[8, -1]->[9, -1]->[10, -1]->[11, -1]->[1, -1]->[0, -1]->[19, -1]->[18, -1]->[17, -1]->[16, -1]->[15, -1]->
-
-
-
-Using unpinPage version 1
-Unpinning page 38 stored at frameid 14 as dirty
-* Page 38 is designated as loved
-Pin count is 0; adding frame 14 to replacement list, recalling that page 38 is loved
-[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->
-
 Page 38 pinned in frame 14
-Using buffer pool frame 13 for page 37
-[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->
-
-After add to hash bucket 2:[9, 5]->[16, 12]->[44, 0]->[37, 13]->
-
-content of frame 13 is dirty, writing to disk
-Content written: 
-got frameId 13 from hash table
-In flushPage
-Writing to page 17:
-
-Now calling write_page
-After remove from hash bucket 3[10, 6]->[45, 1]->[38, 14]->
-
-
-
-Using unpinPage version 1
-Unpinning page 37 stored at frameid 13 as dirty
-* Page 37 is designated as loved
-Pin count is 0; adding frame 13 to replacement list, recalling that page 37 is loved
-[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->
-
 Page 37 pinned in frame 13
-Using buffer pool frame 12 for page 36
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->
-
-After add to hash bucket 1:[8, 4]->[15, 11]->[43, 19]->[36, 12]->
-
-content of frame 12 is dirty, writing to disk
-Content written: 
-got frameId 12 from hash table
-In flushPage
-Writing to page 16:
-
-Now calling write_page
-After remove from hash bucket 2[9, 5]->[44, 0]->[37, 13]->
-
-
-
-Using unpinPage version 1
-Unpinning page 36 stored at frameid 12 as dirty
-* Page 36 is designated as loved
-Pin count is 0; adding frame 12 to replacement list, recalling that page 36 is loved
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->
-
 Page 36 pinned in frame 12
 
 Testing replacement policy with respect to loved pages...
 Pinning an additional 10 unseen pages.
-Using buffer pool frame 2 for page 26
-[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->
-
-After add to hash bucket 5:[12, 8]->[40, 16]->[26, 2]->
-
-content of frame 2 is dirty, writing to disk
-Content written: 
-got frameId 2 from hash table
-In flushPage
-Writing to page 6:
-
-Now calling write_page
-After remove from hash bucket 6[13, 9]->[41, 17]->
-
-
-
-Using unpinPage version 1
-Unpinning page 26 stored at frameid 2 as dirty
-* Page 26 is designated as loved
-Pin count is 0; adding frame 2 to replacement list, recalling that page 26 is loved
-[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->
-
 Page 26 pinned in frame 2
-Using buffer pool frame 3 for page 27
-[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->
-
-After add to hash bucket 6:[13, 9]->[41, 17]->[27, 3]->
-
-content of frame 3 is dirty, writing to disk
-Content written: 
-got frameId 3 from hash table
-In flushPage
-Writing to page 7:
-
-Now calling write_page
-After remove from hash bucket 0[14, 10]->[42, 18]->
-
-
-
-Using unpinPage version 1
-Unpinning page 27 stored at frameid 3 as dirty
-* Page 27 is designated as loved
-Pin count is 0; adding frame 3 to replacement list, recalling that page 27 is loved
-[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->
-
 Page 27 pinned in frame 3
-Using buffer pool frame 4 for page 28
-[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->
-
-After add to hash bucket 0:[14, 10]->[42, 18]->[28, 4]->
-
-content of frame 4 is dirty, writing to disk
-Content written: 
-got frameId 4 from hash table
-In flushPage
-Writing to page 8:
-
-Now calling write_page
-After remove from hash bucket 1[15, 11]->[43, 19]->[36, 12]->
-
-
-
-Using unpinPage version 1
-Unpinning page 28 stored at frameid 4 as dirty
-* Page 28 is designated as loved
-Pin count is 0; adding frame 4 to replacement list, recalling that page 28 is loved
-[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->
-
 Page 28 pinned in frame 4
-Using buffer pool frame 5 for page 29
-[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->
-
-After add to hash bucket 1:[15, 11]->[43, 19]->[36, 12]->[29, 5]->
-
-content of frame 5 is dirty, writing to disk
-Content written: 
-got frameId 5 from hash table
-In flushPage
-Writing to page 9:
-
-Now calling write_page
-After remove from hash bucket 2[44, 0]->[37, 13]->
-
-
-
-Using unpinPage version 1
-Unpinning page 29 stored at frameid 5 as dirty
-* Page 29 is designated as loved
-Pin count is 0; adding frame 5 to replacement list, recalling that page 29 is loved
-[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->
-
 Page 29 pinned in frame 5
-Using buffer pool frame 6 for page 30
-[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->
-
-After add to hash bucket 2:[44, 0]->[37, 13]->[30, 6]->
-
-content of frame 6 is dirty, writing to disk
-Content written: 
-got frameId 6 from hash table
-In flushPage
-Writing to page 10:
-
-Now calling write_page
-After remove from hash bucket 3[45, 1]->[38, 14]->
-
-
-
-Using unpinPage version 1
-Unpinning page 30 stored at frameid 6 as dirty
-* Page 30 is designated as loved
-Pin count is 0; adding frame 6 to replacement list, recalling that page 30 is loved
-[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->
-
 Page 30 pinned in frame 6
-Using buffer pool frame 7 for page 31
-[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->
-
-After add to hash bucket 3:[45, 1]->[38, 14]->[31, 7]->
-
-content of frame 7 is dirty, writing to disk
-Content written: 
-got frameId 7 from hash table
-In flushPage
-Writing to page 11:
-
-Now calling write_page
-After remove from hash bucket 4[26, 2]->
-
-
-
-Using unpinPage version 1
-Unpinning page 31 stored at frameid 7 as dirty
-* Page 31 is designated as loved
-Pin count is 0; adding frame 7 to replacement list, recalling that page 31 is loved
-[8/]->[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->
-
 Page 31 pinned in frame 7
-Using buffer pool frame 8 for page 32
-[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->
-
-After add to hash bucket 4:[26, 2]->[32, 8]->
-
-content of frame 8 is dirty, writing to disk
-Content written: 
-got frameId 8 from hash table
-In flushPage
-Writing to page 12:
-
-Now calling write_page
-After remove from hash bucket 5[40, 16]->[26, 2]->[32, 8]->
-
-
-
-Using unpinPage version 1
-Unpinning page 32 stored at frameid 8 as dirty
-* Page 32 is designated as loved
-Pin count is 0; adding frame 8 to replacement list, recalling that page 32 is loved
-[9/]->[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->
-
 Page 32 pinned in frame 8
-Using buffer pool frame 9 for page 33
-[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->
-
-After add to hash bucket 5:[40, 16]->[26, 2]->[32, 8]->[33, 9]->
-
-content of frame 9 is dirty, writing to disk
-Content written: 
-got frameId 9 from hash table
-In flushPage
-Writing to page 13:
-
-Now calling write_page
-After remove from hash bucket 6[41, 17]->[27, 3]->
-
-
-
-Using unpinPage version 1
-Unpinning page 33 stored at frameid 9 as dirty
-* Page 33 is designated as loved
-Pin count is 0; adding frame 9 to replacement list, recalling that page 33 is loved
-[10/]->[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->
-
 Page 33 pinned in frame 9
-Using buffer pool frame 10 for page 34
-[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->
-
-After add to hash bucket 6:[41, 17]->[27, 3]->[34, 10]->
-
-content of frame 10 is dirty, writing to disk
-Content written: 
-got frameId 10 from hash table
-In flushPage
-Writing to page 14:
-
-Now calling write_page
-After remove from hash bucket 0[42, 18]->[28, 4]->
-
-
-
-Using unpinPage version 1
-Unpinning page 34 stored at frameid 10 as dirty
-* Page 34 is designated as loved
-Pin count is 0; adding frame 10 to replacement list, recalling that page 34 is loved
-[11/]->[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->
-
 Page 34 pinned in frame 10
-Using buffer pool frame 11 for page 35
-[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->
-
-After add to hash bucket 0:[42, 18]->[28, 4]->[35, 11]->
-
-content of frame 11 is dirty, writing to disk
-Content written: 
-got frameId 11 from hash table
-In flushPage
-Writing to page 15:
-
-Now calling write_page
-After remove from hash bucket 1[43, 19]->[36, 12]->[29, 5]->
-
-
-
-Using unpinPage version 1
-Unpinning page 35 stored at frameid 11 as dirty
-* Page 35 is designated as loved
-Pin count is 0; adding frame 11 to replacement list, recalling that page 35 is loved
-[1/]->[0/]->[19/]->[18/]->[17/]->[16/]->[15/]->[14/]->[13/]->[12/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->
-
 Page 35 pinned in frame 11
 Finished a test
-Building replacement list, RLHead had address 9225712
-Exiting buildReplacementList, RLHead has frameid0
-** changed replacement list **
-[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->
-
-Didn't find page 0 in hash table
-Using buffer pool frame 0 for page 0
-Incrementing RLHead from 9225712 to 9225744
-** changed replacement list **
-[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->
-
-Deleting old head, at address 9225712
-After add to hash bucket 0:[0, 0]->
-
-
-
-Using unpinPage version 1
-Unpinning page 0 stored at frameid 0 as dirty
-* Page 0 is designated as loved
-Pin count is 0; adding frame 0 to replacement list, recalling that page 0 is loved
-[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->
-
-Didn't find page 1 in hash table
-Using buffer pool frame 1 for page 1
-Incrementing RLHead from 9225744 to 9225776
-** changed replacement list **
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->
-
-Deleting old head, at address 9225744
-After add to hash bucket 1:[1, 1]->
-
-
-
-Using unpinPage version 1
-Unpinning page 1 stored at frameid 1 as dirty
-* Page 1 is designated as loved
-Pin count is 0; adding frame 1 to replacement list, recalling that page 1 is loved
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
+In flushAllPages()
 In runTest
 Cleared errors
 --------------------- Test 3 ----------------------
-Pinning page 0 1768762933
-Using buffer pool frame 2 for page 1768762933
-[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 0:[0, 0]->[1768762933, 2]->
-
-	pinPage failed...
-	Pinning error in a second time ...
-Pinning page 1 1633839470
-Using buffer pool frame 3 for page 1633839470
-[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 4:[1633839470, 3]->
-
-	pinPage failed...
-	Pinning error in a second time ...
-Pinning page 2 1345102432
-Using buffer pool frame 4 for page 1345102432
-[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 2:[1345102432, 4]->
-
-	pinPage failed...
-	Pinning error in a second time ...
-Pinning page 3 32678
-Using buffer pool frame 5 for page 32678
-[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 2:[1345102432, 4]->[32678, 5]->
-
-	pinPage failed...
-	Pinning error in a second time ...
-Pinning page 4 10
-Using buffer pool frame 6 for page 10
-[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 3:[10, 6]->
-
-	Pinning error in a second time ...
-Pinning page 5 0
-	Pinning error in a second time ...
-Pinning page 6 1345102563
-Using buffer pool frame 7 for page 1345102563
-[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 0:[0, 0]->[1768762933, 2]->[1345102563, 7]->
-
-	pinPage failed...
-	Pinning error in a second time ...
-Pinning page 7 32678
-	pinPage failed...
-	Pinning error in a second time ...
-Pinning page 8 1
-	Pinning error in a second time ...
-Pinning page 9 0
-	Pinning error in a second time ...
-Freeing page 0
-Freeing page 1345102563
-Freeing page 32678
-Freeing page 1
-Freeing page 0
-
-
-Using unpinPage version 1
-Page 1768762933 at frameid 2 is _not_ dirty
-* Page 1768762933 is designated as loved
-Pin count is 0; adding frame 2 to replacement list, recalling that page 1768762933 is loved
-[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->
-
-
-
-Using unpinPage version 1
-Page 1768762933 at frameid 2 is _not_ dirty
-free  page 1768762933
-
-
-Using unpinPage version 1
-Page 1633839470 at frameid 3 is _not_ dirty
-* Page 1633839470 is designated as loved
-Pin count is 0; adding frame 3 to replacement list, recalling that page 1633839470 is loved
-[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->
-
-
-
-Using unpinPage version 1
-Page 1633839470 at frameid 3 is _not_ dirty
-free  page 1633839470
-
-
-Using unpinPage version 1
-Page 1345102432 at frameid 4 is _not_ dirty
-* Page 1345102432 is designated as loved
-Pin count is 0; adding frame 4 to replacement list, recalling that page 1345102432 is loved
-[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->
-
-
-
-Using unpinPage version 1
-Page 1345102432 at frameid 4 is _not_ dirty
-free  page 1345102432
-
-
-Using unpinPage version 1
-Page 32678 at frameid 5 is _not_ dirty
-* Page 32678 is designated as loved
-
-
-Using unpinPage version 1
-Page 32678 at frameid 5 is _not_ dirty
-* Page 32678 is designated as loved
-Pin count is 0; adding frame 5 to replacement list, recalling that page 32678 is loved
-[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->
-
-free  page 32678
-
-
-Using unpinPage version 1
-Page 10 at frameid 6 is _not_ dirty
-* Page 10 is designated as loved
-Pin count is 0; adding frame 6 to replacement list, recalling that page 10 is loved
-[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->
-
-
-
-Using unpinPage version 1
-Page 10 at frameid 6 is _not_ dirty
-free  page 10
-
-
-Using unpinPage version 1
-Page 0 at frameid 0 is _not_ dirty
-* Page 0 is designated as loved
-
-
-Using unpinPage version 1
-Page 0 at frameid 0 is _not_ dirty
-* Page 0 is designated as loved
-Pin count is 0; adding frame 0 to replacement list, recalling that page 0 is loved
-[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[0/]->
-
-free  page 0
-
-
-Using unpinPage version 1
-Page 1345102563 at frameid 7 is _not_ dirty
-* Page 1345102563 is designated as loved
-Pin count is 0; adding frame 7 to replacement list, recalling that page 1345102563 is loved
-[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[0/]->[7/]->
-
-
-
-Using unpinPage version 1
-Page 1345102563 at frameid 7 is _not_ dirty
-free  page 1345102563
-
-
-Using unpinPage version 1
-Page 32678 at frameid 5 is _not_ dirty
-
-
-Using unpinPage version 1
-Page 32678 at frameid 5 is _not_ dirty
-free  page 32678
-
-
-Using unpinPage version 1
-Page 1 at frameid 1 is _not_ dirty
-* Page 1 is designated as loved
-Pin count is 0; adding frame 1 to replacement list, recalling that page 1 is loved
-[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[0/]->[7/]->[1/]->
-
-
-
-Using unpinPage version 1
-Page 1 at frameid 1 is _not_ dirty
-free  page 1
-
-
-Using unpinPage version 1
-Page 0 at frameid 0 is _not_ dirty
-
-
-Using unpinPage version 1
-Page 0 at frameid 0 is _not_ dirty
-free  page 0
-new  page 10,1341695706
-new  page 11,32678
-new  page 12,1886221359
-new  page 13,1718968879
-new  page 14,1
-new  page 15,0
-new  page 16,10
-new  page 17,0
-new  page 18,4228063
-new  page 19,0
-new  page 20,-1250910176
-new  page 21,32767
-new  page 22,1341701701
-new  page 23,32678
+Pinning page 0 2
+Pinning page 1 2
+Pinning page 2 2
+Pinning page 3 2
+Pinning page 4 2
+Pinning page 5 2
+Pinning page 6 2
+Pinning page 7 2
+Pinning page 8 2
+Pinning page 9 2
+Freeing page 2
+Freeing page 2
+Freeing page 2
+Freeing page 2
+Freeing page 2
+free  page 2
+free  page 2
+free  page 2
+free  page 2
+free  page 2
+free  page 2
+free  page 2
+free  page 2
+free  page 2
+free  page 2
+new  page 10,2
+new  page 11,2
+new  page 12,2
+new  page 13,2
+new  page 14,2
+new  page 15,2
+new  page 16,2
+new  page 17,2
+new  page 18,2
+new  page 19,2
+new  page 20,2
+new  page 21,2
+new  page 22,2
+new  page 23,2
 Finished a test
-Building replacement list, RLHead had address 9227936
-Exiting buildReplacementList, RLHead has frameid0
-** changed replacement list **
-[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->
-
-Didn't find page 0 in hash table
-Using buffer pool frame 0 for page 0
-Incrementing RLHead from 9227936 to 9226656
-** changed replacement list **
-[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->
-
-Deleting old head, at address 9227936
-After add to hash bucket 0:[0, 0]->
-
-
-
-Using unpinPage version 1
-Unpinning page 0 stored at frameid 0 as dirty
-* Page 0 is designated as loved
-Pin count is 0; adding frame 0 to replacement list, recalling that page 0 is loved
-[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->
-
-Didn't find page 1 in hash table
-Using buffer pool frame 1 for page 1
-Incrementing RLHead from 9226656 to 9226688
-** changed replacement list **
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->
-
-Deleting old head, at address 9226656
-After add to hash bucket 1:[1, 1]->
-
-
-
-Using unpinPage version 1
-Unpinning page 1 stored at frameid 1 as dirty
-* Page 1 is designated as loved
-Pin count is 0; adding frame 1 to replacement list, recalling that page 1 is loved
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
+In flushAllPages()
 In runTest
 Cleared errors
 --------------------- Test 4 ----------------------
 	newPage successful
-
-
-Using unpinPage version 1
-	ERROR -- unpinning of page failed
-Building replacement list, RLHead had address 9270384
-Exiting buildReplacementList, RLHead has frameid0
-** changed replacement list **
-[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->
-
-Using buffer pool frame 0 for page 1341701701
-[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->
-
-After add to hash bucket 4:[1341701701, 0]->
-
-	ERROR -- pinning of page failed
+	Unpinning of page successful
+	Pinning of page successful
 	ERROR -- Dirtied page not written to disk
 Finished a test
-Building replacement list, RLHead had address 9292160
-Exiting buildReplacementList, RLHead has frameid0
-** changed replacement list **
-[0/]->[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->
-
-Didn't find page 0 in hash table
-Using buffer pool frame 0 for page 0
-Incrementing RLHead from 9292160 to 9292192
-** changed replacement list **
-[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->
-
-Deleting old head, at address 9292160
-After add to hash bucket 0:[0, 0]->
-
-
-
-Using unpinPage version 1
-Unpinning page 0 stored at frameid 0 as dirty
-* Page 0 is designated as loved
-Pin count is 0; adding frame 0 to replacement list, recalling that page 0 is loved
-[1/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->
-
-Didn't find page 1 in hash table
-Using buffer pool frame 1 for page 1
-Incrementing RLHead from 9292192 to 9292224
-** changed replacement list **
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->
-
-Deleting old head, at address 9292192
-After add to hash bucket 1:[1, 1]->
-
-
-
-Using unpinPage version 1
-Unpinning page 1 stored at frameid 1 as dirty
-* Page 1 is designated as loved
-Pin count is 0; adding frame 1 to replacement list, recalling that page 1 is loved
-[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
+In flushAllPages()
 In runTest
 Cleared errors
 --------------------- Test 5 ----------------------
 	Allocate 10 pages successful
-
-
-Using unpinPage version 1
-Page 0 at frameid 0 is _not_ dirty
-	ERROR -- unpinning of a pinned page failed
-
-
-Using unpinPage version 1
-Page 0 at frameid 0 is _not_ dirty
-	Unpinning of an unpinned page failed
-Using buffer pool frame 2 for page 999
-[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->
-
-After add to hash bucket 5:[999, 2]->
-
+	Unpinning of a pinned page successful
+	ERROR -- unpinning of an unpinned page succeeded
 	Pinning of a non-existent page failed
-
-
-Using unpinPage version 1
-Page 999 at frameid 2 is _not_ dirty
-* Page 999 is designated as loved
-Pin count is 0; adding frame 2 to replacement list, recalling that page 999 is loved
-[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->
-
 	ERROR -- unpinning of a non-existent page succeeded
 	Pinning of page successful
-	ERROR -- Freeing a pinned page succeeded 
+	Freeing a pinned page failed 
+	ERROR -- Freeing allocated pages failed
+	Allocate page successful
+	ERROR -- Pinning a page in a full buffer succeeded
+	ERROR -- Freeing allocated pages failed
+Finished a test
+In flushAllPages()
+In runTest
+Cleared errors
+--------------------- Test 6 ----------------------
+after pinPage1
+after flushPage1
+after pinPage2
+after flushPage2
+after pinPage3
+after flushPage3
+after pinPage4
+after flushPage4
+after pinPage5
+after flushPage5
+after pinPage6
+after flushPage6
+after pinPage7
+after flushPage7
+after pinPage8
+after flushPage8
+after pinPage9
+after flushPage9
+after pinPage10
+after flushPage10
+after pinPage11
+after flushPage11
+after pinPage12
+after flushPage12
 
 
-Using unpinPage version 1
-Page 0 at frameid 0 is _not_ dirty
-* Page 0 is designated as loved
-Pin count is 0; adding frame 0 to replacement list, recalling that page 0 is loved
-[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[1/]->[2/]->[0/]->
+PAGE[1]: This is test 6 for page 1
+PAGE[2]: This is test 6 for page 2
+PAGE[3]: This is test 6 for page 3
+PAGE[4]: This is test 6 for page 4
+PAGE[5]: This is test 6 for page 5
+PAGE[6]: This is test 6 for page 6
+PAGE[7]: This is test 6 for page 7
+PAGE[8]: This is test 6 for page 8
+PAGE[9]: This is test 6 for page 9
+PAGE[10]: This is test 6 for page 10
+PAGE[11]: This is test 6 for page 11
+PAGE[12]: This is test 6 for page 12
+Finished a test
 
+...Buffer Management tests completed successfully.
 
-
-Using unpinPage version 1
-Page 0 at frameid 0 is _not_ dirty
-
-
-Using unpinPage version 1
-
-
-Using unpinPage version 1
-Page 0 at frameid 0 is _not_ dirty
-
-
-Using unpinPage version 1
-Page 0 at frameid 0 is _not_ dirty
-
-
-Using unpinPage version 1
-Page 0 at frameid 0 is _not_ dirty
-
-
-Using unpinPage version 1
