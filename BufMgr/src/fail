@@ -1,0 +1,211 @@
+Freed page 10
+free  page 10
+entered unpinPage (v1), to unpin page 11
+entered unpinPage (v1), to unpin page 11
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[1/]->[11/]->
+
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->
+
+Freed page 11
+free  page 11
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->
+
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[2/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->
+
+Allocated 1 new page/s, starting with pageId 2
+entered pinPage (1)
+Found it already in page 2
+new  page 10,2
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->
+
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[3/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->
+
+Allocated 1 new page/s, starting with pageId 3
+entered pinPage (1)
+Found it already in page 3
+new  page 11,3
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->
+
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[4/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->
+
+Allocated 1 new page/s, starting with pageId 4
+entered pinPage (1)
+Found it already in page 4
+new  page 12,4
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->
+
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[5/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->
+
+Allocated 1 new page/s, starting with pageId 5
+entered pinPage (1)
+Found it already in page 5
+new  page 13,5
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->
+
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[6/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->
+
+Allocated 1 new page/s, starting with pageId 6
+entered pinPage (1)
+Found it already in page 6
+new  page 14,6
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->
+
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[7/]->[8/]->[9/]->[10/]->[11/]->[1/]->
+
+Allocated 1 new page/s, starting with pageId 7
+entered pinPage (1)
+Found it already in page 7
+new  page 15,7
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[8/]->[9/]->[10/]->[11/]->[1/]->
+
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[8/]->[9/]->[10/]->[11/]->[1/]->
+
+Allocated 1 new page/s, starting with pageId 8
+entered pinPage (1)
+Found it already in page 8
+new  page 16,8
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[21161120/]->[9/]->[10/]->[11/]->[1/]->
+
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[21161120/]->[9/]->[10/]->[11/]->[1/]->
+
+Allocated 1 new page/s, starting with pageId 9
+entered pinPage (1)
+Found it already in page 9
+new  page 17,9
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[21161120/]->[21161152/]->[10/]->[11/]->[1/]->
+
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[21161120/]->[21161152/]->[10/]->[11/]->[1/]->
+
+Allocated 1 new page/s, starting with pageId 10
+entered pinPage (1)
+Found it already in page 10
+new  page 18,10
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[21161120/]->[21161152/]->[21161184/]->[11/]->[1/]->
+
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[21161120/]->[21161152/]->[21161184/]->[11/]->[1/]->
+
+Allocated 1 new page/s, starting with pageId 11
+entered pinPage (1)
+Found it already in page 11
+new  page 19,11
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[21161120/]->[21161152/]->[21161184/]->[21161216/]->[1/]->
+
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[12/]->[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[21161120/]->[21161152/]->[21161184/]->[21161216/]->[1/]->
+
+Allocated 1 new page/s, starting with pageId 12
+entered pinPage (1)
+[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[21161120/]->[21161152/]->[21161184/]->[21161216/]->[1/]->
+
+new  page 20,12
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[21161120/]->[21161152/]->[21161184/]->[21161216/]->[1/]->
+
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[13/]->[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[21161120/]->[21161152/]->[21161184/]->[21161216/]->[1/]->
+
+Allocated 1 new page/s, starting with pageId 13
+entered pinPage (1)
+[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[21161120/]->[21161152/]->[21161184/]->[21161216/]->[1/]->
+
+new  page 21,13
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[21161120/]->[21161152/]->[21161184/]->[21161216/]->[1/]->
+
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[14/]->[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[21161120/]->[21161152/]->[21161184/]->[21161216/]->[1/]->
+
+Allocated 1 new page/s, starting with pageId 14
+entered pinPage (1)
+[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[21161120/]->[21161152/]->[21161184/]->[21161216/]->[1/]->
+
+new  page 22,14
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[21161120/]->[21161152/]->[21161184/]->[21161216/]->[1/]->
+
+In pinPage (2): Want to pin page 1
+Found page at frame 1
+entered unpinPage (v1), to unpin page 1
+[15/]->[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[21161056/]->[21161088/]->[21161120/]->[21161152/]->[21161184/]->[21161216/]->[1/]->
+
+Allocated 1 new page/s, starting with pageId 15
+entered pinPage (1)
+[16/]->[17/]->[18/]->[19/]->[0/]->[0/]->[21160960/]->[21160992/]->[21161024/]->[211610
