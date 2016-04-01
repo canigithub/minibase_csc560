@@ -38,7 +38,6 @@ HeapFile::HeapFile( const char *name, Status& returnStatus ) {
 	/* If not, ask the database to allocate a new page use it for a new file entry 
        and make it a directory page */
 	if(status != OK)  {					
-        // cout << ">>> create new file entry." << std::flush;			
 		HFPage *firstDirPage = NULL;
 		status = MINIBASE_DB->allocate_page(firstDirPageId, 1); CHECK_RETURN_STATUS
         // cout << "@ after ctor.alloc_page" << ',' << std::flush;
@@ -68,14 +67,17 @@ HeapFile::HeapFile( const char *name, Status& returnStatus ) {
 // Destructor
 HeapFile::~HeapFile()
 {
+		Status status;
    // don't delete the file if it wasn't temporary
 //    cout << ">>> enter dtor" << endl;
 //    cout << "fileName = " << fileName << endl;
+    if(!strcmp(fileName, "")) { 
+        status = deleteFile(); 
+				if(status != OK)	
+					minibase_errors.show_errors();
+    }
     free(fileName);
 //    cout << ">>> enter the destructor." << endl;
-    if(!strcmp(fileName, "")) { 
-        Status status = deleteFile(); ASSERT_STATUS;
-    }
     
     // cout << ">>> at the end of destructor." << endl;
     
@@ -114,12 +116,6 @@ int HeapFile::getRecCnt()
     return num_records;
 }
 
-// void checkPins(int i) {
-// 		if(MINIBASE_BM->getNumUnpinnedBuffers() != MINIBASE_BM->getNumBuffers())
-// 			printf("Warning! at time %d, %d pages are pinned\n", 
-// 				i, MINIBASE_BM->getNumBuffers() - MINIBASE_BM->getNumUnpinnedBuffers());
-// 	}
-// *****************************
 // Insert a record into the file
 Status HeapFile::insertRecord(char *recPtr, int recLen, RID& outRid)
 {
@@ -255,7 +251,9 @@ Status HeapFile::insertRecord(char *recPtr, int recLen, RID& outRid)
 // delete record from file
 Status HeapFile::deleteRecord (const RID& rid)
 {
-    if (file_deleted) return FAIL; 
+    if (file_deleted) {
+			return FAIL; 
+		}
     PageId dirPageId, dataPageId;
     HFPage *dirPage, *dataPage, *prevDirPage, *nextDirPage;
     RID dataPageRid;
@@ -296,9 +294,15 @@ Status HeapFile::deleteRecord (const RID& rid)
     PageId prevDirPageId, nextDirPageId;
     prevDirPageId = dirPage->getPrevPage();
     nextDirPageId = dirPage->getNextPage();
+
     if (prevDirPageId == -1 && nextDirPageId == -1) {
-        file_deleted = 1;
-    } else if (prevDirPageId == -1 && nextDirPageId != -1) {
+			// this is the only directory page... hold onto it
+	    status = MINIBASE_BM->unpinPage(dataPageId); CHECK_STATUS
+	    status = MINIBASE_BM->unpinPage(dirPageId); CHECK_STATUS            
+	    return OK;
+
+		// otherwise, remove the directory page from the linked list
+    } else  if (prevDirPageId == -1 && nextDirPageId != -1) {
         status = MINIBASE_BM->pinPage(nextDirPageId, (Page*&) nextDirPage); CHECK_STATUS
         nextDirPage->setPrevPage(-1);
         status = MINIBASE_BM->unpinPage(nextDirPageId); CHECK_STATUS
@@ -368,7 +372,6 @@ Status HeapFile::getRecord (const RID& rid, char *recPtr, int& recLen)
 Scan *HeapFile::openScan(Status& status)
 {
     Scan *s = new Scan(this,status);
-	// printf("opened the scan, inside heapfile\n");
     return s;
 }
 

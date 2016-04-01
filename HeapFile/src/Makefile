@@ -17,9 +17,9 @@ CFLAGS= -DUNIX -Wall -g
 INCLUDES = -I${MINIBASE}/include -I.
 
 # LFLAGS= -L${MINIBASE}/lib -liberty -lheapfile -lm
-LFLAGS= -L${MINIBASE}/lib -L${MINIBASE}/lib32 -lbm -ldb -lm
+LFLAGS= -L${MINIBASE}/lib -L${MINIBASE}/lib32 -ldb -lm
 
-SRCS = main.C heapfile.C heap_driver.C test_driver.C \
+SRCS = buf.C main.C heapfile.C heap_driver.C test_driver.C \
 	 	new_error.C page.C system_defs.C \
 		scan.C hfpage.C
 

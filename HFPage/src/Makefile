@@ -15,10 +15,10 @@ CFLAGS= -DUNIX -Wall -g
 INCLUDES = -I${MINIBASE}/include -I.
 
 #LFLAGS= -L${MINIBASE}/lib -liberty -lm
-#LFLAGS= -L${MINIBASE}/lib32 -lbm -ldb -lm
-LFLAGS= -L${MINIBASE}/lib32 -L${MINIBASE}/lib -lbm -ldb -lm
+#LFLAGS= -L${MINIBASE}/lib32 -ldb -lm
+LFLAGS= -L${MINIBASE}/lib32 -L${MINIBASE}/lib -ldb -lm
 
-SRCS = main.C hfpage.C hfp_driver.C test_driver.C \
+SRCS = buf.C main.C hfpage.C hfp_driver.C test_driver.C \
 		new_error.C page.C system_defs.C
 
 OBJS = $(SRCS:.C=.o)

@@ -79,6 +79,7 @@ int HeapDriver::test1()
         cerr << "*** Could not create heap file\n";
     else if ( MINIBASE_BM->getNumUnpinnedBuffers()
                 != MINIBASE_BM->getNumBuffers() ) {
+				printf("%d unpinned buffers out of %d buffers\n", MINIBASE_BM->getNumUnpinnedBuffers(), MINIBASE_BM->getNumBuffers());
         cerr << "*** The heap file has left pages pinned\n";
         status = FAIL;
     }
@@ -140,7 +141,6 @@ int HeapDriver::test1()
       {
         cout << "  - Scan the records just inserted\n";
         scan = f.openScan(status);
-				// printf("opened the scan\n");
 
         if (status != OK)
             cerr << "*** Error opening scan\n";
@@ -240,8 +240,6 @@ int HeapDriver::test2()
     cout << "  - Open the same heap file as test 1\n";
     HeapFile f("file_1", status);
 
-    // cout << ">>> after opened the file. status = " << status << endl;
-    // return (status = OK);
     
     if (status != OK)
         cerr << "*** Error opening heap file\n";

@@ -55,6 +55,7 @@ Status Scan::getNext(RID& rid, char *recPtr, int& recLen)
 // Do all the constructor work.
 Status Scan::init(HeapFile *hf)
 {
+	setbuf(stdout, NULL);
     _hf = hf;
 	Status status;
 	status = firstDataPage(); CHECK_STATUS
