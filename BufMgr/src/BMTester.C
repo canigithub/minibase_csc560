@@ -33,6 +33,25 @@ BMTester::~BMTester()
 
 int BMTester::test1() 
 {
+    cout << "--------------------- Test 0 ----------------------\n";
+    // Status status;
+    // PageId mypageid1, mypageid2, mypageid3;
+    // cout << "alloc three pages: " << endl;
+    // status = MINIBASE_DB->allocate_page(mypageid1,1);
+    // status = MINIBASE_DB->allocate_page(mypageid2,1);
+    // status = MINIBASE_DB->allocate_page(mypageid3,1);
+    // cout << "[" << mypageid1 << " ";
+    // cout << mypageid2 << " ";
+    // cout << mypageid3 << "] finish" << endl << flush;
+    
+    // status = MINIBASE_DB->deallocate_page(mypageid1);
+    // status = MINIBASE_DB->deallocate_page(mypageid2);
+    // status = MINIBASE_DB->deallocate_page(mypageid3);
+    
+    // if (status != OK) return status;
+    
+    /////
+    
 	setbuf(stdout, NULL);
 	printf("In BMTester::test1()\n");
 	Status st;
@@ -68,7 +87,6 @@ int BMTester::test1()
        	}
        	cout<<"PAGE["<<i<<"]: "<<(char *)pg;
        	sprintf(data,"This is test 1 for page %d\n",i);
-				printf("Stored content: %s\n", (char*)pg);
        	if (strcmp(data,(char*)pg)) {
        		st = FAIL;
        		cerr << "Error: page content incorrect!\n";

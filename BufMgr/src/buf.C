@@ -38,16 +38,17 @@ static error_string_table bufTable(BUFMGR,bufErrMsgs);
 //************************************************************
 
 BufMgr::BufMgr (int numbuf, Replacer *replacer) {
+    // cout << "enter ctor" << endl << flush;
   numBuffers = numbuf;
   bufPool = (Page*)malloc(numbuf * sizeof(Page));
   
   bufDescr = new BufDescr*[numbuf];
-  for (int i = 0; i < numbuf; ++i) {
+  for ( int i = 0; i < numbuf; ++i) {
       bufDescr[i] = new BufDescr();
   }
   
   htDir = (PageToFrameHashEntry**)malloc(HTSIZE * sizeof(PageToFrameHashEntry*));
-  for (int i = 0; i < HTSIZE; ++i) {
+  for ( int i = 0; i < HTSIZE; ++i) {
       htDir[i] = NULL;
   }
   
@@ -58,12 +59,19 @@ BufMgr::BufMgr (int numbuf, Replacer *replacer) {
 //** This is the implementation of ~BufMgr
 //************************************************************
 BufMgr::~BufMgr(){
-  // put your code here
+    // cout << "enter dtor" << endl << flush;
+    flushAllPages();
+  free(bufPool);
+  for (unsigned int i = 0; i < numBuffers; ++i) {
+      delete bufDescr[i];
+  }
+  delete[] bufDescr;
+  free(htDir);
+  freeReplacementList();
 }
 
 void BufMgr::buildReplacementList() {
     RLHead = new RListNode(0);
-		// printf("Building replacement list, RLHead had address %ld\n", (unsigned long) RLHead);
     RListNode* curListNode = RLHead;
     for(unsigned int i = 1; i < numBuffers; ++i) {
         curListNode->next = new RListNode(i);
@@ -71,36 +79,28 @@ void BufMgr::buildReplacementList() {
         curListNode = curListNode->next;
     }
     RLTail = curListNode;
-		// printf("Exiting buildReplacementList, RLHead has frameid%d\n", RLHead->frameid);
-		// printf("** changed replacement list **\n");
-		printReplacementList();
+}
+
+void BufMgr::freeReplacementList() {
+    RListNode* curListNode = RLHead;
+    RListNode* nextListNode = RLHead;
+    while(curListNode) {
+        nextListNode = curListNode->next;
+        delete curListNode;
+        curListNode = nextListNode;
+    }
 }
 
 void BufMgr::printReplacementList() {
-	return;
 	RListNode* curr = RLHead;
 	while(curr) {
 		printf("[%d/]->", curr->frameid);
 		curr = curr->next;
 	}
-	printf("\n\n");
-}
-
-int BufMgr::lookUpFrameid(PageId pageid) {
-		//std::raise(SIGINT);
-    int htIndex = hash(pageid);
-    PageToFrameHashEntry* curEntry = htDir[htIndex];
-    while (curEntry) {
-          if (curEntry->pageid == pageid) {
-              return curEntry->frameid;
-          }
-          curEntry = curEntry->next;
-      }
-      return -1; // return invalid frameid
+	printf("\n");
 }
 
 void BufMgr::printLinkedList(int htIndex) {
-	return;
 	PageToFrameHashEntry* curr = htDir[htIndex];
 	if(!curr) {
 		printf("%d points to an empty bucket\n", htIndex);
@@ -110,15 +110,87 @@ void BufMgr::printLinkedList(int htIndex) {
 		printf("[%d, %d]->", curr->pageid, curr->frameid);
 		curr = curr->next;
 	}
-	printf("\n");
+	printf("\n\n");
 }
+
+int BufMgr::inReplacementList(PageId pageid) {
+    RListNode* curr = RLHead;
+    while (curr) {
+        if (curr->pageid == pageid)
+            return 1;
+        curr = curr->next;
+    }
+    return 0;
+}
+
+Status BufMgr::removeFromReplacementList(PageId pageid) {
+    
+    if (RLHead == RLTail) {
+        if (RLHead->pageid == pageid) {
+            delete RLHead;
+            RLHead = NULL;
+            RLTail = NULL;
+            return OK;
+        } else {
+            minibase_errors.add_error(BUFMGR, bufErrMsgs[6]);
+	        return BUFMGR;
+        }
+    }
+    
+    RListNode* curr = RLHead;
+    // RListNode* next = RLHead;
+    
+    if (curr->pageid == pageid) {
+        // now curr is head
+        RLHead = curr->next;
+        delete curr;
+        return OK;
+    }
+    
+    // advance one node
+    curr = curr->next;
+    
+    while(curr->next) {
+        if (curr->pageid == pageid) {
+            curr->prev->next = curr->next;
+            curr->next->prev = curr->prev;
+            delete curr;
+            return OK;
+        }
+        curr = curr->next;
+    }
+    
+    if (curr->pageid == pageid) {
+        // now curr is the tail
+        RLTail = curr->prev;
+        delete curr;
+        return OK;
+    }
+    
+    // something is wrong
+    minibase_errors.add_error(BUFMGR, bufErrMsgs[6]);
+	return BUFMGR;
+}
+
+
+int BufMgr::lookUpFrameid(PageId pageid) {
+    int htIndex = hash(pageid);
+    PageToFrameHashEntry* curEntry = htDir[htIndex];
+    while (curEntry) {
+          if (curEntry->pageid == pageid) {
+              return curEntry->frameid;
+          }
+          curEntry = curEntry->next;
+      }
+      return -1; 
+}
+
 
 void BufMgr::addToPFHash(PageId pageid, int frameid) {
 	PageToFrameHashEntry* newEntry = new PageToFrameHashEntry(pageid, frameid);
 
   int htIndex = hash(pageid);
-	//printf("About to add to hash bucket %d\n", htIndex);
-	//printLinkedList(htIndex);
+	
 	PageToFrameHashEntry* curr = htDir[htIndex];
 
 	if((htDir[htIndex]) == NULL) {
@@ -130,11 +202,6 @@ void BufMgr::addToPFHash(PageId pageid, int frameid) {
 		curr->next = newEntry;
 		newEntry->prev = curr;
 	}
-
-	//printf("After add to hash bucket %d:", htIndex);
-	printLinkedList(htIndex);
-	// printf("\n");
-
 }
 
 // called from unpinPage
@@ -143,9 +210,6 @@ Status BufMgr::removeFromPFHashTable(PageId pageid) {
 	int htIndex = hash(pageid);
 	PageToFrameHashEntry* curr = htDir[htIndex]; 
 
-	//printf("About to remove page %d from hash bucket %d\n", pageid, htIndex);
-	//printLinkedList(htIndex);
-  
 	// bucket is empty
 	if(!curr) {
       minibase_errors.add_error(BUFMGR, bufErrMsgs[2]);
@@ -156,7 +220,6 @@ Status BufMgr::removeFromPFHashTable(PageId pageid) {
 	while(curr->next && curr->pageid != pageid)
 		curr = curr->next;
 
-	//printf("Stopped traversing at entry with pageid %d\n", curr->pageid);
 
 	// page was not in the hash table
 	if(curr->pageid != pageid) {
@@ -182,10 +245,6 @@ Status BufMgr::removeFromPFHashTable(PageId pageid) {
 
 	delete(curr);
 
-	// printf("After remove from hash bucket %d", htIndex);
-	printLinkedList(htIndex);
-	// printf("\n");
-
 	return OK;
 
 }
@@ -195,69 +254,79 @@ Status BufMgr::removeFromPFHashTable(PageId pageid) {
 //************************************************************
 // Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage=FALSE) {
 Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage) {
-  
+  // cout << "enter pinPage(1) page=" << PageId_in_a_DB << " " << flush;
   Status status;
   
-  int frameid = lookUpFrameid(PageId_in_a_DB);
-  if (frameid != -1) {
-      ++(bufDescr[frameid]->pincount);
-      page = &bufPool[frameid]; 				// ??
-      if (!emptyPage) {
-            status = MINIBASE_DB->read_page(PageId_in_a_DB, page); 
-            CHECK_STATUS
-        } 
-        return OK;
-  }
-	// printf("Didn't find page %d in hash table\n", PageId_in_a_DB);
-  
-  // if the page is not in bufPool means in RList
-  RListNode* curRListNode = RLHead;
-  if (!curRListNode) {
+  Page* temp_ptr = (Page*)malloc(sizeof(Page));
+  status = MINIBASE_DB->read_page(PageId_in_a_DB, temp_ptr);
+  if (status != OK) {
       minibase_errors.add_error(BUFMGR, bufErrMsgs[7]);
       return BUFMGR;
   }
-
-	//printf("Using buffer pool frame %d for page %d\n", curRListNode->frameid, PageId_in_a_DB);
-
+  free(temp_ptr);
   
-	if(!RLHead->next) {
-		// printf("buf.C line 209: At end of replacment list!\n");
-		// printf("Advancing RLHead from %ld ", (unsigned long) RLHead);
-	}
-  RLHead = RLHead->next;
-//	printf("to %ld\n", (unsigned long) RLHead);
-//	printf("Replacement list:");
-	printReplacementList();
+  // cout <<"in pinpage:";
+  int frameid = lookUpFrameid(PageId_in_a_DB);
   
-  frameid = curRListNode->frameid;
-  delete curRListNode;
-
-	PageId page_num = bufDescr[frameid]->pageid;
+  if (frameid != -1) {
+      // in hash table
+      ++(bufDescr[frameid]->pincount);
+      page = &bufPool[frameid];
+      
+      if (inReplacementList(PageId_in_a_DB)) {
+          status = removeFromReplacementList(PageId_in_a_DB); 
+          CHECK_STATUS
+      }
+       				
+      if (!emptyPage && !bufDescr[frameid]->dirty) {
+            status = MINIBASE_DB->read_page(PageId_in_a_DB, page); 
+            CHECK_STATUS
+        }
+        
+     // cout << "bufdesc:[" << bufDescr[frameid]->pageid << " ";
+  // cout << frameid << " " << bufDescr[frameid]->pincount << " " << bufDescr[frameid]->dirty << " ";
+  // cout << bufDescr[frameid]->love << "]";
+  // cout << endl << flush;
+        return OK;
+  }
+  
+  // if the page is not in bufPool means in RList
+  
+  if (!RLHead) {
+      minibase_errors.add_error(BUFMGR, bufErrMsgs[7]);
+      return BUFMGR;
+  }
+    
+  frameid = RLHead->frameid;
+//   cout << frameid << " ";
+  assert(bufDescr[frameid]->pincount == 0);
+  status = removeFromReplacementList(RLHead->pageid); CHECK_STATUS
+    
+    PageId page_num = bufDescr[frameid]->pageid;
 
 	addToPFHash(PageId_in_a_DB, frameid);
   
-  if (bufDescr[frameid]->dirty) {
-			// printf("content of frame %d is dirty, writing to disk\n", frameid);
-			// printf("Content written: %s\n", (char*)&bufPool[frameid]); 
+  if (bufDescr[frameid]->dirty) { 
       flushPage(bufDescr[frameid]->pageid);
   }
-  
-  assert(bufDescr[frameid]->pincount == 0);
-
-	if(page_num != -1)
+  	if(page_num != -1)
 		status = removeFromPFHashTable(page_num);
   
   ++(bufDescr[frameid]->pincount);
   bufDescr[frameid]->pageid = PageId_in_a_DB;
   bufDescr[frameid]->dirty = 0;
   bufDescr[frameid]->love = 0;
-	//printf("address of bufPool is %ld\n", bufPool);
-	// printf("Assiging address %ld to page\n", &bufPool[frameid]);
   page = &bufPool[frameid];
-  if (!emptyPage) {
-        status = MINIBASE_DB->read_page(PageId_in_a_DB, page); 
+  if (!emptyPage && !bufDescr[frameid]->dirty) {
+      // cout <<"not read." << flush;
+        status = MINIBASE_DB->read_page(PageId_in_a_DB, page);
+        // cout <<"status=" << status; 
         CHECK_STATUS
   }  
+  // cout << "bufdesc:[" << bufDescr[frameid]->pageid << " ";
+  // cout << frameid << " " << bufDescr[frameid]->pincount << " " << bufDescr[frameid]->dirty << " ";
+  // cout << bufDescr[frameid]->love << "]";
+  // cout << endl << flush;
   return OK;
 }//end pinPage
 
@@ -265,20 +334,25 @@ Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage) {
 //** This is the implementation of unpinPage
 //************************************************************
 Status BufMgr::unpinPage(PageId page_num, int dirty=FALSE, int hate = FALSE){
-  
-	//printf("\n\nUsing unpinPage version 1\n");
+  // cout << "enter unpinPage(1) page=" << page_num << " hate=" << hate << endl << flush;
+	
+    // cout <<"print bufdescr..." << endl << flush;
+    // for (unsigned int i = 0; i < numBuffers; ++i) {
+        // cout <<"[" << bufDescr[i]->pageid << " " << i;
+        // cout <<" " << bufDescr[i]->pincount << " " << bufDescr[i]->dirty;
+        // cout <<" " << bufDescr[i]->love << "]" << endl << flush;
+    // }
+    
   int frameid = lookUpFrameid(page_num);
   if (frameid == -1) {
       minibase_errors.add_error(BUFMGR, bufErrMsgs[9]);
       return BUFMGR;
   }
-
+  
+// cout <<"page num=" << page_num << " frameid=" << frameid << endl << flush;
 	if(dirty) {
-		// printf("Unpinning page %d stored at frameid %d as dirty\n", page_num, frameid);
 		bufDescr[frameid]->dirty = 1;
-	} else {
-		// printf("Page %d at frameid %d is _not_ dirty\n", page_num, frameid);
-	}
+	} 
   
   if (bufDescr[frameid]->pincount <= 0) {
       minibase_errors.add_error(BUFMGR, bufErrMsgs[10]);
@@ -287,34 +361,35 @@ Status BufMgr::unpinPage(PageId page_num, int dirty=FALSE, int hate = FALSE){
   
   --(bufDescr[frameid]->pincount);
   if (!hate) {
-		// printf("* Page %d is designated as loved\n", page_num);
 		bufDescr[frameid]->love = 1; 
 	}
   
   if (bufDescr[frameid]->pincount == 0) {
-			// printf("Pin count is 0; adding frame %d to replacement list, recalling that page %d is ", frameid, page_num);
-      RListNode* newNode = new RListNode(frameid);
-      if (bufDescr[frameid]->love) {
-					// printf("loved\n");
+			
+      RListNode* newNode = new RListNode(frameid, page_num);
+      if (RLHead == NULL || RLTail == NULL) {
+          assert(RLHead == NULL && RLTail == NULL);
+          RLHead = newNode;
+          RLTail = newNode;   
+      } else {
+          if (bufDescr[frameid]->love) {
           newNode->prev = RLTail;
           RLTail->next = newNode;
           RLTail = newNode;
-
-					if(!RLHead) {
-						RLHead = RLTail;
-					}
-      } else {
-					// printf("hated\n");
-					if(!RLHead) {
-						RLHead = RLTail;
-					}
+            // if(!RLHead) { 
+            //     RLHead = RLTail;
+            // }
+          } else {
+            // if(!RLHead) {
+            //     RLHead = RLTail;
+            // }
           newNode->next = RLHead;
           RLHead->prev = newNode;
           RLHead = newNode;
+        }
       }
-			printReplacementList();
   }
-
+//   printReplacementList();
   return OK;
 }
 
@@ -322,6 +397,7 @@ Status BufMgr::unpinPage(PageId page_num, int dirty=FALSE, int hate = FALSE){
 //** This is the implementation of newPage
 //************************************************************
 Status BufMgr::newPage(PageId& firstPageId, Page*& firstpage, int howmany) {
+    // cout << "enter newPage" << endl << flush;
   Status status;
   
   int n_unpinned = getNumUnpinnedBuffers();
@@ -332,7 +408,6 @@ Status BufMgr::newPage(PageId& firstPageId, Page*& firstpage, int howmany) {
   
   status = MINIBASE_DB->allocate_page(firstPageId, howmany);
   CHECK_STATUS
-	printf("Allocated %d new page/s, starting with pageId %d\n", howmany, firstPageId);
   status = pinPage(firstPageId, firstpage, 1); CHECK_STATUS
   return OK;
 }
@@ -341,6 +416,7 @@ Status BufMgr::newPage(PageId& firstPageId, Page*& firstpage, int howmany) {
 //** This is the implementation of freePage
 //************************************************************
 Status BufMgr::freePage(PageId globalPageId){
+    // cout << "enter freePage" << endl << flush;
   
   Status status;
   int frameid = lookUpFrameid(globalPageId);
@@ -349,7 +425,7 @@ Status BufMgr::freePage(PageId globalPageId){
       return BUFMGR;
   }
   status = MINIBASE_DB->deallocate_page(globalPageId); CHECK_STATUS
-	printf("Freed page %d\n", globalPageId);
+	// printf("Freed page %d\n", globalPageId);
   
   return OK;
 }
@@ -358,11 +434,10 @@ Status BufMgr::freePage(PageId globalPageId){
 //** This is the implementation of flushPage
 //************************************************************
 Status BufMgr::flushPage(PageId pageid) {
+    // cout << "enter flushPage" << endl << flush;
 	Status status = OK;
   int frameId = lookUpFrameid(pageid);
-	// printf("Flushing to page %d in frame %d\n", pageid, frameId);
 	Page *pageptr = &bufPool[frameId];
-	// printf("Content: %s\n", (char*)pageptr);
 	status = MINIBASE_DB->write_page(pageid, 	pageptr);
 	CHECK_STATUS
   return OK;
@@ -372,7 +447,7 @@ Status BufMgr::flushPage(PageId pageid) {
 //** This is the implementation of flushAllPages
 //************************************************************
 Status BufMgr::flushAllPages(){
-	printf("In flushAllPages()\n");
+	// cout << "enter flushAllPage" << endl << flush;
 	Status status;
 	int frameid;
 	PageId pageid;
@@ -390,64 +465,15 @@ Status BufMgr::flushAllPages(){
 /*** Methods for compatibility with project 1 ***/
 // Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage=0, const char *filename=NULL){
 Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage, const char *filename){
-
-  Status status;
-  
-  int frameid = lookUpFrameid(PageId_in_a_DB);
-  if (frameid != -1) {
-      ++(bufDescr[frameid]->pincount);
-      page = &bufPool[frameid]; 				// ??
-      if (!emptyPage) {
-            status = MINIBASE_DB->read_page(PageId_in_a_DB, page); 
-            CHECK_STATUS
-        } 
-        return OK;
-  }
-	// printf("Didn't find page %d in hash table\n", PageId_in_a_DB);
-  
-  // if the page is not in bufPool means in RList
-  RListNode* curRListNode = RLHead;
-  if (!curRListNode) {
-      minibase_errors.add_error(BUFMGR, bufErrMsgs[7]);
-      return BUFMGR;
-  }
-  
-  RLHead = RLHead->next;
-
-	/* TODO: Uncomment _after_ modifying unpinpage to check if RLTail is NULL, and reacting appropriately
-	if(!RLHead) {
-		RLTail = NULL;
-	}
-	*/
-  
-  frameid = curRListNode->frameid;
-  delete curRListNode;
-
-	PageId page_num = bufDescr[frameid]->pageid;
-	if(page_num != -1)
-		status = removeFromPFHashTable(page_num);
-
-	addToPFHash(PageId_in_a_DB, frameid);
-  
-  if (bufDescr[frameid]->dirty) {
-      flushPage(bufDescr[frameid]->pageid);
-  }
-  
-  assert(bufDescr[frameid]->pincount == 0);
-  
-  ++(bufDescr[frameid]->pincount);
-  bufDescr[frameid]->pageid = PageId_in_a_DB;
-  bufDescr[frameid]->dirty = 0;
-  bufDescr[frameid]->love = 0;
-	//printf("address of bufPool is %ld\n", bufPool);
-	// printf("Assiging address %ld to page\n", &bufPool[frameid]);
-  page = &bufPool[frameid];
-  if (!emptyPage) {
-        status = MINIBASE_DB->read_page(PageId_in_a_DB, page); 
-        CHECK_STATUS
-  }  
-  return OK;
-
+    if (filename == NULL) {
+        // cout << "enter pinPage(2)" << flush;
+        return pinPage(PageId_in_a_DB, page, emptyPage);
+    } else {
+        minibase_errors.add_error(BUFMGR, bufErrMsgs[6]);
+	    return BUFMGR;
+    }
+    
+    
 }
 
 //*************************************************************
@@ -456,38 +482,13 @@ Status BufMgr::pinPage(PageId PageId_in_a_DB, Page*& page, int emptyPage, const 
 // Status BufMgr::unpinPage(PageId globalPageId_in_a_DB, int dirty, const char *filename=NULL){
 Status BufMgr::unpinPage(PageId globalPageId_in_a_DB, int dirty, const char *filename=NULL){
   
-	// printf("Using unpinpage version 2\n");
-  int frameid = lookUpFrameid(globalPageId_in_a_DB);
-  if (frameid == -1) {
-      minibase_errors.add_error(BUFMGR, bufErrMsgs[9]);
-      return BUFMGR;
-  }
-
-	if(dirty) {
-		// printf("page %d stored at frameid %d is dirty\n", globalPageId_in_a_DB, frameid);
-		bufDescr[frameid]->dirty = 1;
-	}
-  
-  if (bufDescr[frameid]->pincount <= 0) {
-      minibase_errors.add_error(BUFMGR, bufErrMsgs[10]);
-      return BUFMGR;
-  }
-  
-  --(bufDescr[frameid]->pincount);
-  
-  if (bufDescr[frameid]->pincount == 0) {
-			// printf("Reassigning RLHead from %ld ", (unsigned long) RLHead);
-      RListNode* newNode = new RListNode(frameid);
-      newNode->next = RLHead;
-      RLHead->prev = newNode;
-      RLHead = newNode;
-			// printf("to %ld\n", (unsigned long) RLHead);
-			// printf("** changed replacement list **\n");
-			printReplacementList();
-  }
-
-  return OK;
-
+      if (filename == NULL) {
+          // cout << "enter unpinPage(2)" << flush;
+        return unpinPage(globalPageId_in_a_DB, dirty, 0);
+    } else {
+        minibase_errors.add_error(BUFMGR, bufErrMsgs[6]);
+	    return BUFMGR;
+    }
 }
 
 //*************************************************************
@@ -500,6 +501,5 @@ unsigned int BufMgr::getNumUnpinnedBuffers(){
 		if(bufDescr[i]->pincount == 0)
 			count++;
 	}
-  //put your code here
   return count;
 }
