@@ -24,8 +24,14 @@
  */
 int keyCompare(const void *key1, const void *key2, AttrType t)
 {
-  // put your code here
-  return 0;
+  if (t == attrString) {
+      return strcmp((char *)key1, (char *)key2);
+  } else if (t == attrInteger) {
+      return (*(int *)key1 - *(int *)key);
+  } else {
+      cerr << "wrong attrType" << endl;
+      exit(1);
+  }
 }
 
 /*
@@ -40,8 +46,29 @@ void make_entry(KeyDataEntry *target,
                 nodetype ndtype, Datatype data,
                 int *pentry_len)
 {
-  // put your code here
-  return;
+    int key_size = 0;
+    int data_size = 0;
+    
+    if (key_type == attrString) {
+        key_size = strlen((char *)key);
+    } else if (key_type == attrInteger){
+        key_size = sizeof(int);
+    }
+    if ((key_size % sizeof(PageId)) != 0) {
+        key_size += sizeof(PageId) - (key_size % sizeof(PageId));
+    }
+    
+    if (ndtype == INDEX) {
+        data_size = sizeof(PageId);
+    } else if (ndTYPE == LEAF) {
+        data_size = sizeof(RID);
+    }
+    
+    *pentry_len = key_size + data_size
+    target = (KeyDataEntry*)malloc(key_size + data_size);
+    memcpy(target, key, key_size);
+    memcpy(target+key_size, &data, data_size);
+     
 }
 
 
@@ -53,8 +80,17 @@ void make_entry(KeyDataEntry *target,
 void get_key_data(void *targetkey, Datatype *targetdata,
                   KeyDataEntry *psource, int entry_len, nodetype ndtype)
 {
-   // put your code here
-   return;
+    int key_size = 0;
+    int data_size = 0;
+    if (ndtype == INDEX) {
+        data_size = sizeof(PageId);
+    } else if (ndtype == LEAF) {
+        data_size = sizeof(RID);
+    }
+    key_size = entry_len - data_size;
+    memcpy(targetkey, psource, key_size);
+    memcpy(targetdata, psource+key_size, data_size);
+ 
 }
 
 /*
@@ -62,8 +98,16 @@ void get_key_data(void *targetkey, Datatype *targetdata,
  */
 int get_key_length(const void *key, const AttrType key_type)
 {
- // put your code here
- return 0;
+    int key_size = 0;
+    if (key_type == attrString) {
+        key_size = strlen((char *)key);
+    } else if (key_type == attrInteger) {
+        key_size = sizeof(int);
+    } else {
+        cerr << "Wrong attrType" << endl;
+        exit(1);
+    }
+    return key_size;
 }
  
 /*
@@ -72,6 +116,12 @@ int get_key_length(const void *key, const AttrType key_type)
 int get_key_data_length(const void *key, const AttrType key_type, 
                         const nodetype ndtype)
 {
- // put your code here
- return 0;
+    int key_size = get_key_length(key, key_type);
+    int data_size = 0;
+    if (ndtype == INDEX) {
+        data_size = sizeof(PageId);
+    } else if (ndtype == LEAF) {
+        data_size = sizeof(RID);
+    }
+    return (key_size+data_size);
 }

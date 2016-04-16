@@ -18,7 +18,7 @@
 // enum btErrCodes  {...}
 
 class BTreeFile: public IndexFile
-{
+{ 
   public:
     BTreeFile(Status& status, const char *filename);
     // an index with given filename should already exist,

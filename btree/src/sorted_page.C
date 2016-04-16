@@ -39,8 +39,39 @@ Status SortedPage::insertRecord (AttrType key_type,
                                  int recLen,
                                  RID& rid)
 {
-  // put your code here
-  return OK;
+    int i; // using i to iterate the slots
+    int j;
+    int offset;
+    
+    if (available_space() < recLen)
+        return DONE;
+    
+    for (i = 0; i < slotCnt; ++i) {
+        if (keyCompare(recPtr, &data[slot[i].offset], key_type) > 0) {
+            continue;
+        } else {
+            offset = slot[i].offset;
+            // update the offset for slots after slot_n
+            for (j = i; j < slotCnt; ++j) {
+                slot[j].offset -= recLen;
+            }
+            memmove(&slot[i+1], &slot[i], sizeof(slot_t)*(slotCnt-i));
+            memmove(data+usedPtr-recLen, data+usedPtr, slot[i].offset+slot[i].length-usedPtr);
+            break;
+        }
+    }
+    
+    rid.pageNo = curPage;
+    rid.slotNo = i;
+    memcpy(&data[offset], recPtr, recLen);
+    slot[i].offset = offset;
+    slot[i].length = recLen;
+    
+    ++slotCnt;
+    usedPtr -= recLen;
+    freeSpace -= recLen;
+    
+    return OK;
 }
 
 
@@ -53,12 +84,30 @@ Status SortedPage::insertRecord (AttrType key_type,
 
 Status SortedPage::deleteRecord (const RID& rid)
 {
-  // put your code here
-  return OK;
+    int i;
+    int slot_n = rid.slotNo;
+    if (slot_n >= slotCnt)
+        return FAIL;
+    
+    slot_t *curr = slot + slot_n;
+    int recLen = curr->length;
+    int offset = curr->offset;
+    memmove(data+usedPtr+recLen, data+usedPtr, offset-usedPtr);
+    
+    // update the offset for slots after slot_n
+    for (i = slot_n+1; i < slotCnt; ++i) {
+        slot[i].offset += recLen;
+    }
+    
+    memmove(&slot[slot_n], &slot[slot_n+1], sizeof(slot_t))
+    
+    --slotCnt;
+    usedPtr += recLen;
+    freeSpace += (recLen + sizeof(slot_t));
+    return OK;
 }
 
 int SortedPage::numberOfRecords()
 {
-  // put your code here
-  return 0;
+  return slotCnt;
 }

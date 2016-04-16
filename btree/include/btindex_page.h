@@ -17,6 +17,7 @@
 class BTIndexPage : public SortedPage {
  private:
    // No private variables should be declared.
+   Status insertRec(const void *key, AttrType key_type, RID dataRid, RID& rid);
 
  public:
 
