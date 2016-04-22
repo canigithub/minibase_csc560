@@ -13,9 +13,16 @@
 #include "index.h"
 #include "btreefilescan.h"
 #include "bt.h"
+#include "hfpage.h"
 
 // Define your error code for B+ tree here
 // enum btErrCodes  {...}
+
+enum headerPageEntries {
+    ROOTPAGEID,
+    KEY_TYPE,
+    KEY_SIZE,
+}
 
 class BTreeFile: public IndexFile
 { 
@@ -58,7 +65,16 @@ class BTreeFile: public IndexFile
     int keysize();
     
   private:
-
+    
+    Status loadFromHeaderPage();
+    Status saveToHeaderPage();
+    
+    char     *file_name;
+    PageId	 headerPageId;
+    PageId   rootPageId;
+    AttrType key_type;
+    int      key_size;	 
+    
 };
 
 #endif

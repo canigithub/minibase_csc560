@@ -28,6 +28,14 @@ public:
     // destructor
     ~BTreeFileScan();
 private:
+    BTreeFileScan(Status &, void *, void *, PageId, AttrType);
+    
+    void *lo_key;
+    void *hi_key;
+    AttrType key_type;
+    RID  curRid;
+    int  scanIsDone;
+    int  scanJustStarted;
 
 };
 

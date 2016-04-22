@@ -50,9 +50,9 @@ Status BTLeafPage::insertRec(const void *key,
     KeyDataEntry *record;
     Datatype data;
     data.rid = dataRid;
-    int *recLen = (int *)malloc(sizeof(int));
-    make_entry(record, key_type, key, LEAF, data, recLen);
-    status = SortedPage::insertRecord(key_type, (char *)record, *recLen, rid);
+    int recLen;
+    make_entry(record, key_type, key, LEAF, data, &recLen);
+    status = SortedPage::insertRecord(key_type, (char *)record, recLen, rid);
     if (status != OK && status != DONE) {
         cerr << "error - btleaf_page.C - insertRec\n";
     }
@@ -70,6 +70,9 @@ Status BTLeafPage::insertEntry(const void *key,
     status = insertRec(key, key_type, dataRid, rid);
     if (status == OK) {
         return OK;
+    } else if (status != DONE) {
+        cerr << "unknown error at btleaf.C";
+        return status;
     }
     
     // handle split
@@ -88,12 +91,16 @@ Status BTLeafPage::insertEntry(const void *key,
         status = sibling->insertRec(key, key_type, dataRid, rid); CHECK_STATUS
     }
     status = MINIBASE_BM->unpinPage(sibPageId, 1, 0); CHECK_STATUS
+    
+    return OK;
 }
 
 Status BTLeafPage::splitLeafPage(AttrType key_type, 
                                  PageId &sibPageId)
 {   
     Status status;
+    BTLeafPage *sibling;
+    
     status = MINIBASE_DB->allocate_page(sibPageId, 1); CHECK_STATUS
     status = MINIBASE_BM->pinPage(sibPageId, sibling, 1); CHECK_STATUS
     sibling->init(sibPageId);
@@ -106,14 +113,14 @@ Status BTLeafPage::splitLeafPage(AttrType key_type,
         int recLen;
         status = HFPage::getRecord(curRid, (char *)kde, recLen); CHECK_STATUS
         RID d_rid;
-        status = SortedPage::insertRecord(key_type, (char *)kde, recLen, d_rid); CHECK_STATUS;
+        status = sibling->insertRecord(key_type, (char *)kde, recLen, d_rid); CHECK_STATUS;
     }
     
     for (i = slotCnt-1; i >= slotCnt/2; --i) {
         RID curRid;
         curRid.pageNo = curPage;
         curRid.slotNo = i;
-        status = SortedPage::deleteRecord(curRid);
+        status = deleteRecord(curRid);
     }
     
     PageId oldNextPageId = getNextPage();
@@ -158,6 +165,11 @@ Status BTLeafPage::get_data_rid(void *key,
         cmp = keyCompare(key, key_, key_type);
         if (cmp == 0) {
             dataRid = data_->rid;
+            
+            if (dataRid.pageNo == -1) {
+                return FAIL;    // this record is deleted
+            }
+            
             return OK;
         } else if (cmp < 0) {
             hi = mid-1;
@@ -167,6 +179,7 @@ Status BTLeafPage::get_data_rid(void *key,
     }
     // didn't find it
     return FAIL;
+    
 }
 
 /* 
@@ -190,6 +203,11 @@ Status BTLeafPage::get_first (RID& rid,
     dataRid = data_->rid;
     rid.pageNo = curPage;
     rid.slotNo = 0;
+    
+    if (dataRid.pageNo == -1) {
+        get_next(rid, key, dataRid);
+    }
+    
     return OK;
 }
 
@@ -207,6 +225,33 @@ Status BTLeafPage::get_next (RID& rid,
     Datatype *data_;
     get_key_data(key, data_, &data[slot[slotNo].offset], slot[slotNo].length, LEAF);
     dataRid = data_->rid;
+    
+    while (dataRid.pageNo == -1 && slotNo < slotCnt-1) {
+        ++slotNo;
+        get_key_data(key, data_, &data[slot[slotNo].offset], slot[slotNo].length, LEAF);
+        dataRid = data_->rid;
+    }
+    
+    if (dataRid.pageNo == -1) {
+        // reach the end not find key
+        return DONE;
+    }
+    
     rid.slotNo = slotNo;
+    return OK;
+}
+
+Status BTLeafPage::delete_dataRid(const void *key, const RID rid, AttrType key_type) {
+    
+    Status status;
+    RID dataRid;
+    status = get_data_rid(key,key_type,dataRid); CHECK_STATUS
+    KeyDataEntry *target;
+    Datatype data;
+    data.rid.pageNo = -1;
+    data.rid.slotNo = -1;
+    int recLen;
+    make_entry(target, key_type, key, LEAF, data, &recLen);
+    memcpy(&data[slot[dataRid.slotNo].offset], target, slot[dataRid.slotNo].length);
     return OK;
 }

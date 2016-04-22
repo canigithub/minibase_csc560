@@ -20,7 +20,7 @@ class BTLeafPage : public SortedPage {
  private:
    // No private variables should be declared.
    Status insertEntry(const void *key, AttrType key_type, RID dataRid, RID& rid, PageId &sibPageId);
-   Status splitLeafPage(const void *key, AttrType key_type, RID dataRid, RID& rid, PageId &sibPageId);
+   Status splitLeafPage(AttrType key_type, PageId &sibPageId);
    
  public:
 
