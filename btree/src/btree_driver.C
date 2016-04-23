@@ -14,6 +14,7 @@
 
 
 Status BTreeTest::runTests(){
+	printf("Inside BTreeTest::runTests()\n");
 
 	Status status;
 
@@ -27,8 +28,9 @@ Status BTreeTest::runTests(){
 	system(real_logname);
 	system(real_dbname);
 	
-        minibase_globals = new SystemDefs(status,"BTREEDRIVER", "btlog",
+  minibase_globals = new SystemDefs(status,"BTREEDRIVER", "btlog",
 						  1000,500,200,"Clock");
+	printf("Created minibase_globals\n");
 
 	if (status != OK) {
 		minibase_errors.show_errors();
@@ -121,6 +123,7 @@ void BTreeTest::test1() {
     // test create()
     // if index exists, open it else create
     btf = new BTreeFile(status, "BTreeIndex", attrInteger, sizeof(int));
+		printf("Created new btreefile, returned status %d\n", status);
     if (status != OK) {
         minibase_errors.show_errors();
         exit(1);
@@ -131,28 +134,28 @@ void BTreeTest::test1() {
     // test insert()
     num = 2000;
     
-struct dummy{
-RID r;
-int key;
-};
+		struct dummy{
+			RID r;
+			int key;
+		};
 
     cout << "\nstart BTreeIndex insertion" << endl << endl;
 
     dummy kill[410];
     for (i = 0; i < num; i++) {
-        rid.pageNo = i; rid.slotNo = i+1;
-	key = num - i; 
-	if (i % 10 == 0) {
-	  kill[(i/10)].r.pageNo = rid.pageNo;
-	  kill[(i/10)].r.slotNo = rid.slotNo;
-	  kill[i/10].key = key;
-        }
+      rid.pageNo = i; rid.slotNo = i+1;
+			key = num - i; 
+			if (i % 10 == 0) {
+			  kill[(i/10)].r.pageNo = rid.pageNo;
+			  kill[(i/10)].r.slotNo = rid.slotNo;
+			  kill[i/10].key = key;
+      }
 
-        if (btf->insert(&key, rid) != OK) {
- 	   cout << "Inserting record with key = " << key << "  [pageNo,slotNo] = ";
-	   cout << "[" << rid.pageNo<<","<<rid.slotNo<<"] failed!!\n" <<endl;
-            minibase_errors.show_errors();
-        }
+      if (btf->insert(&key, rid) != OK) {
+	 	   cout << "Inserting record with key = " << key << "  [pageNo,slotNo] = ";
+		   cout << "[" << rid.pageNo<<","<<rid.slotNo<<"] failed!!\n" <<endl;
+       minibase_errors.show_errors();
+      }
     }
 
     // test delete()
@@ -160,15 +163,16 @@ int key;
     cout << "\nstart BTreeIndex deletion" << endl << endl;
     int j = 0;
     for (i = 0; i < num; i++) {
-        if (i % 10 == 0) {
+      if (i % 10 == 0) {
 	    j++;
 	    if (btf->Delete(&kill[i/10].key, kill[(i/10)].r) != OK) {
 	    	cout << " Deleting record with key = " << kill[i/10].key << "  [pageNo,slotNo] = ";
 	        cout << "[" << kill[i/10].r.pageNo<<","<<kill[i/10].r.slotNo<<"] failed !!"<<endl;
 	       minibase_errors.show_errors();
 	    }
+			printf("** deleted a record with key %d\n", kill[i/10].key);
 
-        }
+     }
     }
 
     delete btf;

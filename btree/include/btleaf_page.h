@@ -19,11 +19,11 @@ class BTLeafPage : public SortedPage {
   
  private:
    // No private variables should be declared.
-   Status insertEntry(const void *key, AttrType key_type, RID dataRid, RID& rid, PageId &sibPageId);
    Status splitLeafPage(AttrType key_type, PageId &sibPageId);
    
  public:
 
+   Status insertEntry(const void *key, AttrType key_type, const RID dataRid, RID& rid, PageId &sibPageId);
 
 // In addition to initializing the  slot directory and internal structure
 // of the HFPage, this function sets up the type of the record page.
@@ -75,6 +75,7 @@ class BTLeafPage : public SortedPage {
 // is the rid of the DATA record, and NOT the rid of the data entry!
 
    Status get_data_rid(void *key, AttrType attrtype, RID & dataRid);
+	//Status BTLeafPage::delete_dataRid(const void *key, const RID rid, AttrType key_type) {
 
 };
 

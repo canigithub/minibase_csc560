@@ -34,14 +34,44 @@ const char* SortedPage::Errors[SortedPage::NR_ERRORS] = {
  *    o rid is the record id of the record inserted.
  */
 
+void SortedPage::printAllRecords() {
+	KeyDataEntry *kde = (KeyDataEntry*) malloc(sizeof(KeyDataEntry));
+	int offset;
+	int length;
+	Keytype *key_ = (Keytype*) malloc(sizeof(Keytype));
+	Datatype *data_ = (Datatype*) malloc(sizeof(Datatype));
+	printf("Contents of sorted page (if LEAF):\n");
+	for(int i = 0; i < slotCnt; i++) {
+		offset = slot[i].offset;
+		length = slot[i].length;
+		memcpy(kde, &data[offset], length);
+		get_key_data(key_, data_, kde, length, LEAF);
+		printf("slot %2d at offset %d with length %d: <%d, [%d,%d]>\n",
+				i, slot[i].offset, slot[i].length, key_->intkey, data_->rid.pageNo, data_->rid.slotNo);
+	}
+	printf("Contents of sorted page (if INDEX):\n");
+	for(int i = 0; i < slotCnt; i++) {
+		offset = slot[i].offset;
+		length = slot[i].length;
+		memcpy(kde, &data[offset], length);
+		get_key_data(key_, data_, kde, length, INDEX);
+		printf("slot %2d at offset %d with length %d: <%d, %d>\n",i, slot[i].offset, slot[i].length, key_->intkey, data_->pageNo);
+	}
+	free(key_);
+	free(kde);
+	free(data_);
+}
+
 Status SortedPage::insertRecord (AttrType key_type,
                                  char * recPtr,
                                  int recLen,
                                  RID& rid)
 {
+		printf("Entered SortedPage::insertRecord\n");
+		printAllRecords();
     int i; // using i to iterate the slots
     int j;
-    int offset;
+    int offset = usedPtr-recLen;
     
     if (available_space() < recLen)
         return DONE;
@@ -49,6 +79,9 @@ Status SortedPage::insertRecord (AttrType key_type,
     for (i = 0; i < slotCnt; ++i) {
         if (keyCompare(recPtr, &data[slot[i].offset], key_type) > 0) {
             continue;
+
+
+				// WELCOME TO THE ACTION
         } else {
             offset = slot[i].offset;
             // update the offset for slots after slot_n
@@ -56,21 +89,65 @@ Status SortedPage::insertRecord (AttrType key_type,
                 slot[j].offset -= recLen;
             }
             memmove(&slot[i+1], &slot[i], sizeof(slot_t)*(slotCnt-i));
-            memmove(data+usedPtr-recLen, data+usedPtr, slot[i].offset+slot[i].length-usedPtr);
+						/*printf("Let's look at slot %d\n", i);
+						printf("offset: %d\n", slot[i].offset);
+						printf("length: %d\n", slot[i].length);
+						printf("usedPtr = %d\n", usedPtr);
+						printf("recLen = %d\n", recLen);
+						printf("Copying offset+length-usedPtr = %d bytes from %ld to %ld\n", 
+								offset+slot[i].length-usedPtr,
+								(unsigned long) data+usedPtr,
+								(unsigned long) data+usedPtr-recLen);
+           */
+					 memmove(data+usedPtr-recLen, data+usedPtr, offset+slot[i+1].length-usedPtr);
             break;
         }
     }
     
     rid.pageNo = curPage;
     rid.slotNo = i;
-    memcpy(&data[offset], recPtr, recLen);
+
+		/*
+		Keytype *key_ = (Keytype*) malloc(sizeof(Keytype));
+		Datatype *data_ = (Datatype*) malloc(sizeof(Datatype));
+		*/
     slot[i].offset = offset;
     slot[i].length = recLen;
-    
     ++slotCnt;
     usedPtr -= recLen;
-    freeSpace -= recLen;
-    
+    freeSpace -= (recLen + sizeof(slot_t));
+		
+		// **** this is the point of contention ****
+    memmove(&data[offset], recPtr, recLen);
+		/*
+		printf("just memmoved %d bytes\n", recLen);
+		for(int i = 0 ; i < 1+recLen/4; i++) {
+			printf("recPtr[%d]:      %d\n", i*4, *(i+(int*)recPtr));
+			printf("data[offset+%d]: %d\n", i*4, *(i+(int*)&data[offset])); 
+		}
+		*/
+
+/*
+		printf("** original data with recPtr **\n");
+		get_key_data(key_, data_, (KeyDataEntry*) recPtr, slot[i].length, LEAF);
+		printf("if leaf:  slot %d   offset %d   length %d   key %d and data [%d,%d]\n", 
+				i, slot[i].offset, slot[i].length, key_->intkey, data_->rid.pageNo, data_->rid.slotNo);
+		get_key_data(key_, data_, (KeyDataEntry*) recPtr, slot[i].length, INDEX);
+		printf("if index: slot %d  offset %d  length %d   key %d   data %d\n", 
+				i, slot[i].offset, slot[i].length, key_->intkey, data_->pageNo);
+
+		printf("** stored data at &data[slot[i].offset] **\n");
+		get_key_data(key_, data_, (KeyDataEntry*) &data[slot[i].offset], slot[i].length, LEAF);
+		printf("if leaf:  slot %d   offset %d   length %d   key %d and data [%d,%d]\n", 
+				i, slot[i].offset, slot[i].length, key_->intkey, data_->rid.pageNo, data_->rid.slotNo);
+		get_key_data(key_, data_, (KeyDataEntry*) &data[slot[i].offset], slot[i].length, INDEX);
+		printf("if index: slot %d  offset %d  length %d   key %d   data %d\n", 
+				i, slot[i].offset, slot[i].length, key_->intkey, data_->pageNo);
+
+		printf("Now have usedPtr = %d and freeSpace = %d\n", usedPtr, freeSpace);
+
+    printAllRecords();
+		*/
     return OK;
 }
 
@@ -99,11 +176,12 @@ Status SortedPage::deleteRecord (const RID& rid)
         slot[i].offset += recLen;
     }
     
-    memmove(&slot[slot_n], &slot[slot_n+1], sizeof(slot_t))
+    memmove(&slot[slot_n], &slot[slot_n+1], sizeof(slot_t));
     
     --slotCnt;
     usedPtr += recLen;
     freeSpace += (recLen + sizeof(slot_t));
+		printf("Deleted a record, have usedPtr = %d and freeSpace = %d\n", usedPtr, freeSpace);
     return OK;
 }
 

@@ -18,7 +18,7 @@ const int EMPTY_SLOT   =  -1;
 
 class HFPage {
 
-  protected:
+  public:
     struct slot_t {
         short   offset;  
         short   length;    // equals EMPTY_SLOT if slot is not in use
@@ -47,7 +47,6 @@ class HFPage {
 
     char      data[MAX_SPACE - DPFIXED]; 
 
-  public:
     void init(PageId pageNo);   // initialize a new page
     void dumpPage();            // dump contents of a page
 

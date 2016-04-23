@@ -22,7 +22,7 @@ enum headerPageEntries {
     ROOTPAGEID,
     KEY_TYPE,
     KEY_SIZE,
-}
+};
 
 class BTreeFile: public IndexFile
 { 
@@ -68,6 +68,7 @@ class BTreeFile: public IndexFile
     
     Status loadFromHeaderPage();
     Status saveToHeaderPage();
+		Status clearHeaderPage();
     
     char     *file_name;
     PageId	 headerPageId;

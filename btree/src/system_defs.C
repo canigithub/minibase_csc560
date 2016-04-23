@@ -24,6 +24,7 @@ SystemDefs::SystemDefs( Status& status, const char* dbname, const char* logname,
                         unsigned num_pgs, unsigned logsize,
                         unsigned bufpoolsize, const char* replacement_policy )
 {
+		printf("Inside systemdefs constructor\n");
     char real_logname[ strlen(logname) + 20 ];
     char real_dbname[ strlen(dbname) + 20 ];
 
@@ -54,6 +55,7 @@ void SystemDefs::init( Status& status, const char* dbname, const char* logname,
                        unsigned num_pgs, unsigned ,
                        unsigned bufpoolsize, const char* )
 {
+		printf("Inside SystemDefs::init\n");
     status = OK;
     //char* BufMgrAddress;
 
@@ -73,6 +75,7 @@ void SystemDefs::init( Status& status, const char* dbname, const char* logname,
         //BufMgrAddress = GlobalShMemMgr->malloc(sizeof(BufMgr));
         //GlobalBufMgr = new(BufMgrAddress) BufMgr(bufpoolsize);
         GlobalBufMgr = new BufMgr(bufpoolsize);
+				printf("Created buffer manager\n");
 
         GlobalDBName = GlobalShMemMgr->malloc(strlen(dbname)+1);
         strcpy(GlobalDBName,dbname);

@@ -12,7 +12,7 @@
 #include "btfile.h"
 #include "btreefilescan.h"
 
-#ifndef
+#ifndef CHECK_RETURN_STATUS
 #define CHECK_RETURN_STATUS if (status != OK) {returnStatus = status; return;}
 #endif
 
@@ -26,7 +26,7 @@
  * BTREE things (traversing trees).
  */
  
- BTreeFileScan(Status &returnStatus, void *lo_k, void *hi_k, PageId r_pgid, AttrType k_tp) {
+ BTreeFileScan::BTreeFileScan(Status &returnStatus, void *lo_k, void *hi_k, PageId r_pgid, AttrType k_tp) {
     lo_key = lo_k;
     hi_key = hi_k;
     key_type = k_tp;
@@ -35,8 +35,9 @@
     
     Status status;
     SortedPage *rootPage;
-    status = MINIBASE_BM->pinPage(r_pgid, rootPage, 0); CHECK_RETURN_STATUS
+    status = MINIBASE_BM->pinPage(r_pgid, (Page*&) rootPage, 0); CHECK_RETURN_STATUS
     short pg_type = rootPage->get_type();
+		status = MINIBASE_BM->unpinPage(r_pgid, 0, 0); CHECK_RETURN_STATUS;
     
     if (lo_key == NULL) {
         
@@ -46,129 +47,144 @@
         SortedPage *targetPage;
         
         if (pg_type == LEAF) {
-            status = (BTLeafPage *) rootPage->get_first(curRid, d_key, d_rid); 
+						BTLeafPage* rootLeafPage;
+						status = MINIBASE_BM->pinPage(r_pgid, (Page*&) rootLeafPage, 0); CHECK_RETURN_STATUS;
+            status = rootLeafPage->get_first(curRid, d_key, d_rid);  CHECK_RETURN_STATUS;
             if (status == DONE) {
               scanIsDone = 1;
-              returnStatus = DONE;
               status = MINIBASE_BM->unpinPage(r_pgid, 0, 1); CHECK_RETURN_STATUS
+              returnStatus = DONE;
               return;
             }
             status = MINIBASE_BM->unpinPage(r_pgid, 0, 1); CHECK_RETURN_STATUS
         } else {
-            status = (BTIndexPage *)rootPage->get_first(d_rid, d_key, targetPageId); CHECK_RETURN_STATUS
+						BTIndexPage* rootIndexPage;
+						status = MINIBASE_BM->pinPage(r_pgid, (Page*&) rootIndexPage, 0); CHECK_RETURN_STATUS
+            status = rootIndexPage->get_first(d_rid, d_key, targetPageId); CHECK_RETURN_STATUS
+						status = MINIBASE_BM->unpinPage(r_pgid, 0, 0); CHECK_RETURN_STATUS
+
             status = MINIBASE_BM->pinPage(targetPageId, (Page *&)targetPage, 0); CHECK_RETURN_STATUS
             short target_pg_type = targetPage->get_type();
+						status = MINIBASE_BM->unpinPage(targetPageId, 0, 0);
             while(target_pg_type != LEAF) {
-              status = (BTIndexPage *)targetPage->get_first(d_rid, d_key, tempPageId); CHECK_RETURN_STATUS
+							BTIndexPage *targetIndexPage;
+							status = MINIBASE_BM->pinPage(targetPageId, (Page*&) targetIndexPage, 0); CHECK_RETURN_STATUS
+              status = targetIndexPage->get_first(d_rid, d_key, tempPageId); CHECK_RETURN_STATUS
               status = MINIBASE_BM->unpinPage(targetPageId, 0, 0); CHECK_RETURN_STATUS
               targetPageId = tempPageId;
               status = MINIBASE_BM->pinPage(targetPageId, (Page *&)targetPage, 0); CHECK_RETURN_STATUS
               target_pg_type = targetPage->get_type();
+							status = MINIBASE_BM->unpinPage(targetPageId, 0, 0);
             }
             
-            status = (BTLeafPage *) targetPage->get_first(curRid, d_key, d_rid); CHECK_RETURN_STATUS
-            
-            
+						BTLeafPage *targetLeafPage;
+						status = MINIBASE_BM->pinPage(targetPageId, (Page*&) targetLeafPage, 0); CHECK_RETURN_STATUS
+            status = targetLeafPage->get_first(curRid, d_key, d_rid); CHECK_RETURN_STATUS
             
             /////// IF FIRST PAGE IS EMPTY
             
-            
-            
             status = MINIBASE_BM->unpinPage(targetPageId, 0, 0); CHECK_RETURN_STATUS  
         }
-        status = MINIBASE_BM->unpinPage(r_pgid, 0, 1); CHECK_RETURN_STATUS
         free(d_key);
         
     } else {  // lo_key is not null
       
-        Keytype * d_key = (Keytype *) malloc(sizeof(Keytype));
-        RID d_rid;
-        PageId targetPageId, tempPageId;
-        SortedPage *targetPage;
+      //Keytype * d_key = (Keytype *) malloc(sizeof(Keytype));
+      //RID d_rid;
+      PageId targetPageId, tempPageId;
+      //SortedPage *targetPage;
       
       if (pg_type == LEAF) {
         // status = (BTLeafPage *)rootPage->get_data_rid(lo_key, key_type, curRid);
           
           // iterate the slots
-          
-            int i = 1;
-            int cmp = 0;
-            void *key_;
-            Datatype *data_;
+
+				BTLeafPage *rootLeafPage;
+				status = MINIBASE_BM->pinPage(r_pgid, (Page*&) rootLeafPage, 0);
+        int i = 1;
+        int cmp = 0;
+        void *key_ = NULL;
+        Datatype *data_ = NULL;;
             
-            for (; i < slotCnt; ++i) {
-                get_key_data(key_, data_, &data[slot[i].offset], slot[i].length, INDEX);
-                cmp = keyCompare(lo_key, key_, key_type);
-                if (cmp > 0) {
-                    continue;
-                } else if (cmp < 0) {
-                    get_key_data(key_, data_, &data[slot[i-1].offset], slot[i-1].length, INDEX);
-                    curRid = data_->rid;
-                    break;
-                } else {
-                    curRid = data_->rid;
-                    break;
-                }
-              }
-            
-            if (i == slotCnt) {
-              scanIsDone = 1;
-              returnStatus = DONE;
-              status = MINIBASE_BM->unpinPage(r_pgid, 0, 1); CHECK_RETURN_STATUS
-              return;
+        for (; i < rootLeafPage->slotCnt; ++i) {
+            get_key_data(key_, data_, (KeyDataEntry*) &rootLeafPage->data[rootLeafPage->slot[i].offset], rootLeafPage->slot[i].length, INDEX);
+            cmp = keyCompare(lo_key, key_, key_type);
+            if (cmp > 0) {
+                continue;
+            } else if (cmp < 0) {
+                get_key_data(key_, data_, (KeyDataEntry*) &rootLeafPage->data[rootLeafPage->slot[i-1].offset], rootLeafPage->slot[i-1].length, INDEX);
+                curRid = data_->rid;
+                break;
+            } else {
+                curRid = data_->rid;
+                break;
             }
-          
-          // iterate the slots end
+        }
+            
+        if (i == rootLeafPage->slotCnt) {
+          scanIsDone = 1;
+          returnStatus = DONE;
           status = MINIBASE_BM->unpinPage(r_pgid, 0, 1); CHECK_RETURN_STATUS
+          return;
+        }
+          
+        // iterate the slots end
+        status = MINIBASE_BM->unpinPage(r_pgid, 0, 1); CHECK_RETURN_STATUS
           
       } else {
-            status = (BTIndexPage *)rootPage->get_page_no(lo_key, key_type, targetPageId); CHECK_RETURN_STATUS
-            status = MINIBASE_BM->pinPage(targetPageId, (Page *&)targetPage, 0); CHECK_RETURN_STATUS
-            short target_pg_type = targetPage->get_type();
-            while(target_pg_type != LEAF) {
-              status = (BTIndexPage *)targetPage->get_page_no(lo_key, key_type, tempPageId); CHECK_RETURN_STATUS
-              status = MINIBASE_BM->unpinPage(targetPageId, 0, 0); CHECK_RETURN_STATUS
-              targetPageId = tempPageId;
-              status = MINIBASE_BM->pinPage(targetPageId, (Page *&)targetPage, 0); CHECK_RETURN_STATUS
-              target_pg_type = targetPage->get_type();
-            }
+					BTIndexPage *rootIndexPage;
+					SortedPage *targetPage;
+					BTIndexPage *targetIndexPage;
+					status = MINIBASE_BM->pinPage(r_pgid, (Page*&) rootIndexPage, 0); CHECK_RETURN_STATUS
+          status = rootIndexPage->get_page_no(lo_key, key_type, targetPageId); CHECK_RETURN_STATUS
+					status = MINIBASE_BM->unpinPage(r_pgid, 0, 0); CHECK_RETURN_STATUS 
+
+          status = MINIBASE_BM->pinPage(targetPageId, (Page *&)targetPage, 0); CHECK_RETURN_STATUS
+          short target_pg_type = targetPage->get_type();
+					status = MINIBASE_BM->unpinPage(targetPageId, 0, 0);
+
+           while(target_pg_type != LEAF) {
+						 status = MINIBASE_BM->pinPage(targetPageId, (Page*&) targetIndexPage, 0); CHECK_RETURN_STATUS
+             status = targetIndexPage->get_page_no(lo_key, key_type, tempPageId); CHECK_RETURN_STATUS
+             status = MINIBASE_BM->unpinPage(targetPageId, 0, 0); CHECK_RETURN_STATUS
+             targetPageId = tempPageId;
+             status = MINIBASE_BM->pinPage(targetPageId, (Page *&)targetPage, 0); CHECK_RETURN_STATUS
+             target_pg_type = targetPage->get_type();
+						 status = MINIBASE_BM->unpinPage(targetPageId, 0, 0);
+           }
             
-            // status = (BTLeafPage *)targetPage->get_data_rid(lo_key, key_type, curRid); CHECK_RETURN_STATUS
-            // if (status == DONE) {
-            //     scanIsDone = 1;
-            //     returnStatus = DONE;
-            //     status = MINIBASE_BM->unpinPage(r_pgid, 0, 1); CHECK_RETURN_STATUS
-            //     return;
-            // }
+						BTLeafPage *targetLeafPage;
             
             int i = 1;
             int cmp = 0;
-            void *key_;
-            Datatype *data_;
+            void *key_ = NULL;
+            Datatype *data_ = NULL;;
             
-            for (; i < slotCnt; ++i) {
-                get_key_data(key_, data_, &data[slot[i].offset], slot[i].length, INDEX);
+						status = MINIBASE_BM->pinPage(targetPageId, (Page*&) targetLeafPage, 0);
+
+            for (; i < targetLeafPage->slotCnt; ++i) {
+                get_key_data(key_, data_, (KeyDataEntry*) &targetLeafPage->data[targetLeafPage->slot[i].offset], targetLeafPage->slot[i].length, INDEX);
                 cmp = keyCompare(lo_key, key_, key_type);
                 if (cmp > 0) {
                     continue;
                 } else if (cmp < 0) {
-                    get_key_data(key_, data_, &data[slot[i-1].offset], slot[i-1].length, INDEX);
+                    get_key_data(key_, data_, (KeyDataEntry*) &targetLeafPage->data[targetLeafPage->slot[i-1].offset], targetLeafPage->slot[i-1].length, INDEX);
                     curRid = data_->rid;
                     break;
                 } else {
                     curRid = data_->rid;
                     break;
                 }
-              }
+            }
               
-              if (i == slotCnt) {
-                PageId nextPageId = targetPage->getNextPage();
+            if (i == targetLeafPage->slotCnt) {
+                PageId nextPageId = targetLeafPage->getNextPage();
                 status = MINIBASE_BM->unpinPage(targetPageId, 0, 0); CHECK_RETURN_STATUS
                 PageId curPageId = nextPageId;
                 BTLeafPage *curPage;
-                status = MINIBASE_BM->pinPage(curPageId, curPage, 0); CHECK_RETURN_STATUS
+                status = MINIBASE_BM->pinPage(curPageId, (Page*&) curPage, 0); CHECK_RETURN_STATUS
                 RID d_rid;
-                Keytype *d_key;
+                Keytype *d_key = NULL;
                 status = curPage->get_first(curRid, d_key, d_rid);
                 while (status == DONE) {
                   nextPageId = curPage->getNextPage();
@@ -178,22 +194,20 @@
                     status = MINIBASE_BM->unpinPage(curPageId, 0, 0); CHECK_RETURN_STATUS
                     return;
                   }
-                  status = MINIBASE_BM->pinPage(curPageId, 0, 0); CHECK_RETURN_STATUS
+                  status = MINIBASE_BM->unpinPage(curPageId, 0, 0); CHECK_RETURN_STATUS
                   curPageId = nextPageId;
-                  status = MINIBASE_BM->pinPage(curPageId, curPage, 0); CHECK_RETURN_STATUS
-                  status = curPage->get_first(curRid, d_key, d_rid);
+                  status = MINIBASE_BM->pinPage(curPageId, (Page*&) curPage, 0); CHECK_RETURN_STATUS
+                  status = curPage->get_first(curRid, d_key, d_rid); // DONE!
                 }
+								status = MINIBASE_BM->unpinPage(curPageId, 0, 0); CHECK_RETURN_STATUS
                 returnStatus = OK;
-                status = MINIBASE_BM->unpinPage(r_pgid, 0, 1); CHECK_RETURN_STATUS
                 return;
-              }
+            }
             
             status = MINIBASE_BM->unpinPage(targetPageId, 0, 0); CHECK_RETURN_STATUS
-            status = MINIBASE_BM->unpinPage(r_pgid, 0, 1); CHECK_RETURN_STATUS  
       }
     }
     
-    // status = MINIBASE_BM->unpinPage(r_pgid, 0, 1); CHECK_RETURN_STATUS
  };
  
 
@@ -219,7 +233,7 @@ Status BTreeFileScan::get_next(RID & rid, void* keyptr)
     
     // assume rid is the dataRid
     if (scanJustStarted) {
-         KeyDataEntry *psource = &curPage->data[curPage->slot[curRid.slotNo].offset];
+         KeyDataEntry *psource = (KeyDataEntry*) &curPage->data[curPage->slot[curRid.slotNo].offset];
         Keytype *key = (Keytype *)malloc(sizeof(Keytype)); 
         Datatype *data = (Datatype *) malloc(sizeof(Datatype));
         int entryLen = curPage->slot[curRid.slotNo].length;
@@ -243,7 +257,7 @@ Status BTreeFileScan::get_next(RID & rid, void* keyptr)
     
     
     // advance the 
-    Keytype *d_key;
+    Keytype *d_key = NULL;
     RID d_rid;
     status = curPage->get_next(curRid, d_key, d_rid);
     while (status == DONE) {
@@ -255,7 +269,7 @@ Status BTreeFileScan::get_next(RID & rid, void* keyptr)
         }
         status = MINIBASE_BM->unpinPage(curPageId, 0, 1); CHECK_STATUS
         curPageId = nextPageId;
-        status = MINIBASE_BM->pinPage(curPageId, curPage, 0); CHECK_STATUS
+        status = MINIBASE_BM->pinPage(curPageId, (Page*&) curPage, 0); CHECK_STATUS
         status = curPage->get_first(curRid, keyptr, rid);
     }
     status = MINIBASE_BM->unpinPage(curPageId, 0, 1); CHECK_STATUS
@@ -269,16 +283,16 @@ Status BTreeFileScan::delete_current()
     BTLeafPage *curPage;
     status = MINIBASE_BM->pinPage(curRid.pageNo, (Page *&)curPage, 0); CHECK_STATUS
     
-    KeyDataEntry *psource = &curPage->data[curPage->slot[curRid.slotNo].offset];
+    KeyDataEntry *psource = (KeyDataEntry*) &curPage->data[curPage->slot[curRid.slotNo].offset];
     
-    Keytype *key_;
-    Datatype *data_;
+    Keytype *key_ = NULL;
+    Datatype *data_ = NULL;
     get_key_data(key_, data_, psource, curPage->slot[curRid.slotNo].length, LEAF);
     Datatype data;
     data.rid.pageNo = -1;
     data.rid.slotNo = -1;
     int recLen;
-    make_entry(psource, key_type, key, LEAF, data, &recLen);
+    make_entry(psource, key_type, key_, LEAF, data, &recLen);
     
     return OK;
 }

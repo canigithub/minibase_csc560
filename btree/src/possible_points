@@ -1,0 +1,6 @@
+
+    cout << "BTreeIndex created successfully." << endl << endl;
+	cout<<"\n BTreeIndex opened successfully." << endl << endl;
+		  cout << "Record with [pageNo,slotNo] = ";
+		  cout << "\tdeleted !!" <<endl; 
+    cout << "\n---------------End of Test 1----------------------\n\n";

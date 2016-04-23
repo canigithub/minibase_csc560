@@ -7,9 +7,12 @@
 #define BTINDEX_PAGE_H
 
 #include "minirel.h"
+#include "buf.h"
+#include "db.h"
 #include "page.h"
 #include "sorted_page.h"
 #include "bt.h"
+#include "btleaf_page.h"
 
 // Define your error code for index page here
 // enum btIndexErrCodes  {...}
@@ -18,11 +21,11 @@ class BTIndexPage : public SortedPage {
  private:
    // No private variables should be declared.
   
-   Status insertEntry(const void *key, AttrType key_type, RID& rid, PageId &sibPageId);
    Status splitIndexPage(AttrType key_type, PageId &sibPageId);
 
  public:
 
+   Status insertEntry(const void *key, AttrType key_type, const RID dataRid, RID& rid, PageId &sibPageId);
 // In addition to initializing the  slot directory and internal structure
 // of the HFPage, this function sets up the type of the record page.
 

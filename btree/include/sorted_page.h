@@ -26,6 +26,7 @@ class SortedPage : public HFPage {
    
  public:
 
+
 /*
  * Error handling infrastructure, added by us:
  */
@@ -74,6 +75,7 @@ class SortedPage : public HFPage {
   void  set_type(short t) { type = t; }
   // get node type
   short get_type()         { return type; }
+	void printAllRecords();
 };
 
 #endif

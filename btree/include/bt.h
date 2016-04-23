@@ -35,6 +35,9 @@
  
 #include "minirel.h"
 
+#define x(q) printf("%d\n",q);
+#define y(s) printf("%s\n",s);
+
 
 typedef enum {
     INDEX,
