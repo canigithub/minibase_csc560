@@ -189,7 +189,7 @@ enum Status { OK,
 
 
                 // Other, legitimate, codes.
-              DONE, FAIL,
+              DONE, FAIL, // fail 26
 
 
                 // Deprecated status codes that indicate specific errors.
