@@ -14,7 +14,6 @@
 
 
 Status BTreeTest::runTests(){
-	printf("Inside BTreeTest::runTests()\n");
 
 	Status status;
 
@@ -30,7 +29,6 @@ Status BTreeTest::runTests(){
 	
   minibase_globals = new SystemDefs(status,"BTREEDRIVER", "btlog",
 						  1000,500,200,"Clock");
-	printf("Created minibase_globals\n");
 
 	if (status != OK) {
 		minibase_errors.show_errors();
@@ -94,7 +92,7 @@ void BTreeTest::test_scan(IndexFileScan* scan)
 
 	}
 
-	delete [] temp;
+	// delete [] temp;
 
         if (status != DONE){
 	  cout << "Status = " << status << endl;
@@ -123,7 +121,6 @@ void BTreeTest::test1() {
     // test create()
     // if index exists, open it else create
     btf = new BTreeFile(status, "BTreeIndex", attrInteger, sizeof(int));
-		printf("Created new btreefile, returned status %d\n", status);
     if (status != OK) {
         minibase_errors.show_errors();
         exit(1);
@@ -165,12 +162,12 @@ void BTreeTest::test1() {
     for (i = 0; i < num; i++) {
       if (i % 10 == 0) {
 	    j++;
-	    if (btf->Delete(&kill[i/10].key, kill[(i/10)].r) != OK) {
+			Status status;
+	    if ((status = btf->Delete(&kill[i/10].key, kill[(i/10)].r)) != OK) {
 	    	cout << " Deleting record with key = " << kill[i/10].key << "  [pageNo,slotNo] = ";
 	        cout << "[" << kill[i/10].r.pageNo<<","<<kill[i/10].r.slotNo<<"] failed !!"<<endl;
 	       minibase_errors.show_errors();
 	    }
-			printf("** deleted a record with key %d\n", kill[i/10].key);
 
      }
     }
@@ -189,6 +186,7 @@ void BTreeTest::test1() {
     //AllScan
     scan = btf->new_scan(NULL,NULL);
     test_scan(scan);
+
     delete scan;   
 	
 
@@ -246,7 +244,7 @@ void BTreeTest::test1() {
 	   	 minibase_errors.show_errors();
     }
 
-    delete [] temp;  
+    // delete [] temp;  
 
     if (status != DONE) {
       cout << "Something is wrong in test1\n";
@@ -351,7 +349,7 @@ void BTreeTest::test2() {
 		minibase_errors.show_errors();
 	cout << "\n------Destroyed the index without any errors---" << endl;
 
-	delete [] temp;  
+	// delete [] temp;  
 	delete btf;
 	cout << "\n ----End of Test 2----------------------\n\n";
 }

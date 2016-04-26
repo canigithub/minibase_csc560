@@ -47,7 +47,6 @@ Status BTLeafPage::insertRec(const void *key,
                               RID& rid)
 {
     Status status;
-		printf("In BTLeafPage::insertRec, trying to insert record with key %d\n", ((Keytype*)key)->intkey);
     KeyDataEntry *record = (KeyDataEntry*) malloc(sizeof(KeyDataEntry));
     Datatype data;
     data.rid = dataRid;
@@ -78,7 +77,6 @@ Status BTLeafPage::insertEntry(const void *key,
     
     // handle split
     status = splitLeafPage(key_type, sibPageId); CHECK_STATUS
-		printf("A leaf page was split, giving new page id %d\n", sibPageId);
     RID d_rid1, d_rid2;
     Keytype *sibFirstKey = (Keytype *)malloc(sizeof(Keytype));
     BTLeafPage *sibling;
@@ -100,12 +98,10 @@ Status BTLeafPage::insertEntry(const void *key,
 Status BTLeafPage::splitLeafPage(AttrType key_type, 
                                  PageId &sibPageId)
 {   
-		printf("*** BTLeafPage::splitLeafPage() ***\n");
     Status status;
     BTLeafPage *sibling;
     
     status = MINIBASE_DB->allocate_page(sibPageId, 1); CHECK_STATUS
-		printf("Allocated a new sibling leaf page: %d\n", sibPageId);
     status = MINIBASE_BM->pinPage(sibPageId, (Page*&) sibling, 1); CHECK_STATUS
     sibling->init(sibPageId);
     KeyDataEntry *kde = (KeyDataEntry*)malloc(sizeof(KeyDataEntry));
@@ -119,7 +115,6 @@ Status BTLeafPage::splitLeafPage(AttrType key_type,
 				Keytype *key_ = (Keytype*) malloc(sizeof(Keytype*));
 				Datatype *data_ = (Datatype*) malloc(sizeof(Datatype*));
 				get_key_data(key_, data_, kde, recLen, LEAF);
-				printf("Copying record %d with key %d\n", i, key_->intkey);
         RID d_rid;
         status = sibling->insertRecord(key_type, (char *)kde, recLen, d_rid); CHECK_STATUS;
 				free(key_);
@@ -128,12 +123,10 @@ Status BTLeafPage::splitLeafPage(AttrType key_type,
 		free(kde);
     
 		int halfway = slotCnt/2;
-		printf("Need to delete records %d through %d\n", slotCnt-1, halfway);
     for (i = slotCnt-1; i >= halfway; --i) {
         RID curRid;
         curRid.pageNo = curPage;
         curRid.slotNo = i;
-				printf("Deleting record at slot %d\n", i);
         status = deleteRecord(curRid);
     }
     
@@ -212,19 +205,15 @@ Status BTLeafPage::get_first (RID& rid,
                               void *key,
                               RID & dataRid)
 { 
-		printf("Entered BTLeafPage::get_first\n");
     Datatype *data_ = (Datatype*) malloc(sizeof(Datatype));
     get_key_data(key, data_, (KeyDataEntry*) &data[slot[0].offset], slot[0].length, LEAF);
-		printf("Slot 0 gave us key %d\n", ((Keytype*)key)->intkey);
     dataRid = data_->rid;
     rid.pageNo = curPage;
     rid.slotNo = 0;
 		free(data_);
     
     if (dataRid.pageNo == -1) {
-				printf("first entry had page number -1, calling get_next\n");
         get_next(rid, key, dataRid);
-				printf("get_next got us key %d\n", ((Keytype*)key)->intkey);
     }
     
     return OK;
@@ -241,7 +230,8 @@ Status BTLeafPage::get_next (RID& rid,
     } else if (slotNo == slotCnt) {
         return DONE;
     } 
-    Datatype *data_ = NULL;
+		rid.slotNo = slotNo;
+    Datatype *data_ = (Datatype*) malloc(sizeof(Datatype));
     get_key_data(key, data_, (KeyDataEntry*) &data[slot[slotNo].offset], slot[slotNo].length, LEAF);
     dataRid = data_->rid;
     
