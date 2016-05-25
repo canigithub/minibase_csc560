@@ -30,7 +30,6 @@ Status BTIndexPage::insertKey (const void *key,
     KeyDataEntry *record = (KeyDataEntry*)malloc(sizeof(KeyDataEntry));
     Datatype data;
     data.pageNo = pageNo;
-		printf("Inserting key with page number %d\n", pageNo);
     int recLen;
     
     make_entry(record, key_type, key, INDEX, data, &recLen);			// possible suspect
@@ -55,99 +54,102 @@ Status BTIndexPage::insertEntry(const void *key,
     PageId tarPageId;
     
     int i = 0, cmp;
-		printf("Scanning index page, slot count = %d\n", slotCnt);
 
 
-		printf("DEBUG: Let's just look at the whole thing\n");
-		for(i = 0; i < slotCnt; ++i) {
-		    get_key_data(key_, data_, (KeyDataEntry*) &data[slot[i].offset], slot[i].length, INDEX);
-				printf("slot %d ", i);
-				printf("key = %d ", key_->intkey);
-				printf("data = %d\n", data_->pageNo);
-     }
-    
     for (i = 0; i < slotCnt-1; ++i) {
         get_key_data(key_, data_, (KeyDataEntry*) &data[slot[i+1].offset], slot[i+1].length, INDEX);
-				printf("Looking at index page data in slot %d\n", i+1);
-				printf("key = %d\n", key_->intkey);
-				printf("data = %d\n", data_->pageNo);
         cmp = keyCompare(key, key_, key_type);
         if (cmp < 0) 
 						break; 
     }
-		printf("Stopped with i = %d\n", i);
     get_key_data(key_, data_, (KeyDataEntry*) &data[slot[i].offset], slot[i].length, INDEX);
     tarPageId = data_->pageNo;
     SortedPage *targetPage;
-    int sibPageId = -1;
+
+
+    int nephewPageId = -1;
     status = MINIBASE_BM->pinPage(tarPageId, (Page *&)targetPage, 0); CHECK_STATUS
     short target_pg_type = targetPage->get_type();
-		printf("Target page %d has type %d\n", tarPageId, target_pg_type);
+		// printf("Target page %d has type %d\n", tarPageId, target_pg_type);
 		status = MINIBASE_BM->unpinPage(tarPageId, 0, 0); CHECK_STATUS
     if (target_pg_type == INDEX) {
 				BTIndexPage *tarIndexPage;
 				status = MINIBASE_BM->pinPage(tarPageId, (Page*&) tarIndexPage, 0);CHECK_STATUS 
-        status = tarIndexPage->insertEntry(key, key_type, dataRid, rid, sibPageId);
+        status = tarIndexPage->insertEntry(key, key_type, dataRid, rid, nephewPageId);
 				status = MINIBASE_BM->unpinPage(tarPageId, 1, 0); CHECK_STATUS
     } else if (target_pg_type == LEAF) {
 				BTLeafPage *tarLeafPage;
 				status = MINIBASE_BM->pinPage(tarPageId, (Page*&) tarLeafPage, 0); CHECK_STATUS
-        status = tarLeafPage->insertEntry(key, key_type, dataRid, rid, sibPageId);
+        status = tarLeafPage->insertEntry(key, key_type, dataRid, rid, nephewPageId);
 				status = MINIBASE_BM->unpinPage(tarPageId, 1, 0); CHECK_STATUS
     } else {
         cerr << "error" << endl;
         exit(1);
     }
-    if (sibPageId == -1) {
+    if (nephewPageId == -1) {
       // if child has enough space  
 			free(key_);
 			free(data_);
       return OK;
     }
+		
+
+		// there was a split at a **lower level**, have to handle it
     
     SortedPage *sibling;
-    status = MINIBASE_BM->pinPage(sibPageId, (Page*&) sibling, 0); CHECK_STATUS
+    status = MINIBASE_BM->pinPage(nephewPageId, (Page*&) sibling, 0); CHECK_STATUS
     Keytype *sibFirstKey = (Keytype *)malloc(sizeof(Keytype));
     short sib_type = sibling->get_type();
-    status = MINIBASE_BM->unpinPage(sibPageId, 0, 0); CHECK_STATUS
+    status = MINIBASE_BM->unpinPage(nephewPageId, 0, 0); CHECK_STATUS
 
     assert(sib_type == target_pg_type);
     
-    if (sib_type == LEAF) {
-			BTLeafPage *sibLeafPage;
+		Keytype *nephewFirstKey = (Keytype*) malloc(sizeof(Keytype));
+    if (sib_type == LEAF) { // this time: 67 was created
+			BTLeafPage *nephewLeafPage;
       RID d_rid1, d_rid2;
-			status = MINIBASE_BM->pinPage(sibPageId, (Page*&) sibLeafPage, 0);
-      status = sibLeafPage->get_first(d_rid1, sibFirstKey, d_rid2); CHECK_STATUS
-			status = MINIBASE_BM->unpinPage(sibPageId, 0, 0);
+			status = MINIBASE_BM->pinPage(nephewPageId, (Page*&) nephewLeafPage, 0);
+      status = nephewLeafPage->get_first(d_rid1, nephewFirstKey, d_rid2); CHECK_STATUS
+			status = MINIBASE_BM->unpinPage(nephewPageId, 0, 0);
     } else if (sib_type == INDEX){
-			BTIndexPage *sibIndexPage;
+			BTIndexPage *nephewIndexPage;
       RID f_rid;
       PageId d_pid;
-			status = MINIBASE_BM->pinPage(sibPageId, (Page*&) sibIndexPage, 0);
-      status = sibIndexPage->get_first(f_rid, sibFirstKey, d_pid); CHECK_STATUS
-   //   status = sibIndexPage->deleteRecord(f_rid); CHECK_STATUS
-			status = MINIBASE_BM->unpinPage(sibPageId, 1, 0);
+			status = MINIBASE_BM->pinPage(nephewPageId, (Page*&) nephewIndexPage, 0);
+      status = nephewIndexPage->get_first(f_rid, nephewFirstKey, d_pid); CHECK_STATUS
+			status = MINIBASE_BM->unpinPage(nephewPageId, 0, 0);
     } else {
       cerr << "error at btindex.C";
       exit(1);
     }
     
     RID d_rid;
-    status = insertKey(sibFirstKey, key_type, sibPageId, d_rid); CHECK_STATUS
-    
-    if (status == OK) {
-      // successfully inserted key into current index page
-			free(data_);
-			free(key_);
-			free(sibFirstKey);
-       return OK;
-    }
-    
-    splitIndexPage(key_type, sibIndexPageId);
+    status = insertKey(nephewFirstKey, key_type, nephewPageId, d_rid); // tries to add sibPageId = 67, can't, returns DONE
+
+
+		if (status == DONE)  {
+	    	status = splitIndexPage(key_type, sibIndexPageId); // this is where we get 68 = sibIndexPage
+
+				RID d_rid1;
+				PageId d_pageNo;
+				Keytype *sibFirstKey = (Keytype*) malloc(sizeof(Keytype));
+				BTIndexPage *sibling;
+				status = MINIBASE_BM->pinPage(sibIndexPageId, (Page*&) sibling, 0) ; CHECK_STATUS
+				status = sibling->get_first(d_rid1, sibFirstKey, d_pageNo); CHECK_STATUS
+				int cmp = keyCompare(nephewFirstKey, sibFirstKey, key_type);
+				if(cmp < 0) {
+					status = insertKey(nephewFirstKey, key_type, nephewPageId, d_rid1); CHECK_STATUS
+				} else {
+					status = sibling->insertKey(nephewFirstKey, key_type, nephewPageId, d_rid1); CHECK_STATUS;
+				}
+				status = MINIBASE_BM->unpinPage(sibIndexPageId, 1, 0); CHECK_STATUS
+
+		}     
+
 		free(key_);
 		free(data_);
     free(sibFirstKey);
-    return OK; 
+    return status;
 }
 
 Status BTIndexPage::splitIndexPage(AttrType key_type, PageId &sibPageId) {
@@ -171,7 +173,8 @@ Status BTIndexPage::splitIndexPage(AttrType key_type, PageId &sibPageId) {
 				free(kde);
     }
     
-    for (i = slotCnt-1; i >= slotCnt/2; --i) {
+		int halfway = slotCnt/2;
+    for (i = slotCnt-1; i >= halfway; --i) {
         RID curRid;
         curRid.pageNo = curPage;
         curRid.slotNo = i;
@@ -220,25 +223,6 @@ Status BTIndexPage::get_page_no(const void *key,
                                 PageId & pageNo)
 {
   
-//     int lo = 0, hi = slotCnt-1, mid = -1;
-    // int cmp = 0;
-    // void *key_;
-    // Datatype *data_;
-//     while (lo <= hi) {
-//       mid = lo + (hi-lo)/2;
-//       get_key_data(key_, data_, &data[slot[mid].offset], slot[mid].length, INDEX);
-//       cmp = keyCompare(key, key_, key_type);
-//       if (cmp == 0) {
-//           pageNo = data_->pageNo;
-//           return OK;
-//       } else if (cmp < 0) {
-//           hi = mid-1;
-//       } else {
-//           lo = mid+1;
-//       }
-//   }
-//   // didn't find it
-//   return FAIL;
     int i = 1;
     int cmp = 0;
     Keytype *key_ = (Keytype*) malloc(sizeof(Keytype));
@@ -269,7 +253,7 @@ Status BTIndexPage::get_first(RID& rid,
                               PageId & pageNo)
 {
     Datatype *data_ = (Datatype*) malloc(sizeof(Datatype*));
-    get_key_data(key, data_, (KeyDataEntry*) &data[slot[0].offset], slot[0].length, LEAF);
+    get_key_data(key, data_, (KeyDataEntry*) &data[slot[0].offset], slot[0].length, INDEX);
     pageNo = data_->pageNo;
     rid.pageNo = curPage;
     rid.slotNo = 0;

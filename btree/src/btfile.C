@@ -102,12 +102,10 @@ BTreeFile::BTreeFile (Status& returnStatus, const char *filename,
 
 BTreeFile::~BTreeFile ()
 {
-  cout << "enter btreefile dtor" << endl;
   free(file_name);
 }
 
 Status BTreeFile::loadFromHeaderPage() {
-		printf("entered BTreeFile::loadFromHeaderPage()");
     
     HFPage *headerPage;
     Status status = MINIBASE_BM->pinPage(headerPageId, (Page*&)headerPage, 0); CHECK_STATUS
@@ -134,7 +132,6 @@ Status BTreeFile::loadFromHeaderPage() {
 }
 
 Status BTreeFile::saveToHeaderPage() {
-		y("BTreeFile::saveToHeaderPage()")
     HFPage *headerPage;
     Status status = MINIBASE_BM->pinPage(headerPageId, (Page*&)headerPage, 0); CHECK_STATUS
     
@@ -142,22 +139,17 @@ Status BTreeFile::saveToHeaderPage() {
     
     // insert rootPageId
     status = headerPage->insertRecord((char *)&rootPageId, sizeof(PageId), d_rid); CHECK_STATUS
-		printf("Inserted root page id %d to slot %d\n", rootPageId, d_rid.slotNo);
     assert(d_rid.slotNo == ROOTPAGEID);
     
     // insert key_type
-		x(700)
     status = headerPage->insertRecord((char *)&key_type, sizeof(AttrType), d_rid); CHECK_STATUS
-		x(701)
     assert(d_rid.slotNo == KEY_TYPE);
     
     // insert key_size
     status = headerPage->insertRecord((char *)&key_size, sizeof(int), d_rid); CHECK_STATUS
-		x(702)
     assert(d_rid.slotNo == KEY_SIZE);
     
     status = MINIBASE_BM->unpinPage(headerPageId, 1, 1); CHECK_STATUS
-		x(703)
     
     return OK;
     
@@ -170,9 +162,7 @@ Status BTreeFile::destroyFile ()
 }
 
 Status BTreeFile::insert(const void *key, const RID rid) {
-		y("BTreeFile::insert")
     SortedPage *rootPage;
-		printf("Root page ID: %d\n", rootPageId);
     Status status = MINIBASE_BM->pinPage(rootPageId, (Page*&)rootPage, 0); CHECK_STATUS
     short pg_type = rootPage->get_type();
 		status = MINIBASE_BM->unpinPage(rootPageId, 0, 0); CHECK_STATUS;
@@ -180,12 +170,9 @@ Status BTreeFile::insert(const void *key, const RID rid) {
     RID d_rid;
     PageId sibPageId;
     
-		printf("root pg_type = %d\n", pg_type);
     if (pg_type == LEAF) {
 				BTLeafPage *leafRoot;
 				status = MINIBASE_BM->pinPage(rootPageId, (Page*&) leafRoot, 0); CHECK_STATUS
-				printf("Pinned root at address %ld\n", (unsigned long) leafRoot);
-				printf("From the root, try to insert key %d\n", ((Keytype*)key)->intkey);
         status = leafRoot->insertEntry(key, key_type, rid, d_rid, sibPageId); CHECK_STATUS
 				status = MINIBASE_BM->unpinPage(rootPageId, 1, 1);CHECK_STATUS
         
@@ -204,7 +191,6 @@ Status BTreeFile::insert(const void *key, const RID rid) {
     }
     
 		// There is a sibling page! Time to split the root page!
-		printf("Got sibling page id %d, SPLITTING THE ROOT\n", sibPageId);  // OK here, sibPageId=4
     PageId newRootPageId;
     status = MINIBASE_DB->allocate_page(newRootPageId, 1); CHECK_STATUS
     BTIndexPage *newRoot;
@@ -219,7 +205,7 @@ Status BTreeFile::insert(const void *key, const RID rid) {
     firstKey->intkey = -1;
     firstKey->charkey[4] = 0;
 
-		if(pg_type == INDEX) {
+		if(pg_type == INDEX) {     // the root page has split, and is an index!
 			RID f_rid;
 			PageId d_pid;
 			BTIndexPage *sibIndexPage;
@@ -235,9 +221,6 @@ Status BTreeFile::insert(const void *key, const RID rid) {
 			status = MINIBASE_BM->unpinPage(sibPageId, 0, 0); CHECK_STATUS
 		}
 
-		printf("Inserting two records:\n");
-		printf("First record: key = %d, pageNo = %d\n", firstKey->intkey, rootPageId);
-		printf("Second record: key = %d, pageNo = %d\n", sibFirstKey->intkey,sibPageId);
     status = newRoot->insertKey(firstKey, key_type, rootPageId, d_rid); CHECK_STATUS
     status = newRoot->insertKey(sibFirstKey, key_type, sibPageId, d_rid); CHECK_STATUS
     
@@ -247,14 +230,12 @@ Status BTreeFile::insert(const void *key, const RID rid) {
     saveToHeaderPage();
 		free(firstKey);
 		free(sibFirstKey);
-		printf("Finished with BTFile::insert\n");
     
     // remember to update header
     return OK;
 }
 
 Status BTreeFile::clearHeaderPage() {
-		y("BTreeFile::clearHeaderPage")
 		Status status;
     HFPage *headerPage;
     status = MINIBASE_BM->pinPage(headerPageId, (Page*&)headerPage, 0); CHECK_STATUS
@@ -269,7 +250,6 @@ Status BTreeFile::clearHeaderPage() {
 }
 
 Status BTreeFile::Delete(const void *key, const RID rid) {
- 		y("BTreeFile::Delete") 
     // call rootPage->deleteRecord    
     
     Status status;
@@ -295,12 +275,13 @@ Status BTreeFile::Delete(const void *key, const RID rid) {
 		status = MINIBASE_BM->pinPage(curPageId, (Page *&) curSortedPage, 0); CHECK_STATUS
     
     int i, cmp;
-    Keytype *key_ = NULL;
-    Datatype *data_ = NULL;
+    Keytype *key_ = (Keytype*) malloc(sizeof(Keytype));
+    Datatype *data_ = (Datatype*) malloc(sizeof(Datatype));
     
     for (i = 0; i < curSortedPage->slotCnt; ++i) {
         
-        get_key_data(key_, data_, (KeyDataEntry*) &curSortedPage->data[curSortedPage->slot[i].offset], curSortedPage->slot[i].length, LEAF);
+        get_key_data(key_, data_, 
+					(KeyDataEntry*) &curSortedPage->data[curSortedPage->slot[i].offset], curSortedPage->slot[i].length, LEAF);
         cmp = keyCompare(key, key_, key_type);
         
         if (cmp == 0) {
@@ -314,14 +295,16 @@ Status BTreeFile::Delete(const void *key, const RID rid) {
         
     }
 
+		free(key_);
+		free(data_);
+
 		status = MINIBASE_BM->unpinPage(curPageId, 0, 0); CHECK_STATUS
     return FAIL;
 }
     
 IndexFileScan *BTreeFile::new_scan(const void *lo_key, const void *hi_key) {
-	y("BTreeFile::new_scan")
-  // put your code here
-  return NULL;
+	Status d_status;
+	return (IndexFileScan*) new BTreeFileScan(d_status, lo_key, hi_key, rootPageId, key_type);
 }
 
 int BTreeFile::keysize(){

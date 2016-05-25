@@ -26,9 +26,9 @@
  * BTREE things (traversing trees).
  */
  
- BTreeFileScan::BTreeFileScan(Status &returnStatus, void *lo_k, void *hi_k, PageId r_pgid, AttrType k_tp) {
-    lo_key = lo_k;
-    hi_key = hi_k;
+ BTreeFileScan::BTreeFileScan(Status &returnStatus, const void *lo_k, const void *hi_k, PageId r_pgid, AttrType k_tp) {
+    lo_key = (Keytype*) lo_k;
+    hi_key = (Keytype*) hi_k;
     key_type = k_tp;
     scanIsDone = 0;
     scanJustStarted = 1;
@@ -94,7 +94,7 @@
       PageId targetPageId, tempPageId;
       //SortedPage *targetPage;
       
-      if (pg_type == LEAF) {
+      if (pg_type == LEAF) { // that's the root page
         // status = (BTLeafPage *)rootPage->get_data_rid(lo_key, key_type, curRid);
           
           // iterate the slots
@@ -131,6 +131,7 @@
         // iterate the slots end
         status = MINIBASE_BM->unpinPage(r_pgid, 0, 1); CHECK_RETURN_STATUS
           
+			// lo_key is not null, and root page is not index page
       } else {
 					BTIndexPage *rootIndexPage;
 					SortedPage *targetPage;
@@ -157,8 +158,8 @@
             
             int i = 1;
             int cmp = 0;
-            void *key_ = NULL;
-            Datatype *data_ = NULL;;
+            Keytype *key_ = (Keytype*)malloc(sizeof(Keytype));
+            Datatype *data_ = (Datatype*)malloc(sizeof(Datatype));
             
 						status = MINIBASE_BM->pinPage(targetPageId, (Page*&) targetLeafPage, 0);
 
@@ -184,7 +185,7 @@
                 BTLeafPage *curPage;
                 status = MINIBASE_BM->pinPage(curPageId, (Page*&) curPage, 0); CHECK_RETURN_STATUS
                 RID d_rid;
-                Keytype *d_key = NULL;
+                Keytype *d_key = (Keytype*)malloc(sizeof(Keytype));
                 status = curPage->get_first(curRid, d_key, d_rid);
                 while (status == DONE) {
                   nextPageId = curPage->getNextPage();
@@ -213,7 +214,6 @@
 
 BTreeFileScan::~BTreeFileScan()
 {
-    cout << "enter btscan dtor." << endl;
 }
 
 
@@ -229,7 +229,6 @@ Status BTreeFileScan::get_next(RID & rid, void* keyptr)
     PageId curPageId = curRid.pageNo;
     BTLeafPage *curPage;
     status = MINIBASE_BM->pinPage(curPageId, (Page *&)curPage, 0); CHECK_STATUS
-       
     
     // assume rid is the dataRid
     if (scanJustStarted) {
@@ -239,9 +238,11 @@ Status BTreeFileScan::get_next(RID & rid, void* keyptr)
         int entryLen = curPage->slot[curRid.slotNo].length;
         get_key_data(key, data, psource, entryLen, LEAF);
         
-        int cmp = keyCompare(key, hi_key, key_type);
+				int cmp = 0;
+				if(hi_key != NULL)
+	        cmp = keyCompare(key, hi_key, key_type);
         
-        if (cmp > 0) {
+        if (hi_key != NULL && cmp > 0) {
           scanIsDone = 1;
           status = MINIBASE_BM->unpinPage(curPageId, 0, 1); CHECK_STATUS
           return DONE;
@@ -249,30 +250,35 @@ Status BTreeFileScan::get_next(RID & rid, void* keyptr)
         status = MINIBASE_BM->unpinPage(curPageId, 0, 1); CHECK_STATUS
         rid = data->rid;
         scanJustStarted = 0;
-        keyptr = key;
+        memmove(keyptr, key, sizeof(Keytype));
         return OK;
     } 
     
     
-    
-    
-    // advance the 
-    Keytype *d_key = NULL;
     RID d_rid;
-    status = curPage->get_next(curRid, d_key, d_rid);
+    status = curPage->get_next(curRid, keyptr, d_rid);
     while (status == DONE) {
       
         PageId nextPageId = curPage->getNextPage();
         if (nextPageId == -1) {
           scanIsDone = 1;
-          break;
-        }
+        	status = MINIBASE_BM->unpinPage(curPageId, 0, 1); CHECK_STATUS
+          return DONE;
+        } 
         status = MINIBASE_BM->unpinPage(curPageId, 0, 1); CHECK_STATUS
         curPageId = nextPageId;
         status = MINIBASE_BM->pinPage(curPageId, (Page*&) curPage, 0); CHECK_STATUS
         status = curPage->get_first(curRid, keyptr, rid);
     }
     status = MINIBASE_BM->unpinPage(curPageId, 0, 1); CHECK_STATUS
+		if(hi_key != NULL) {
+			int cmp = keyCompare(keyptr, hi_key, key_type);
+			if(cmp > 0) {
+				scanIsDone = 1;
+				return DONE;
+			}
+		}
+		rid = curRid;
     return OK;
 }
 
@@ -285,8 +291,8 @@ Status BTreeFileScan::delete_current()
     
     KeyDataEntry *psource = (KeyDataEntry*) &curPage->data[curPage->slot[curRid.slotNo].offset];
     
-    Keytype *key_ = NULL;
-    Datatype *data_ = NULL;
+    Keytype *key_ = (Keytype*) malloc(sizeof(Keytype));
+    Datatype *data_ = (Datatype*) malloc(sizeof(Datatype));
     get_key_data(key_, data_, psource, curPage->slot[curRid.slotNo].length, LEAF);
     Datatype data;
     data.rid.pageNo = -1;

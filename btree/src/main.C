@@ -8,8 +8,6 @@ int MINIBASE_RESTART_FLAG = 0;
 
 int main()
 {
-	 printf("Inside main.C\n");
-	 setbuf(stdout, NULL);
    BTreeTest btt;
    Status dbstatus;
 

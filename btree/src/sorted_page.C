@@ -67,8 +67,8 @@ Status SortedPage::insertRecord (AttrType key_type,
                                  int recLen,
                                  RID& rid)
 {
-		printf("Entered SortedPage::insertRecord\n");
-		printAllRecords();
+		// printf("Entered SortedPage::insertRecord\n");
+		//printAllRecords();
     int i; // using i to iterate the slots
     int j;
     int offset = usedPtr-recLen;
@@ -107,10 +107,10 @@ Status SortedPage::insertRecord (AttrType key_type,
     rid.pageNo = curPage;
     rid.slotNo = i;
 
-		/*
+		
 		Keytype *key_ = (Keytype*) malloc(sizeof(Keytype));
 		Datatype *data_ = (Datatype*) malloc(sizeof(Datatype));
-		*/
+		
     slot[i].offset = offset;
     slot[i].length = recLen;
     ++slotCnt;
@@ -119,6 +119,10 @@ Status SortedPage::insertRecord (AttrType key_type,
 		
 		// **** this is the point of contention ****
     memmove(&data[offset], recPtr, recLen);
+
+
+		
+
 		/*
 		printf("just memmoved %d bytes\n", recLen);
 		for(int i = 0 ; i < 1+recLen/4; i++) {
@@ -129,6 +133,8 @@ Status SortedPage::insertRecord (AttrType key_type,
 
 /*
 		printf("** original data with recPtr **\n");
+		
+
 		get_key_data(key_, data_, (KeyDataEntry*) recPtr, slot[i].length, LEAF);
 		printf("if leaf:  slot %d   offset %d   length %d   key %d and data [%d,%d]\n", 
 				i, slot[i].offset, slot[i].length, key_->intkey, data_->rid.pageNo, data_->rid.slotNo);
@@ -137,9 +143,12 @@ Status SortedPage::insertRecord (AttrType key_type,
 				i, slot[i].offset, slot[i].length, key_->intkey, data_->pageNo);
 
 		printf("** stored data at &data[slot[i].offset] **\n");
+		*/
 		get_key_data(key_, data_, (KeyDataEntry*) &data[slot[i].offset], slot[i].length, LEAF);
+		/*
 		printf("if leaf:  slot %d   offset %d   length %d   key %d and data [%d,%d]\n", 
 				i, slot[i].offset, slot[i].length, key_->intkey, data_->rid.pageNo, data_->rid.slotNo);
+				
 		get_key_data(key_, data_, (KeyDataEntry*) &data[slot[i].offset], slot[i].length, INDEX);
 		printf("if index: slot %d  offset %d  length %d   key %d   data %d\n", 
 				i, slot[i].offset, slot[i].length, key_->intkey, data_->pageNo);
@@ -159,8 +168,7 @@ Status SortedPage::insertRecord (AttrType key_type,
  * HFPage::deleteRecord().
  */
 
-Status SortedPage::deleteRecord (const RID& rid)
-{
+Status SortedPage::deleteRecord (const RID& rid) {
     int i;
     int slot_n = rid.slotNo;
     if (slot_n >= slotCnt)
@@ -181,7 +189,6 @@ Status SortedPage::deleteRecord (const RID& rid)
     --slotCnt;
     usedPtr += recLen;
     freeSpace += (recLen + sizeof(slot_t));
-		printf("Deleted a record, have usedPtr = %d and freeSpace = %d\n", usedPtr, freeSpace);
     return OK;
 }
 

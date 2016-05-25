@@ -64,7 +64,6 @@ void make_entry(KeyDataEntry *target,
     }
     
 		
-		printf("Making an entry with keysize %d and datasize %d\n", key_size, data_size);
     *pentry_len = key_size + data_size;
     memcpy(target, key, key_size);
     memcpy((char*)target+key_size, &data, data_size);
