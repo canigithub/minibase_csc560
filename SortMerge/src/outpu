@@ -1,0 +1,641 @@
+
+Running Sort Merge Join tests...
+Merging records of lengths 2 and 2
+<13, 0>  vs <15, 0> 
+left   row 0 [[1]] [    ]
+right  row 0 [[1]] [    à∑≈Î^]
+** match **
+mark: <15, 0> 
+** Adding union ** 
++ right <15, 1> 
+<13, 0>  vs <15, 1> 
+left   row 0 [[1]] [    ]
+right  row 1 [[1]] [    à∑≈Î^]
+** Adding union ** 
++ right <15, 2> 
+<13, 0>  vs <15, 2> 
+left   row 0 [[1]] [    ]
+right  row 2 [[6]] [    à∑≈Î^]
+<13, 1>  vs <15, 1> 
+left   row 1 [[1]] [    ]
+right  row 2 [[1]] [    x∑≈Î^]
+cmp = 0
+reset right to <15, 0> 
+** Adding union ** 
++ right <15, 1> 
+<13, 1>  vs <15, 1> 
+left   row 1 [[1]] [    ]
+right  row 1 [[1]] [    à∑≈Î^]
+** Adding union ** 
++ right <15, 2> 
+<13, 1>  vs <15, 2> 
+left   row 1 [[1]] [    ]
+right  row 2 [[6]] [    à∑≈Î^]
+<13, 2>  vs <15, 1> 
+left   row 2 [[5]] [    ]
+right  row 2 [[1]] [    x∑≈Î^]
+cmp = 1
+<13, 2>  vs <15, 2> 
+left   row 2 [[5]] [    ]
+right  row 2 [[6]] [    à∑≈Î^]
+Incrementing left column
+<13, 3>  vs <15, 2> 
+left   row 3 [[5]] [    ]
+right  row 2 [[6]] [    à∑≈Î^]
+Incrementing left column
+<13, 4>  vs <15, 2> 
+left   row 4 [[6]] [    ]
+right  row 2 [[6]] [    à∑≈Î^]
+** match **
+mark: <15, 2> 
+** Adding union ** 
++ right <15, 3> 
+<13, 4>  vs <15, 3> 
+left   row 4 [[6]] [    ]
+right  row 3 [[10]] [    à∑≈Î^]
+<13, 5>  vs <15, 2> 
+left   row 5 [[6]] [    ]
+right  row 3 [[6]] [    x∑≈Î^]
+cmp = 0
+reset right to <15, 2> 
+** Adding union ** 
++ right <15, 3> 
+<13, 5>  vs <15, 3> 
+left   row 5 [[6]] [    ]
+right  row 3 [[10]] [    à∑≈Î^]
+<13, 6>  vs <15, 2> 
+left   row 6 [[7]] [    ]
+right  row 3 [[6]] [    x∑≈Î^]
+cmp = 1
+<13, 6>  vs <15, 3> 
+left   row 6 [[7]] [    ]
+right  row 3 [[10]] [    à∑≈Î^]
+Incrementing left column
+<13, 7>  vs <15, 3> 
+left   row 7 [[9]] [    ]
+right  row 3 [[10]] [    à∑≈Î^]
+Incrementing left column
+<13, 8>  vs <15, 3> 
+left   row 8 [[13]] [    ]
+right  row 3 [[10]] [    à∑≈Î^]
+Incrementing right column
+<13, 8>  vs <15, 4> 
+left   row 8 [[13]] [    ]
+right  row 4 [[10]] [    à∑≈Î^]
+Incrementing right column
+<13, 8>  vs <15, 5> 
+left   row 8 [[13]] [    ]
+right  row 5 [[10]] [    à∑≈Î^]
+Incrementing right column
+<13, 8>  vs <15, 6> 
+left   row 8 [[13]] [    ]
+right  row 6 [[12]] [    à∑≈Î^]
+Incrementing right column
+<13, 8>  vs <15, 7> 
+left   row 8 [[13]] [    ]
+right  row 7 [[13]] [    à∑≈Î^]
+** match **
+mark: <15, 7> 
+** Adding union ** 
++ right <15, 8> 
+<13, 8>  vs <15, 8> 
+left   row 8 [[13]] [    ]
+right  row 8 [[18]] [    à∑≈Î^]
+<13, 9>  vs <15, 7> 
+left   row 9 [[13]] [    ]
+right  row 8 [[13]] [    x∑≈Î^]
+cmp = 0
+reset right to <15, 7> 
+** Adding union ** 
++ right <15, 8> 
+<13, 9>  vs <15, 8> 
+left   row 9 [[13]] [    ]
+right  row 8 [[18]] [    à∑≈Î^]
+<13, 10>  vs <15, 7> 
+left   row 10 [[14]] [    ]
+right  row 8 [[13]] [    x∑≈Î^]
+cmp = 1
+<13, 10>  vs <15, 8> 
+left   row 10 [[14]] [    ]
+right  row 8 [[18]] [    à∑≈Î^]
+Incrementing left column
+<13, 11>  vs <15, 8> 
+left   row 11 [[20]] [    ]
+right  row 8 [[18]] [    à∑≈Î^]
+Incrementing right column
+<13, 11>  vs <15, 9> 
+left   row 11 [[20]] [    ]
+right  row 9 [[99]] [    à∑≈Î^]
+Incrementing left column
+<13, 12>  vs <15, 9> 
+left   row 12 [[20]] [    ]
+right  row 9 [[99]] [    à∑≈Î^]
+Incrementing left column
+<13, 13>  vs <15, 9> 
+left   row 13 [[20]] [    ]
+right  row 9 [[99]] [    à∑≈Î^]
+Incrementing left column
+<13, 14>  vs <15, 9> 
+left   row 14 [[99]] [    ]
+right  row 9 [[99]] [    à∑≈Î^]
+** match **
+mark: <15, 9> 
+** Adding union ** 
++ right <15, 9> 
+<13, 15>  vs <15, 9> 
+left   row 15 [[100]] [    ]
+right  row 10 [[99]] [    x∑≈Î^]
+cmp = 1
+<13, 15>  vs <15, 9> 
+left   row 15 [[100]] [    ]
+right  row 10 [[99]] [    à∑≈Î^]
+Incrementing right column
+
+------------ Test 1 ---------------
+1	538976288
+1	538976288
+1	538976288
+1	538976288
+6	538976288
+6	538976288
+13	538976288
+13	538976288
+99	538976288
+-------- Test 1 completed --------
+Merging records of lengths 2 and 2
+<15, 0>  vs <13, 0> 
+left   row 0 [[1]] [    ]
+right  row 0 [[1]] [    x∑≈Î^]
+** match **
+mark: <13, 0> 
+** Adding union ** 
++ right <13, 1> 
+<15, 0>  vs <13, 1> 
+left   row 0 [[1]] [    ]
+right  row 1 [[1]] [    x∑≈Î^]
+** Adding union ** 
++ right <13, 2> 
+<15, 0>  vs <13, 2> 
+left   row 0 [[1]] [    ]
+right  row 2 [[5]] [    x∑≈Î^]
+<15, 1>  vs <13, 1> 
+left   row 1 [[1]] [    ]
+right  row 2 [[1]] [    x∑≈Î^]
+cmp = 0
+reset right to <13, 0> 
+** Adding union ** 
++ right <13, 1> 
+<15, 1>  vs <13, 1> 
+left   row 1 [[1]] [    ]
+right  row 1 [[1]] [    x∑≈Î^]
+** Adding union ** 
++ right <13, 2> 
+<15, 1>  vs <13, 2> 
+left   row 1 [[1]] [    ]
+right  row 2 [[5]] [    x∑≈Î^]
+<15, 2>  vs <13, 1> 
+left   row 2 [[6]] [    ]
+right  row 2 [[1]] [    x∑≈Î^]
+cmp = 1
+<15, 2>  vs <13, 2> 
+left   row 2 [[6]] [    ]
+right  row 2 [[5]] [    x∑≈Î^]
+Incrementing right column
+<15, 2>  vs <13, 3> 
+left   row 2 [[6]] [    ]
+right  row 3 [[5]] [    x∑≈Î^]
+Incrementing right column
+<15, 2>  vs <13, 4> 
+left   row 2 [[6]] [    ]
+right  row 4 [[6]] [    x∑≈Î^]
+** match **
+mark: <13, 4> 
+** Adding union ** 
++ right <13, 5> 
+<15, 2>  vs <13, 5> 
+left   row 2 [[6]] [    ]
+right  row 5 [[6]] [    x∑≈Î^]
+** Adding union ** 
++ right <13, 6> 
+<15, 2>  vs <13, 6> 
+left   row 2 [[6]] [    ]
+right  row 6 [[7]] [    x∑≈Î^]
+<15, 3>  vs <13, 5> 
+left   row 3 [[10]] [    ]
+right  row 6 [[6]] [    x∑≈Î^]
+cmp = 1
+<15, 3>  vs <13, 6> 
+left   row 3 [[10]] [    ]
+right  row 6 [[7]] [    x∑≈Î^]
+Incrementing right column
+<15, 3>  vs <13, 7> 
+left   row 3 [[10]] [    ]
+right  row 7 [[9]] [    x∑≈Î^]
+Incrementing right column
+<15, 3>  vs <13, 8> 
+left   row 3 [[10]] [    ]
+right  row 8 [[13]] [    x∑≈Î^]
+Incrementing left column
+<15, 4>  vs <13, 8> 
+left   row 4 [[10]] [    ]
+right  row 8 [[13]] [    x∑≈Î^]
+Incrementing left column
+<15, 5>  vs <13, 8> 
+left   row 5 [[10]] [    ]
+right  row 8 [[13]] [    x∑≈Î^]
+Incrementing left column
+<15, 6>  vs <13, 8> 
+left   row 6 [[12]] [    ]
+right  row 8 [[13]] [    x∑≈Î^]
+Incrementing left column
+<15, 7>  vs <13, 8> 
+left   row 7 [[13]] [    ]
+right  row 8 [[13]] [    x∑≈Î^]
+** match **
+mark: <13, 8> 
+** Adding union ** 
++ right <13, 9> 
+<15, 7>  vs <13, 9> 
+left   row 7 [[13]] [    ]
+right  row 9 [[13]] [    x∑≈Î^]
+** Adding union ** 
++ right <13, 10> 
+<15, 7>  vs <13, 10> 
+left   row 7 [[13]] [    ]
+right  row 10 [[14]] [    x∑≈Î^]
+<15, 8>  vs <13, 9> 
+left   row 8 [[18]] [    ]
+right  row 10 [[13]] [    x∑≈Î^]
+cmp = 1
+<15, 8>  vs <13, 10> 
+left   row 8 [[18]] [    ]
+right  row 10 [[14]] [    x∑≈Î^]
+Incrementing right column
+<15, 8>  vs <13, 11> 
+left   row 8 [[18]] [    ]
+right  row 11 [[20]] [    x∑≈Î^]
+Incrementing left column
+<15, 9>  vs <13, 11> 
+left   row 9 [[99]] [    ]
+right  row 11 [[20]] [    x∑≈Î^]
+Incrementing right column
+<15, 9>  vs <13, 12> 
+left   row 9 [[99]] [    ]
+right  row 12 [[20]] [    x∑≈Î^]
+Incrementing right column
+<15, 9>  vs <13, 13> 
+left   row 9 [[99]] [    ]
+right  row 13 [[20]] [    x∑≈Î^]
+Incrementing right column
+<15, 9>  vs <13, 14> 
+left   row 9 [[99]] [    ]
+right  row 14 [[99]] [    x∑≈Î^]
+** match **
+mark: <13, 14> 
+** Adding union ** 
++ right <13, 15> 
+<15, 9>  vs <13, 15> 
+left   row 9 [[99]] [    ]
+right  row 15 [[100]] [    x∑≈Î^]
+<15, 10>  vs <13, 14> 
+left   row 10 [[1]] [    ]
+right  row 15 [[99]] [    x∑≈Î^]
+cmp = -1
+<15, 10>  vs <13, 15> 
+left   row 10 [[1]] [    ]
+right  row 15 [[100]] [    x∑≈Î^]
+Incrementing left column
+<15, 11>  vs <13, 15> 
+left   row 11 [[1]] [    ]
+right  row 15 [[100]] [    x∑≈Î^]
+Incrementing left column
+<15, 12>  vs <13, 15> 
+left   row 12 [[6]] [    ]
+right  row 15 [[100]] [    x∑≈Î^]
+Incrementing left column
+<15, 13>  vs <13, 15> 
+left   row 13 [[10]] [    ]
+right  row 15 [[100]] [    x∑≈Î^]
+Incrementing left column
+<15, 14>  vs <13, 15> 
+left   row 14 [[10]] [    ]
+right  row 15 [[100]] [    x∑≈Î^]
+Incrementing left column
+<15, 15>  vs <13, 15> 
+left   row 15 [[10]] [    ]
+right  row 15 [[100]] [    x∑≈Î^]
+Incrementing left column
+<15, 16>  vs <13, 15> 
+left   row 16 [[12]] [    ]
+right  row 15 [[100]] [    x∑≈Î^]
+Incrementing left column
+<15, 17>  vs <13, 15> 
+left   row 17 [[13]] [    ]
+right  row 15 [[100]] [    x∑≈Î^]
+Incrementing left column
+<15, 18>  vs <13, 15> 
+left   row 18 [[18]] [    ]
+right  row 15 [[100]] [    x∑≈Î^]
+Incrementing left column
+<15, 19>  vs <13, 15> 
+left   row 19 [[99]] [    ]
+right  row 15 [[100]] [    x∑≈Î^]
+Incrementing left column
+
+------------ Test 2 ---------------
+1	538976288
+1	538976288
+1	538976288
+1	538976288
+6	538976288
+6	538976288
+13	538976288
+13	538976288
+99	538976288
+-------- Test 2 completed --------
+Merging records of lengths 2 and 2
+<13, 0>  vs <17, 0> 
+left   row 0 [[1]] [    ]
+right  row 0 [[7]] [    bL]
+Incrementing left column
+<13, 1>  vs <17, 0> 
+left   row 1 [[1]] [    ]
+right  row 0 [[7]] [    bL]
+Incrementing left column
+<13, 2>  vs <17, 0> 
+left   row 2 [[5]] [    ]
+right  row 0 [[7]] [    bL]
+Incrementing left column
+<13, 3>  vs <17, 0> 
+left   row 3 [[5]] [    ]
+right  row 0 [[7]] [    bL]
+Incrementing left column
+<13, 4>  vs <17, 0> 
+left   row 4 [[6]] [    ]
+right  row 0 [[7]] [    bL]
+Incrementing left column
+<13, 5>  vs <17, 0> 
+left   row 5 [[6]] [    ]
+right  row 0 [[7]] [    bL]
+Incrementing left column
+<13, 6>  vs <17, 0> 
+left   row 6 [[7]] [    ]
+right  row 0 [[7]] [    bL]
+** match **
+mark: <17, 0> 
+** Adding union ** 
++ right <17, 1> 
+<13, 6>  vs <17, 1> 
+left   row 6 [[7]] [    ]
+right  row 1 [[9]] [    bL]
+<13, 7>  vs <17, 0> 
+left   row 7 [[9]] [    ]
+right  row 1 [[7]] [    à∑≈Î^]
+cmp = 1
+<13, 7>  vs <17, 1> 
+left   row 7 [[9]] [    ]
+right  row 1 [[9]] [    bL]
+** match **
+mark: <17, 1> 
+** Adding union ** 
++ right <17, 2> 
+<13, 7>  vs <17, 2> 
+left   row 7 [[9]] [    ]
+right  row 2 [[10]] [    bL]
+<13, 8>  vs <17, 1> 
+left   row 8 [[13]] [    ]
+right  row 2 [[9]] [    à∑≈Î^]
+cmp = 1
+<13, 8>  vs <17, 2> 
+left   row 8 [[13]] [    ]
+right  row 2 [[10]] [    bL]
+Incrementing right column
+<13, 8>  vs <17, 3> 
+left   row 8 [[13]] [    ]
+right  row 3 [[20]] [    bL]
+Incrementing left column
+<13, 9>  vs <17, 3> 
+left   row 9 [[13]] [    ]
+right  row 3 [[20]] [    bL]
+Incrementing left column
+<13, 10>  vs <17, 3> 
+left   row 10 [[14]] [    ]
+right  row 3 [[20]] [    bL]
+Incrementing left column
+<13, 11>  vs <17, 3> 
+left   row 11 [[20]] [    ]
+right  row 3 [[20]] [    bL]
+** match **
+mark: <17, 3> 
+** Adding union ** 
++ right <17, 4> 
+<13, 11>  vs <17, 4> 
+left   row 11 [[20]] [    ]
+right  row 4 [[56]] [    bL]
+<13, 12>  vs <17, 3> 
+left   row 12 [[20]] [    ]
+right  row 4 [[20]] [    à∑≈Î^]
+cmp = 0
+reset right to <17, 3> 
+** Adding union ** 
++ right <17, 4> 
+<13, 12>  vs <17, 4> 
+left   row 12 [[20]] [    ]
+right  row 4 [[56]] [    bL]
+<13, 13>  vs <17, 3> 
+left   row 13 [[20]] [    ]
+right  row 4 [[20]] [    à∑≈Î^]
+cmp = 0
+reset right to <17, 3> 
+** Adding union ** 
++ right <17, 4> 
+<13, 13>  vs <17, 4> 
+left   row 13 [[20]] [    ]
+right  row 4 [[56]] [    bL]
+<13, 14>  vs <17, 3> 
+left   row 14 [[99]] [    ]
+right  row 4 [[20]] [    à∑≈Î^]
+cmp = 1
+<13, 14>  vs <17, 4> 
+left   row 14 [[99]] [    ]
+right  row 4 [[56]] [    bL]
+Incrementing right column
+<13, 14>  vs <17, 5> 
+left   row 14 [[99]] [    ]
+right  row 5 [[78]] [    bL]
+Incrementing right column
+
+------------ Test 3 ---------------
+7	538976288
+9	538976288
+20	538976288
+20	538976288
+20	538976288
+-------- Test 3 completed --------
+Merging records of lengths 2 and 2
+<19, 0>  vs <17, 0> 
+left   row 0 [[8]] [    ]
+right  row 0 [[7]] [    à∑≈Î^]
+Incrementing right column
+<19, 0>  vs <17, 1> 
+left   row 0 [[8]] [    ]
+right  row 1 [[9]] [    à∑≈Î^]
+Incrementing left column
+<19, 1>  vs <17, 1> 
+left   row 1 [[10]] [    ]
+right  row 1 [[9]] [    à∑≈Î^]
+Incrementing right column
+<19, 1>  vs <17, 2> 
+left   row 1 [[10]] [    ]
+right  row 2 [[10]] [    à∑≈Î^]
+** match **
+mark: <17, 2> 
+** Adding union ** 
++ right <17, 3> 
+<19, 1>  vs <17, 3> 
+left   row 1 [[10]] [    ]
+right  row 3 [[20]] [    à∑≈Î^]
+<19, 2>  vs <17, 2> 
+left   row 2 [[10]] [    ]
+right  row 3 [[10]] [    x∑≈Î^]
+cmp = 0
+reset right to <17, 2> 
+** Adding union ** 
++ right <17, 3> 
+<19, 2>  vs <17, 3> 
+left   row 2 [[10]] [    ]
+right  row 3 [[20]] [    à∑≈Î^]
+<19, 3>  vs <17, 2> 
+left   row 3 [[11]] [    ]
+right  row 3 [[10]] [    x∑≈Î^]
+cmp = 1
+<19, 3>  vs <17, 3> 
+left   row 3 [[11]] [    ]
+right  row 3 [[20]] [    à∑≈Î^]
+Incrementing left column
+<19, 4>  vs <17, 3> 
+left   row 4 [[12]] [    ]
+right  row 3 [[20]] [    à∑≈Î^]
+Incrementing left column
+<19, 5>  vs <17, 3> 
+left   row 5 [[13]] [    ]
+right  row 3 [[20]] [    à∑≈Î^]
+Incrementing left column
+<19, 6>  vs <17, 3> 
+left   row 6 [[13]] [    ]
+right  row 3 [[20]] [    à∑≈Î^]
+Incrementing left column
+<19, 7>  vs <17, 3> 
+left   row 7 [[13]] [    ]
+right  row 3 [[20]] [    à∑≈Î^]
+Incrementing left column
+<19, 8>  vs <17, 3> 
+left   row 8 [[20]] [    ]
+right  row 3 [[20]] [    à∑≈Î^]
+** match **
+mark: <17, 3> 
+** Adding union ** 
++ right <17, 4> 
+<19, 8>  vs <17, 4> 
+left   row 8 [[20]] [    ]
+right  row 4 [[56]] [    à∑≈Î^]
+<19, 9>  vs <17, 3> 
+left   row 9 [[66]] [    ]
+right  row 4 [[20]] [    x∑≈Î^]
+cmp = 1
+<19, 9>  vs <17, 4> 
+left   row 9 [[66]] [    ]
+right  row 4 [[56]] [    à∑≈Î^]
+Incrementing right column
+<19, 9>  vs <17, 5> 
+left   row 9 [[66]] [    ]
+right  row 5 [[78]] [    à∑≈Î^]
+Incrementing left column
+<19, 10>  vs <17, 5> 
+left   row 10 [[99]] [    ]
+right  row 5 [[78]] [    à∑≈Î^]
+Incrementing right column
+<19, 10>  vs <17, 6> 
+left   row 10 [[99]] [    ]
+right  row 6 [[7]] [    à∑≈Î^]
+Incrementing right column
+<19, 10>  vs <17, 7> 
+left   row 10 [[99]] [    ]
+right  row 7 [[9]] [    à∑≈Î^]
+Incrementing right column
+<19, 10>  vs <17, 8> 
+left   row 10 [[99]] [    ]
+right  row 8 [[10]] [    à∑≈Î^]
+Incrementing right column
+<19, 10>  vs <17, 9> 
+left   row 10 [[99]] [    ]
+right  row 9 [[20]] [    à∑≈Î^]
+Incrementing right column
+<19, 10>  vs <17, 10> 
+left   row 10 [[99]] [    ]
+right  row 10 [[56]] [    à∑≈Î^]
+Incrementing right column
+<19, 10>  vs <17, 11> 
+left   row 10 [[99]] [    ]
+right  row 11 [[78]] [    à∑≈Î^]
+Incrementing right column
+
+------------ Test 4 ---------------
+10	538976288
+10	538976288
+20	538976288
+-------- Test 4 completed --------
+Merging records of lengths 2 and 2
+<21, 0>  vs <17, 0> 
+left   row 0 [[2]] [    ]
+right  row 0 [[7]] [    à∑≈Î^]
+Incrementing left column
+<21, 1>  vs <17, 0> 
+left   row 1 [[2]] [    ]
+right  row 0 [[7]] [    à∑≈Î^]
+Incrementing left column
+<21, 2>  vs <17, 0> 
+left   row 2 [[2]] [    ]
+right  row 0 [[7]] [    à∑≈Î^]
+Incrementing left column
+<21, 3>  vs <17, 0> 
+left   row 3 [[2]] [    ]
+right  row 0 [[7]] [    à∑≈Î^]
+Incrementing left column
+<21, 4>  vs <17, 0> 
+left   row 4 [[5]] [    ]
+right  row 0 [[7]] [    à∑≈Î^]
+Incrementing left column
+<21, 5>  vs <17, 0> 
+left   row 5 [[11]] [    ]
+right  row 0 [[7]] [    à∑≈Î^]
+Incrementing right column
+<21, 5>  vs <17, 1> 
+left   row 5 [[11]] [    ]
+right  row 1 [[9]] [    à∑≈Î^]
+Incrementing right column
+<21, 5>  vs <17, 2> 
+left   row 5 [[11]] [    ]
+right  row 2 [[10]] [    à∑≈Î^]
+Incrementing right column
+<21, 5>  vs <17, 3> 
+left   row 5 [[11]] [    ]
+right  row 3 [[20]] [    à∑≈Î^]
+Incrementing left column
+<21, 6>  vs <17, 3> 
+left   row 6 [[13]] [    ]
+right  row 3 [[20]] [    à∑≈Î^]
+Incrementing left column
+<21, 7>  vs <17, 3> 
+left   row 7 [[77]] [    ]
+right  row 3 [[20]] [    à∑≈Î^]
+Incrementing right column
+<21, 7>  vs <17, 4> 
+left   row 7 [[77]] [    ]
+right  row 4 [[56]] [    à∑≈Î^]
+Incrementing right column
+<21, 7>  vs <17, 5> 
+left   row 7 [[77]] [    ]
+right  row 5 [[78]] [    à∑≈Î^]
+Incrementing left column
+openScan returned status 25

@@ -1,0 +1,3178 @@
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+
+Running Sort Merge Join tests...
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 2
++ 2
+Unpinning page 2, dirty = 1
+- 2
+Pinning page 2
++ 2
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 3
++ 3
+Unpinning page 3, dirty = 1
+- 3
+Pinning page 3
++ 3
+Unpinning page 3, dirty = 1
+- 3
+Unpinning page 2, dirty = 1
+- 2
+Pinning page 2
++ 2
+Pinning page 3
++ 3
+Unpinning page 3, dirty = 1
+- 3
+Unpinning page 2, dirty = 1
+- 2
+Pinning page 2
++ 2
+Pinning page 3
++ 3
+Unpinning page 3, dirty = 1
+- 3
+Unpinning page 2, dirty = 1
+- 2
+Pinning page 2
++ 2
+Pinning page 3
++ 3
+Unpinning page 3, dirty = 1
+- 3
+Unpinning page 2, dirty = 1
+- 2
+Pinning page 2
++ 2
+Pinning page 3
++ 3
+Unpinning page 3, dirty = 1
+- 3
+Unpinning page 2, dirty = 1
+- 2
+Pinning page 2
++ 2
+Pinning page 3
++ 3
+Unpinning page 3, dirty = 1
+- 3
+Unpinning page 2, dirty = 1
+- 2
+Pinning page 2
++ 2
+Pinning page 3
++ 3
+Unpinning page 3, dirty = 1
+- 3
+Unpinning page 2, dirty = 1
+- 2
+Pinning page 2
++ 2
+Pinning page 3
++ 3
+Unpinning page 3, dirty = 1
+- 3
+Unpinning page 2, dirty = 1
+- 2
+Pinning page 2
++ 2
+Pinning page 3
++ 3
+Unpinning page 3, dirty = 1
+- 3
+Unpinning page 2, dirty = 1
+- 2
+Pinning page 2
++ 2
+Pinning page 3
++ 3
+Unpinning page 3, dirty = 1
+- 3
+Unpinning page 2, dirty = 1
+- 2
+Pinning page 2
++ 2
+Pinning page 3
++ 3
+Unpinning page 3, dirty = 1
+- 3
+Unpinning page 2, dirty = 1
+- 2
+Pinning page 2
++ 2
+Pinning page 3
++ 3
+Unpinning page 3, dirty = 1
+- 3
+Unpinning page 2, dirty = 1
+- 2
+Pinning page 2
++ 2
+Pinning page 3
++ 3
+Unpinning page 3, dirty = 1
+- 3
+Unpinning page 2, dirty = 1
+- 2
+Pinning page 2
++ 2
+Pinning page 3
++ 3
+Unpinning page 3, dirty = 1
+- 3
+Unpinning page 2, dirty = 1
+- 2
+Pinning page 2
++ 2
+Pinning page 3
++ 3
+Unpinning page 3, dirty = 1
+- 3
+Unpinning page 2, dirty = 1
+- 2
+Pinning page 2
++ 2
+Pinning page 3
++ 3
+Unpinning page 3, dirty = 1
+- 3
+Unpinning page 2, dirty = 1
+- 2
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 4
++ 4
+Unpinning page 4, dirty = 1
+- 4
+Pinning page 4
++ 4
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 5
++ 5
+Unpinning page 5, dirty = 1
+- 5
+Pinning page 5
++ 5
+Unpinning page 5, dirty = 1
+- 5
+Unpinning page 4, dirty = 1
+- 4
+Pinning page 4
++ 4
+Pinning page 5
++ 5
+Unpinning page 5, dirty = 1
+- 5
+Unpinning page 4, dirty = 1
+- 4
+Pinning page 4
++ 4
+Pinning page 5
++ 5
+Unpinning page 5, dirty = 1
+- 5
+Unpinning page 4, dirty = 1
+- 4
+Pinning page 4
++ 4
+Pinning page 5
++ 5
+Unpinning page 5, dirty = 1
+- 5
+Unpinning page 4, dirty = 1
+- 4
+Pinning page 4
++ 4
+Pinning page 5
++ 5
+Unpinning page 5, dirty = 1
+- 5
+Unpinning page 4, dirty = 1
+- 4
+Pinning page 4
++ 4
+Pinning page 5
++ 5
+Unpinning page 5, dirty = 1
+- 5
+Unpinning page 4, dirty = 1
+- 4
+Pinning page 4
++ 4
+Pinning page 5
++ 5
+Unpinning page 5, dirty = 1
+- 5
+Unpinning page 4, dirty = 1
+- 4
+Pinning page 4
++ 4
+Pinning page 5
++ 5
+Unpinning page 5, dirty = 1
+- 5
+Unpinning page 4, dirty = 1
+- 4
+Pinning page 4
++ 4
+Pinning page 5
++ 5
+Unpinning page 5, dirty = 1
+- 5
+Unpinning page 4, dirty = 1
+- 4
+Pinning page 4
++ 4
+Pinning page 5
++ 5
+Unpinning page 5, dirty = 1
+- 5
+Unpinning page 4, dirty = 1
+- 4
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 6
++ 6
+Unpinning page 6, dirty = 1
+- 6
+Pinning page 6
++ 6
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 7
++ 7
+Unpinning page 7, dirty = 1
+- 7
+Pinning page 7
++ 7
+Unpinning page 7, dirty = 1
+- 7
+Unpinning page 6, dirty = 1
+- 6
+Pinning page 6
++ 6
+Pinning page 7
++ 7
+Unpinning page 7, dirty = 1
+- 7
+Unpinning page 6, dirty = 1
+- 6
+Pinning page 6
++ 6
+Pinning page 7
++ 7
+Unpinning page 7, dirty = 1
+- 7
+Unpinning page 6, dirty = 1
+- 6
+Pinning page 6
++ 6
+Pinning page 7
++ 7
+Unpinning page 7, dirty = 1
+- 7
+Unpinning page 6, dirty = 1
+- 6
+Pinning page 6
++ 6
+Pinning page 7
++ 7
+Unpinning page 7, dirty = 1
+- 7
+Unpinning page 6, dirty = 1
+- 6
+Pinning page 6
++ 6
+Pinning page 7
++ 7
+Unpinning page 7, dirty = 1
+- 7
+Unpinning page 6, dirty = 1
+- 6
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 8
++ 8
+Unpinning page 8, dirty = 1
+- 8
+Pinning page 8
++ 8
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 9
++ 9
+Unpinning page 9, dirty = 1
+- 9
+Pinning page 9
++ 9
+Unpinning page 9, dirty = 1
+- 9
+Unpinning page 8, dirty = 1
+- 8
+Pinning page 8
++ 8
+Pinning page 9
++ 9
+Unpinning page 9, dirty = 1
+- 9
+Unpinning page 8, dirty = 1
+- 8
+Pinning page 8
++ 8
+Pinning page 9
++ 9
+Unpinning page 9, dirty = 1
+- 9
+Unpinning page 8, dirty = 1
+- 8
+Pinning page 8
++ 8
+Pinning page 9
++ 9
+Unpinning page 9, dirty = 1
+- 9
+Unpinning page 8, dirty = 1
+- 8
+Pinning page 8
++ 8
+Pinning page 9
++ 9
+Unpinning page 9, dirty = 1
+- 9
+Unpinning page 8, dirty = 1
+- 8
+Pinning page 8
++ 8
+Pinning page 9
++ 9
+Unpinning page 9, dirty = 1
+- 9
+Unpinning page 8, dirty = 1
+- 8
+Pinning page 8
++ 8
+Pinning page 9
++ 9
+Unpinning page 9, dirty = 1
+- 9
+Unpinning page 8, dirty = 1
+- 8
+Pinning page 8
++ 8
+Pinning page 9
++ 9
+Unpinning page 9, dirty = 1
+- 9
+Unpinning page 8, dirty = 1
+- 8
+Pinning page 8
++ 8
+Pinning page 9
++ 9
+Unpinning page 9, dirty = 1
+- 9
+Unpinning page 8, dirty = 1
+- 8
+Pinning page 8
++ 8
+Pinning page 9
++ 9
+Unpinning page 9, dirty = 1
+- 9
+Unpinning page 8, dirty = 1
+- 8
+Pinning page 8
++ 8
+Pinning page 9
++ 9
+Unpinning page 9, dirty = 1
+- 9
+Unpinning page 8, dirty = 1
+- 8
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 10
++ 10
+Unpinning page 10, dirty = 1
+- 10
+Pinning page 10
++ 10
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 11
++ 11
+Unpinning page 11, dirty = 1
+- 11
+Pinning page 11
++ 11
+Unpinning page 11, dirty = 1
+- 11
+Unpinning page 10, dirty = 1
+- 10
+Pinning page 10
++ 10
+Pinning page 11
++ 11
+Unpinning page 11, dirty = 1
+- 11
+Unpinning page 10, dirty = 1
+- 10
+Pinning page 10
++ 10
+Pinning page 11
++ 11
+Unpinning page 11, dirty = 1
+- 11
+Unpinning page 10, dirty = 1
+- 10
+Pinning page 10
++ 10
+Pinning page 11
++ 11
+Unpinning page 11, dirty = 1
+- 11
+Unpinning page 10, dirty = 1
+- 10
+Pinning page 10
++ 10
+Pinning page 11
++ 11
+Unpinning page 11, dirty = 1
+- 11
+Unpinning page 10, dirty = 1
+- 10
+Pinning page 10
++ 10
+Pinning page 11
++ 11
+Unpinning page 11, dirty = 1
+- 11
+Unpinning page 10, dirty = 1
+- 10
+Pinning page 10
++ 10
+Pinning page 11
++ 11
+Unpinning page 11, dirty = 1
+- 11
+Unpinning page 10, dirty = 1
+- 10
+Pinning page 10
++ 10
+Pinning page 11
++ 11
+Unpinning page 11, dirty = 1
+- 11
+Unpinning page 10, dirty = 1
+- 10
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 2
++ 2
+Probably get here
+... but not here
+Pinning page 3
++ 3
+going to call firstRecord
+Pinning page 2
++ 2
+Unpinning page 2, dirty = 0
+- 2
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 12
++ 12
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 4
++ 4
+Probably get here
+... but not here
+Pinning page 5
++ 5
+going to call firstRecord
+Pinning page 4
++ 4
+Unpinning page 4, dirty = 0
+- 4
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 14
++ 14
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 16
++ 16
+Unpinning page 16, dirty = 1
+- 16
+going to call firstDataPage
+Pinning page 12
++ 12
+Probably get here
+... but not here
+Pinning page 13
++ 13
+going to call firstRecord
+going to call firstDataPage
+Pinning page 14
++ 14
+Probably get here
+... but not here
+Pinning page 15
++ 15
+going to call firstRecord
+Pinning page 16
++ 16
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Unpinning page 14, dirty = 0
+- 14
+Unpinning page 15, dirty = 0
+- 15
+Unpinning page 14, dirty = 0
+- 14
+Attempting to unpin page 14, but it is not pinned
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 16
++ 16
+Probably get here
+... but not here
+Pinning page 17
++ 17
+going to call firstRecord
+
+------------ Test 1 ---------------
+1	1
+1	1
+1	1
+1	1
+6	6
+6	6
+13	13
+13	13
+99	99
+Unpinning page 16, dirty = 0
+- 16
+Unpinning page 17, dirty = 0
+- 17
+-------- Test 1 completed --------
+Pinning page 16
++ 16
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Unpinning page 16, dirty = 0
+- 16
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 4
++ 4
+Probably get here
+... but not here
+Pinning page 5
++ 5
+going to call firstRecord
+Pinning page 4
++ 4
+Unpinning page 4, dirty = 0
+- 4
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 14
++ 14
+Pinning page 15
++ 15
+Unpinning page 15, dirty = 1
+- 15
+Unpinning page 14, dirty = 1
+- 14
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 2
++ 2
+Probably get here
+... but not here
+Pinning page 3
++ 3
+going to call firstRecord
+Pinning page 2
++ 2
+Unpinning page 2, dirty = 0
+- 2
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 16
++ 16
+Unpinning page 16, dirty = 1
+- 16
+going to call firstDataPage
+Pinning page 14
++ 14
+Probably get here
+... but not here
+Pinning page 15
++ 15
+going to call firstRecord
+going to call firstDataPage
+Pinning page 12
++ 12
+Probably get here
+... but not here
+Pinning page 13
++ 13
+going to call firstRecord
+Pinning page 16
++ 16
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Unpinning page 14, dirty = 0
+- 14
+Unpinning page 15, dirty = 0
+- 15
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 16
++ 16
+Probably get here
+... but not here
+Pinning page 17
++ 17
+going to call firstRecord
+
+------------ Test 2 ---------------
+1	1
+1	1
+1	1
+1	1
+6	6
+6	6
+13	13
+13	13
+99	99
+Unpinning page 16, dirty = 0
+- 16
+Unpinning page 17, dirty = 0
+- 17
+-------- Test 2 completed --------
+Pinning page 16
++ 16
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Unpinning page 16, dirty = 0
+- 16
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 2
++ 2
+Probably get here
+... but not here
+Pinning page 3
++ 3
+going to call firstRecord
+Pinning page 2
++ 2
+Unpinning page 2, dirty = 0
+- 2
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 6
++ 6
+Probably get here
+... but not here
+Pinning page 7
++ 7
+going to call firstRecord
+Pinning page 6
++ 6
+Unpinning page 6, dirty = 0
+- 6
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 16
++ 16
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 18
++ 18
+Unpinning page 18, dirty = 1
+- 18
+going to call firstDataPage
+Pinning page 12
++ 12
+Probably get here
+... but not here
+Pinning page 13
++ 13
+going to call firstRecord
+going to call firstDataPage
+Pinning page 16
++ 16
+Probably get here
+... but not here
+Pinning page 17
++ 17
+going to call firstRecord
+Pinning page 18
++ 18
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Unpinning page 16, dirty = 0
+- 16
+Unpinning page 17, dirty = 0
+- 17
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 18
++ 18
+Probably get here
+... but not here
+Pinning page 19
++ 19
+going to call firstRecord
+
+------------ Test 3 ---------------
+7	7
+9	9
+20	20
+20	20
+20	20
+Unpinning page 18, dirty = 0
+- 18
+Unpinning page 19, dirty = 0
+- 19
+-------- Test 3 completed --------
+Pinning page 18
++ 18
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Unpinning page 18, dirty = 0
+- 18
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 8
++ 8
+Probably get here
+... but not here
+Pinning page 9
++ 9
+going to call firstRecord
+Pinning page 8
++ 8
+Unpinning page 8, dirty = 0
+- 8
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 18
++ 18
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 6
++ 6
+Probably get here
+... but not here
+Pinning page 7
++ 7
+going to call firstRecord
+Pinning page 6
++ 6
+Unpinning page 6, dirty = 0
+- 6
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 20
++ 20
+Unpinning page 20, dirty = 1
+- 20
+going to call firstDataPage
+Pinning page 18
++ 18
+Probably get here
+... but not here
+Pinning page 19
++ 19
+going to call firstRecord
+going to call firstDataPage
+Pinning page 16
++ 16
+Probably get here
+... but not here
+Pinning page 17
++ 17
+going to call firstRecord
+Pinning page 20
++ 20
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Unpinning page 16, dirty = 0
+- 16
+Unpinning page 17, dirty = 0
+- 17
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 20
++ 20
+Probably get here
+... but not here
+Pinning page 21
++ 21
+going to call firstRecord
+
+------------ Test 4 ---------------
+10	10
+10	10
+20	20
+Unpinning page 20, dirty = 0
+- 20
+Unpinning page 21, dirty = 0
+- 21
+-------- Test 4 completed --------
+Pinning page 20
++ 20
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Unpinning page 20, dirty = 0
+- 20
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 10
++ 10
+Probably get here
+... but not here
+Pinning page 11
++ 11
+going to call firstRecord
+Pinning page 10
++ 10
+Unpinning page 10, dirty = 0
+- 10
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 20
++ 20
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 6
++ 6
+Probably get here
+... but not here
+Pinning page 7
++ 7
+going to call firstRecord
+Pinning page 6
++ 6
+Unpinning page 6, dirty = 0
+- 6
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 16
++ 16
+Pinning page 17
++ 17
+Unpinning page 17, dirty = 1
+- 17
+Unpinning page 16, dirty = 1
+- 16
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 22
++ 22
+Unpinning page 22, dirty = 1
+- 22
+going to call firstDataPage
+Pinning page 20
++ 20
+Probably get here
+... but not here
+Pinning page 21
++ 21
+going to call firstRecord
+going to call firstDataPage
+Pinning page 16
++ 16
+Probably get here
+... but not here
+Pinning page 17
++ 17
+going to call firstRecord
+Unpinning page 20, dirty = 0
+- 20
+Unpinning page 21, dirty = 0
+- 21
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 22
++ 22
+Probably get here
+
+------------ Test 5 ---------------
+Unpinning page 22, dirty = 0
+- 22
+-------- Test 5 completed --------
+Pinning page 22
++ 22
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Unpinning page 22, dirty = 0
+- 22
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 10
++ 10
+Probably get here
+... but not here
+Pinning page 11
++ 11
+going to call firstRecord
+Pinning page 10
++ 10
+Unpinning page 10, dirty = 0
+- 10
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 8
++ 8
+Probably get here
+... but not here
+Pinning page 9
++ 9
+going to call firstRecord
+Pinning page 8
++ 8
+Unpinning page 8, dirty = 0
+- 8
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 18
++ 18
+Pinning page 19
++ 19
+Unpinning page 19, dirty = 1
+- 19
+Unpinning page 18, dirty = 1
+- 18
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 22
++ 22
+Unpinning page 22, dirty = 1
+- 22
+going to call firstDataPage
+Pinning page 20
++ 20
+Probably get here
+... but not here
+Pinning page 21
++ 21
+going to call firstRecord
+going to call firstDataPage
+Pinning page 18
++ 18
+Probably get here
+... but not here
+Pinning page 19
++ 19
+going to call firstRecord
+Pinning page 22
++ 22
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 23
++ 23
+Unpinning page 23, dirty = 1
+- 23
+Pinning page 23
++ 23
+Unpinning page 23, dirty = 1
+- 23
+Unpinning page 22, dirty = 1
+- 22
+Pinning page 22
++ 22
+Pinning page 23
++ 23
+Unpinning page 23, dirty = 1
+- 23
+Unpinning page 22, dirty = 1
+- 22
+Pinning page 22
++ 22
+Pinning page 23
++ 23
+Unpinning page 23, dirty = 1
+- 23
+Unpinning page 22, dirty = 1
+- 22
+Pinning page 22
++ 22
+Pinning page 23
++ 23
+Unpinning page 23, dirty = 1
+- 23
+Unpinning page 22, dirty = 1
+- 22
+Unpinning page 20, dirty = 0
+- 20
+Unpinning page 21, dirty = 0
+- 21
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 22
++ 22
+Probably get here
+... but not here
+Pinning page 23
++ 23
+going to call firstRecord
+
+------------ Test 6 ---------------
+11	11
+13	13
+13	13
+13	13
+Unpinning page 22, dirty = 0
+- 22
+Unpinning page 23, dirty = 0
+- 23
+-------- Test 6 completed --------
+Pinning page 22
++ 22
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Unpinning page 22, dirty = 0
+- 22
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 10
++ 10
+Probably get here
+... but not here
+Pinning page 11
++ 11
+going to call firstRecord
+Pinning page 10
++ 10
+Unpinning page 10, dirty = 0
+- 10
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 20
++ 20
+Pinning page 21
++ 21
+Unpinning page 21, dirty = 1
+- 21
+Unpinning page 20, dirty = 1
+- 20
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 2
++ 2
+Probably get here
+... but not here
+Pinning page 3
++ 3
+going to call firstRecord
+Pinning page 2
++ 2
+Unpinning page 2, dirty = 0
+- 2
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 12
++ 12
+Pinning page 13
++ 13
+Unpinning page 13, dirty = 1
+- 13
+Unpinning page 12, dirty = 1
+- 12
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 1
+- 0
+Pinning page 22
++ 22
+Unpinning page 22, dirty = 1
+- 22
+going to call firstDataPage
+Pinning page 20
++ 20
+Probably get here
+... but not here
+Pinning page 21
++ 21
+going to call firstRecord
+going to call firstDataPage
+Pinning page 12
++ 12
+Probably get here
+... but not here
+Pinning page 13
++ 13
+going to call firstRecord
+Pinning page 22
++ 22
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 0
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 23
++ 23
+Unpinning page 23, dirty = 1
+- 23
+Pinning page 23
++ 23
+Unpinning page 23, dirty = 1
+- 23
+Unpinning page 22, dirty = 1
+- 22
+Pinning page 22
++ 22
+Pinning page 23
++ 23
+Unpinning page 23, dirty = 1
+- 23
+Unpinning page 22, dirty = 1
+- 22
+Pinning page 22
++ 22
+Pinning page 23
++ 23
+Unpinning page 23, dirty = 1
+- 23
+Unpinning page 22, dirty = 1
+- 22
+Pinning page 22
++ 22
+Pinning page 23
++ 23
+Unpinning page 23, dirty = 1
+- 23
+Unpinning page 22, dirty = 1
+- 22
+Unpinning page 20, dirty = 0
+- 20
+Unpinning page 21, dirty = 0
+- 21
+Pinning page 0
++ 0
+Unpinning page 0, dirty = 0
+- 0
+going to call firstDataPage
+Pinning page 22
++ 22
+Probably get here
+... but not here
+Pinning page 23
++ 23
+going to call firstRecord
+
+------------ Test 7 ---------------
+5	5
+5	5
+13	13
+13	13
+Unpinning page 22, dirty = 0
+- 22
+Unpinning page 23, dirty = 0
+- 23
+-------- Test 7 completed --------
+Pinning page 22
++ 22
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Pinning page 1
++ 1
+Unpinning page 1, dirty = 1
+- 1
+Unpinning page 22, dirty = 0
+- 22
+
+...Sort Merge Join tests failed.
+
+Error encountered during sort merge join tests: 
